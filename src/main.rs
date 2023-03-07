@@ -3,25 +3,22 @@ use autodiff::autodiff;
 mod monomials_;
 mod polynomials_;
 use polynomials_::*;
+use monomials_::*;
 
-// Total number of monomials = 51
-
-fn point_dist(positions: &[f32;12], x: usize, y: usize) -> f32 {
+fn point_dist(positions: &[f32; N_R], x: usize, y: usize) -> f32 {
     let a = (positions[x] - positions[y]).powi(2);
     let b = (positions[x + 1] - positions[y + 1]).powi(2);
     let c = (positions[x + 2] - positions[y + 2]).powi(2);
     (a + b + c).sqrt()
 }
 
-// 4*3/2
-fn dist(positions: &[f32;3*4]) -> [f32;6] {
+fn dist(positions: &[f32;N_R]) -> [f32; N_DISTANCES] {
     assert!(positions.len() % 3 == 0);
-    const entries: usize = 3*4/3;
-    let mut r = [0.0; entries * (entries - 1) / 2];
+    let mut r = [0.0; N_DISTANCES];
     let mut pos = 0;
 
-    for i in 0..entries {
-        for j in (i + 1)..entries {
+    for i in 0..N_POINTS {
+        for j in (i + 1)..N_POINTS {
             r[pos] = point_dist(&positions, 3 * i, 3 * j);
             pos += 1;
         }
@@ -36,8 +33,8 @@ fn morse(r: &mut [f32], l: f32) {
     //r = r.iter().map(|x| f32::exp(-x / l)).collect();
 }
 
-#[autodiff(d_energy_fwd, Reverse, Active)]
-fn f_energy(#[dup] inputs: &[f32;3*4], weights: &[f32;N_POLYS]) -> f32 {
+#[autodiff(d_energy_rev, Reverse, Active)]
+fn f_energy(#[dup] inputs: &[f32; N_R], weights: &[f32; N_POLYS]) -> f32 {
     let mut distances = dist(inputs);
     morse(&mut distances, 1.0);
     let outs = f_polynomials(&distances);
@@ -62,7 +59,7 @@ fn f_energy(#[dup] inputs: &[f32;3*4], weights: &[f32;N_POLYS]) -> f32 {
 
 
 fn main() {
-    let x: [f32;3*4] = [
+    let x: [f32; N_R] = [
         0.00000000,
         0.00000000,
         14.00307401,
@@ -84,8 +81,8 @@ fn main() {
     println!("Energy: {energy}");
 
     // Jacobian - correct
-    let mut dx = [0.0; 3*4];
-    let out = d_energy_fwd(&x, &mut dx, &weights, 1.0);
+    let mut dx = [0.0; N_R];
+    let out = d_energy_rev(&x, &mut dx, &weights, 1.0);
     for (i, val) in dx.iter().enumerate() {
         if i % 3 == 0 {
             println!("");

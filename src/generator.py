@@ -58,8 +58,8 @@ def create_f_monomials(file_mono, file_label):
     f_out.write('// File created from {} \n'.format(file_mono))
     f_out.write('// Total number of monomials = {} \n\n'.format(n_mono))
     f_out.write('pub const N_MONOS: usize = {};\n'.format(n_mono))
-    f_out.write('const N_R: usize = 12;\n')
-    f_out.write('const N_POINTS: usize = N_R / 3;\n')
+    f_out.write('pub const N_R: usize = 12;\n')
+    f_out.write('pub const N_POINTS: usize = N_R / 3;\n')
     f_out.write('pub const N_DISTANCES: usize = (N_POINTS * (N_POINTS - 1)) / 2;\n\n')
 
     f_out.close()
