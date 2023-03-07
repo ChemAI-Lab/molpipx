@@ -3,8 +3,8 @@ use autodiff::autodiff;
 
 const N: usize = 51;
 
-fn f_monomials(r: &Vec<f32>) -> Vec<f32> {
-    let mut mono: Vec<f32> = vec![0.0; 33];
+fn f_monomials(r: &[f32; 6]) -> [f32; 33] {
+    let mut mono: [f32; 33] = [0.0; 33];
 
     mono[0] = 1.0;
     mono[1] = r[5];
@@ -44,7 +44,7 @@ fn f_monomials(r: &Vec<f32>) -> Vec<f32> {
     return mono;
 }
 
-fn f_polynomials0(poly: &mut Vec<f32>, mono: &Vec<f32>) {
+fn f_polynomials0(poly: &mut [f32;N], mono: &[f32;33]) {
     poly[0] = mono[0];
     poly[1] = mono[1] + mono[2] + mono[3];
     poly[2] = mono[4] + mono[5] + mono[6];
@@ -100,26 +100,27 @@ fn f_polynomials0(poly: &mut Vec<f32>, mono: &Vec<f32>) {
 
 // Total number of monomials = 51
 
-fn f_polynomials(r: &Vec<f32>) -> Vec<f32> {
+fn f_polynomials(r: &[f32;6]) -> [f32;N] {
     let mono = f_monomials(r);
-    let mut poly: Vec<f32> = vec![0.0; N];
+    let mut poly = [0.0; N];
 
     f_polynomials0(&mut poly, &mono);
 
     return poly;
 }
 
-fn point_dist(positions: &Vec<f32>, x: usize, y: usize) -> f32 {
+fn point_dist(positions: &[f32;12], x: usize, y: usize) -> f32 {
     let a = (positions[x] - positions[y]).powi(2);
     let b = (positions[x + 1] - positions[y + 1]).powi(2);
     let c = (positions[x + 2] - positions[y + 2]).powi(2);
     (a + b + c).sqrt()
 }
 
-fn dist(positions: &Vec<f32>) -> Vec<f32> {
+// 4*3/2
+fn dist(positions: &[f32;3*4]) -> [f32;6] {
     assert!(positions.len() % 3 == 0);
-    let entries = positions.len() / 3;
-    let mut r = vec![0.0; entries * (entries - 1) / 2];
+    const entries: usize = 3*4/3;
+    let mut r = [0.0; entries * (entries - 1) / 2];
     let mut pos = 0;
 
     for i in 0..entries {
@@ -131,15 +132,18 @@ fn dist(positions: &Vec<f32>) -> Vec<f32> {
     return r;
 }
 
-fn morse(r: Vec<f32>, l: f32) -> Vec<f32> {
-    r.iter().map(|x| f32::exp(-x / l)).collect();
+fn morse(r: &mut [f32], l: f32) {
+    for x in r {
+        *x = f32::exp(-*x / l);
+    }
+    //r = r.iter().map(|x| f32::exp(-x / l)).collect();
 }
 
 #[autodiff(d_energy_fwd, Reverse, Active)]
-fn f_energy(#[dup] inputs: &Vec<f32>, weights: &Vec<f32>) -> f32 {
-    let distances: Vec<f32> = dist(inputs);
-    let z: Vec<f32> = morse(distances, 1.0);
-    let outs: Vec<f32> = f_polynomials(&z);
+fn f_energy(#[dup] inputs: &[f32;3*4], weights: &[f32;N]) -> f32 {
+    let mut distances = dist(inputs);
+    morse(&mut distances, 1.0);
+    let outs = f_polynomials(&distances);
     assert!(outs.len() == weights.len());
 
     let mut res = 0.0;
@@ -161,7 +165,7 @@ fn f_energy(#[dup] inputs: &Vec<f32>, weights: &Vec<f32>) -> f32 {
 
 
 fn main() {
-    let x: Vec<f32> = vec![
+    let x: [f32;3*4] = [
         0.00000000,
         0.00000000,
         14.00307401,
@@ -176,16 +180,23 @@ fn main() {
         1.00782504,
     ];
 
-    let weights: Vec<f32> = vec![1.0; N];
+    let weights = [1.0; N];
 
     // Primary - correct
     let energy = f_energy(&x, &weights);
     println!("Energy: {energy}");
 
     // Jacobian - correct
-    let dx: Vec<f32> = vec![0.0; x.len()];
-    let dx1: Vec<f32> = vec![0.0; x.len()];
-    let out = d_energy_fwd(&x, &mut dx, &weights);
+    let mut dx = [0.0; 3*4];
+    let out = d_energy_fwd(&x, &mut dx, &weights, 1.0);
+    for (i, val) in dx.iter().enumerate() {
+        if i % 3 == 0 {
+            println!("");
+        }
+        print!("{:10.3e} ", val);
+    }
+    println!("");
+    // let dx1: Vec<f32> = vec![0.0; x.len()];
     // jac_fwd(x, dx, weights);
     // jac_rev(x, dx1, weights);
     // std::cout << std::endl << "jac fwd: ";
