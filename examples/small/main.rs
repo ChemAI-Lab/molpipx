@@ -42,8 +42,8 @@ fn morse(r: &mut [f32], l: f32) {
     //r = r.iter().map(|x| f32::exp(-x / l)).collect();
 }
 
-#[autodiff(d_energy_rev, Reverse, Active)]
-fn f_energy(#[dup] inputs: &[f32; N_R], weights: &[f32; N_POLYS]) -> f32 {
+#[autodiff(d_energy_rev, Reverse, Active, Duplicated, Const)]
+fn f_energy(inputs: &[f32; N_R], weights: &[f32; N_POLYS]) -> f32{
     let mut distances = dist(inputs);
     morse(&mut distances, 1.0);
     let outs = f_polynomials(&distances);
@@ -53,8 +53,35 @@ fn f_energy(#[dup] inputs: &[f32; N_R], weights: &[f32; N_POLYS]) -> f32 {
     for i in 0..N_POLYS {
         res += weights[i] * outs[i];
     }
-    return res;
+    res
 }
+
+fn f_energy_inplace(inputs: &[f32; N_R], weights: &[f32; N_POLYS], res: &mut f32) {
+    let mut distances = dist(inputs);
+    morse(&mut distances, 1.0);
+    let outs = f_polynomials(&distances);
+    assert!(outs.len() == weights.len());
+
+    for i in 0..N_POLYS {
+        *res += weights[i] * outs[i];
+    }
+}
+
+#[autodiff(f_energy_inplace, Reverse, Const, Duplicated, Const, Duplicated)]
+fn d_energy_inplace_rev(inputs: &[f32; N_R], d_inputs: &mut[f32; N_R], weights: &[f32; N_POLYS], res: &mut f32, res_t: & f32);
+
+#[autodiff(d_energy_fwd, Forward, DuplicatedNoNeed)]
+fn f_energy2(#[dup] inputs: &[f32; N_R], weights: &[f32; N_POLYS]) -> f32 {
+    f_energy(inputs, weights)
+}
+
+
+
+// #[autodiff(d_energy_fwd, Forward, DuplicatedNoNeed, Const)]
+// fn f_energy_rev(inputs: &[f32; N_R], &input_shaddow: &[f32; N_R], weights: &[f32; N_POLYS]) -> f32 {
+// 
+// }
+
 // #[autodiff(d_energy_fwd, Reverse, Active)]
 // fn rosenbrock(#[dup] x: &[f64; 2]) -> f64 {
 //     let mut res = 0.0;
@@ -126,15 +153,34 @@ fn main() {
     println!("Energy: {energy}");
 
     // Jacobian - correct
-    let mut dx = [0.0; N_R];
-    let out = d_energy_rev(&x, &mut dx, &weights, 1.0);
-    for (i, val) in dx.iter().enumerate() {
+    let mut dx_rev = [0.0; N_R];
+    let mut dx_fwd = [0.0; N_R];
+    let mut out = 0.0;
+    //let out = d_energy_rev2(&x, &mut dx_rev, &weights, 1.0);
+    d_energy_inplace_rev(&x, &mut dx_rev, &weights, &mut out, &1.0);
+    for (i, val) in dx_rev.iter().enumerate() {
         if i % 3 == 0 {
             println!("");
         }
         print!("{:10.3e} ", val);
     }
     println!("");
+
+    for (i, val) in dx_fwd.iter_mut().enumerate() {
+        let mut dx_activity = [0.0; N_R];
+        dx_activity[i] = 1.0;
+        *val = d_energy_fwd(&x, &mut dx_activity, &weights);
+        //(*val, _) = d_energy_fwd(&x, &mut dx_activity, &weights);
+    }
+    
+    for (i, val) in dx_fwd.iter().enumerate() {
+        if i % 3 == 0 {
+            println!("");
+        }
+        print!("{:10.3e} ", val);
+    }
+    println!("");
+
     // let dx1: Vec<f32> = vec![0.0; x.len()];
     // jac_fwd(x, dx, weights);
     // jac_rev(x, dx1, weights);
