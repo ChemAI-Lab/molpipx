@@ -144,9 +144,7 @@ vd morse(vd r, float l) {
   return r;
 }
 
-double f_energy(const vd &__restrict__ inputs) {
-
-  const vd weights(N, 1.0);
+double f_energy(const vd &__restrict__ inputs, const vd &__restrict__ weights) {
 
   const vd distances = dist(inputs);
   const vd z = morse(distances, 1.0);
@@ -165,42 +163,67 @@ double f_energy(const vd &__restrict__ inputs) {
 
 int enzyme_dup;
 int enzyme_const;
-double __enzyme_autodiff(void*, int, const vd &,
-                         vd &);
+double __enzyme_autodiff(double (*)(const vd &, const vd &), int, const vd &,
+                         vd &, int, const vd &);
 // typedef struct {
 //   double da, db, dc, dd;
 // } Ret4;
-double __enzyme_fwddiff(void*,int, const vd &, vd &);
+double __enzyme_fwddiff(double (*)(const vd &, const vd &), const vd &, vd &,
+                        int, const vd &);
 
-// hessian
-double __enzyme_fwddiff2(void*,
-                         /* dup r */ int, const vd &, vd &, int, vd &);
-
+double __enzyme_fwddiff2(void (*)(const vd &, vd &, const vd &),
+                         /* const r */ int, const vd &,
+                         /* active d_r*/ vd &, vd &,
+                         /* const weights*/ int, const vd &);
+double __enzyme_fwddiff3(void (*)(const vd &, vd &, const vd &),
+                         /* dup r */ int, const vd &, const vd &,
+                         /* active d_r*/ vd &, vd &,
+                         /* const weights*/ int, const vd &);
 // nice wrappers jacobians
-void jac_rev(const vd &r, vd &d_r) {
-  __enzyme_autodiff((void*)f_energy, enzyme_dup, r, d_r);
+void jac_rev(const vd &r, vd &d_r, const vd &weights) {
+  __enzyme_autodiff(f_energy, enzyme_dup, r, d_r, enzyme_const, weights);
 }
 
-void jac_fwd(const vd &r, vd &d_r) {
+void jac_fwd(const vd &r, vd &d_r, const vd &weights) {
   for (size_t i = 0; i < r.size(); i++) {
     vd activity(r.size());
     activity[i] = 1.0;
-    d_r[i] = __enzyme_fwddiff((void*)f_energy, enzyme_dup, r, activity);
+    d_r[i] = __enzyme_fwddiff(f_energy, r, activity, enzyme_const, weights);
   }
 }
 
-void hess_fwdfwd(const vd &r, vd &dd_r) {
+void hess_fwdfwd2(const vd &r, vd &dd_r, const vd &weights) {
   assert(r.size() * r.size() == dd_r.size());
   for (size_t i = 0; i < r.size(); i++) {
     vd activity(r.size(), 0.0);
     vd out(r.size(), 0.0);
     activity[i] = 1.0;
-    //__enzyme_fwddiff2((void*) jac_rev, enzyme_dup, r, activity, enzyme_const, out);
-    __enzyme_fwddiff2((void*) jac_fwd, enzyme_dup, r, activity, enzyme_const, out);
+    __enzyme_fwddiff2(jac_fwd, enzyme_const, r, out, activity, enzyme_const,
+                      weights);
     for (size_t j = 0; j < r.size(); j++) {
       dd_r[i * r.size() + j] = out[j];
     }
   }
+}
+
+// nice wrappers hessians
+void hess_fwdfwd(const vd &r, vd &d_r, vd &dd_r, const vd &weights) {
+  vd activity(r.size(), 1.0);
+  vd activity2(r.size(), 1.0);
+  for (size_t i = 0; i < r.size(); i++) {
+    for (size_t j = 0; j < r.size(); j++) {
+      vd test_d_r(r.size(), 1.0);
+      if (i > 0) {
+        activity[i - 1] = 0.0;
+      }
+      activity[i] = 1.0;
+      dd_r[i + j * r.size()] =
+          __enzyme_fwddiff3(jac_fwd, enzyme_dup, r, activity, test_d_r,
+                            activity2, enzyme_const, weights);
+      std::cout << dd_r[i] << ", ";
+    }
+  }
+  std::cout << "ddr" << std::endl;
 }
 
 int main(int argc, char *argv[]) {
@@ -209,17 +232,17 @@ int main(int argc, char *argv[]) {
                 -1.98144397, 1.00782504, -1.71598081, 0.99072198,
                 1.00782504,  1.71598081, 0.99072198,  1.00782504};
 
-  //vd weights(N, 1.0);
+  vd weights(N, 1.0);
 
   // Primary - correct
-  double energy = f_energy(x);
+  double energy = f_energy(x, weights);
   std::cout << "Energy: " << energy << std::endl;
 
   // Jacobian - correct
   vd dx(x.size());
   vd dx1(x.size());
-  jac_fwd(x, dx);
-  jac_rev(x, dx1);
+  jac_fwd(x, dx, weights);
+  jac_rev(x, dx1, weights);
   std::cout << std::endl << "jac fwd: ";
   for (size_t i = 0; i < dx.size(); i++) {
     if (i % 3 == 0)
@@ -236,14 +259,14 @@ int main(int argc, char *argv[]) {
 
   // Hessian - incorrect
   vd dd_x(x.size() * x.size());
-  hess_fwdfwd(x, dd_x);
+  hess_fwdfwd2(x, dd_x, weights);
 
   for (size_t i = 0; i < dd_x.size(); i+=3) {
     if (i % (3*4) == 0)
       std::cout << std::endl;
     if (i % (3*4*3) == 0)
       std::cout << std::endl;
-    std::cout << std::setprecision(1) << std::scientific << "[" << dd_x[i] << " " <<dd_x[i+1] << " " << dd_x[i+2] << "]" << std::endl;
+    std::cout << std::setprecision(0) << std::scientific << "[" << dd_x[i] << " " <<dd_x[i+1] << " " << dd_x[i+2] << "]" << std::endl;
   }
 
   std::cout << std::endl;

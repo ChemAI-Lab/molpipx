@@ -137,6 +137,7 @@ def _fb(xi):
 
 def f_energy(xyz,w,l):
     z = _fb(xyz)
+    print(z)
     z_morse = jnp.exp(-l*z)
     z = f_polynomials(z_morse)
     return jnp.vdot(w,z)
@@ -149,7 +150,7 @@ x = jnp.array([[0.00000000,  0.00000000,  14.00307401],
 w = jnp.ones(51)
 y = f_energy(x,w,1.)
 print(y)
-
+#test
 print(jacfwd(f_energy,argnums=(0))(x,w,1.))
 print()
 print(hessian(f_energy,argnums=(0))(x,w,1.))
