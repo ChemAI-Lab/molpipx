@@ -144,7 +144,7 @@ vd morse(vd r, float l) {
   return r;
 }
 
-double f_energy(const vd &__restrict__ inputs) {
+void f_energy(const vd &__restrict__ inputs, double &res) {
 
   const vd weights(N, 1.0);
 
@@ -154,54 +154,57 @@ double f_energy(const vd &__restrict__ inputs) {
 
   assert(outs.size() == weights.size());
 
-  double res = 0.0;
+  //double res = 0.0;
   for (std::size_t i = 0; i < N; i++) {
     res += weights[i] * outs[i];
   }
-  return res;
+  //return res;
 }
 
 /// Enzyme
 
 int enzyme_dup;
 int enzyme_const;
-double __enzyme_autodiff(void*, int, const vd &,
-                         vd &);
-// typedef struct {
-//   double da, db, dc, dd;
-// } Ret4;
+double __enzyme_autodiff(void *, int, const vd &, vd &, int, double &,
+                         double &);
 double __enzyme_fwddiff(void*,int, const vd &, vd &);
 
 // hessian
-double __enzyme_fwddiff2(void*,
-                         /* dup r */ int, const vd &, vd &, int, vd &);
+// clang-format off
+void __enzyme_fwddiff2(void *, 
+                      int, const vd &, vd &, 
+                      int, vd &, vd &, 
+                      int, double &, double &,
+                      int, double &, double &);
+// clang-format on
 
 // nice wrappers jacobians
-void jac_rev(const vd &r, vd &d_r) {
-  __enzyme_autodiff((void*)f_energy, enzyme_dup, r, d_r);
+void jac_rev(const vd &x, vd &bx, double &y, double &by) {
+  __enzyme_autodiff((void *)f_energy, enzyme_dup, x, bx, enzyme_dup, y, by);
 }
 
-void jac_fwd(const vd &r, vd &d_r) {
-  for (size_t i = 0; i < r.size(); i++) {
-    vd activity(r.size());
-    activity[i] = 1.0;
-    d_r[i] = __enzyme_fwddiff((void*)f_energy, enzyme_dup, r, activity);
-  }
-}
+void hess_fwdfwd(const vd &x, vd &dd_x) {
+  assert(x.size() * x.size() == dd_x.size());
+  for (size_t i = 0; i < x.size(); i++) {
+    vd bx(x.size(), 0.0);
+    vd dx(x.size(), 0.0);
+    vd dbx(x.size(), 0.0);
 
-void hess_fwdfwd(const vd &r, vd &dd_r) {
-  assert(r.size() * r.size() == dd_r.size());
-  for (size_t i = 0; i < r.size(); i++) {
-    vd activity(r.size(), 0.0);
-    vd out(r.size(), 0.0);
-    activity[i] = 1.0;
-    //__enzyme_fwddiff2((void*) jac_rev, enzyme_dup, r, activity, enzyme_const, out);
-    __enzyme_fwddiff2((void*) jac_fwd, enzyme_dup, r, activity, enzyme_const, out);
-    for (size_t j = 0; j < r.size(); j++) {
-      dd_r[i * r.size() + j] = out[j];
+    dx[i] = 1.0;
+
+    double y = 0.0;
+    double by = 1.0;
+    double dy = 0.0;
+    double dby = 0.0;
+
+    __enzyme_fwddiff2((void *)jac_rev, enzyme_dup, x, dx, enzyme_dup, bx, dbx,
+                      enzyme_dup, y, dy, enzyme_dup, by, dby);
+    for (size_t j = 0; j < x.size(); j++) {
+      dd_x[i * x.size() + j] = dbx[j];
     }
   }
 }
+
 
 int main(int argc, char *argv[]) {
 
@@ -212,26 +215,27 @@ int main(int argc, char *argv[]) {
   //vd weights(N, 1.0);
 
   // Primary - correct
-  double energy = f_energy(x);
+  double energy = 0.0;
+  f_energy(x, energy);
   std::cout << "Energy: " << energy << std::endl;
 
   // Jacobian - correct
   vd dx(x.size());
   vd dx1(x.size());
-  jac_fwd(x, dx);
-  jac_rev(x, dx1);
-  std::cout << std::endl << "jac fwd: ";
-  for (size_t i = 0; i < dx.size(); i++) {
-    if (i % 3 == 0)
-      std::cout << std::endl;
-    std::cout << dx[i] << " \t";
-  }
-  std::cout << std::endl << std::endl << "jac rev: ";
-  for (size_t i = 0; i < dx1.size(); i++) {
-    if (i % 3 == 0)
-      std::cout << std::endl;
-    std::cout << dx1[i] << " \t";
-  }
+  //jac_fwd(x, dx);
+  //jac_rev(x, dx1);
+  //std::cout << std::endl << "jac fwd: ";
+  //for (size_t i = 0; i < dx.size(); i++) {
+  //  if (i % 3 == 0)
+  //    std::cout << std::endl;
+  //  std::cout << dx[i] << " \t";
+  //}
+  //std::cout << std::endl << std::endl << "jac rev: ";
+  //for (size_t i = 0; i < dx1.size(); i++) {
+  //  if (i % 3 == 0)
+  //    std::cout << std::endl;
+  //  std::cout << dx1[i] << " \t";
+  //}
   std::cout << std::endl;
 
   // Hessian - incorrect
