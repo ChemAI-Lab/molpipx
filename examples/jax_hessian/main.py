@@ -137,7 +137,6 @@ def _fb(xi):
 
 def f_energy(xyz,w,l):
     z = _fb(xyz)
-    print(z)
     z_morse = jnp.exp(-l*z)
     z = f_polynomials(z_morse)
     return jnp.vdot(w,z)
