@@ -1,0 +1,17 @@
+
+#[autodiff(d_energy_rev, Reverse, Active, Duplicated, Const)]
+fn f_energy(inputs: &[f32; N_R], weights: &[f32; N_POLYS]) -> f32 {
+    let mut distances = dist(inputs);
+    morse(&mut distances, 1.0);
+    let outs = f_polynomials(&distances);
+    assert!(outs.len() == weights.len());
+
+    let mut res = 0.0;
+    for i in 0..N_POLYS {
+        res += weights[i] * outs[i];
+    }
+    return res;
+}
+
+#[autodiff(f_energy, Reverse, Active, Duplicated)]
+fn d_energy_rev2(inputs: &[f32; N_R], weights: &[f32; N_POLYS]);

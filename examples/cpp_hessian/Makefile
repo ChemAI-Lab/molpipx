@@ -4,7 +4,7 @@ all: test
 
 CXX 		:= /u/drehwald/prog/llvm-project/build/bin/clang++
 CC 		:= /u/drehwald/prog/llvm-project/build/bin/clang
-LLDEnzyme 	:= /u/drehwald/prog/Enzyme/enzyme/build/Enzyme/LLDEnzyme-14.so
+LLDEnzyme 	:= /u/drehwald/prog/enzyme_blas/enzyme/build/Enzyme/LLDEnzyme-14.so
 
 
 CXXFLAGS 	+= -O3 -fuse-ld=lld -flto
