@@ -14,6 +14,8 @@ use dyn_stack::*;
 use faer_core::{mat, Mat, MatRef, MatMut, Parallelism};
 use core::ops::Mul;
 
+use pipenzyme::*;
+
 // compiling single poly fn
 // and all monomial fns takes 24s
 // and one monomial fn  takes  9s
@@ -22,44 +24,9 @@ use core::ops::Mul;
 // and a single poly fn  takes 24s
 // and 50       poly fns takes 37s
 
-fn point_dist(positions: &[f32; N_R], x: usize, y: usize) -> f32 {
-    let a = (positions[x] - positions[y]).powi(2);
-    let b = (positions[x + 1] - positions[y + 1]).powi(2);
-    let c = (positions[x + 2] - positions[y + 2]).powi(2);
-    (a + b + c).sqrt()
-}
-
-const fn get_len(x: usize) -> usize {
-    assert!(x % 3 == 0);
-    let n = x / 3;
-    (n * (n - 1)) / 2
-}
-
-//fn dist<NR>(positions: &NR) -> NDISTANCES {
-fn dist<const NR: usize, const NDISTANCES: usize>(positions: &[f32; NR]) -> [f32; NDISTANCES] {
-    assert!(positions.len() % 3 == 0);
-    let mut r = [0.0; NDISTANCES];
-    let mut pos = 0;
-
-    for i in 0..N_POINTS {
-        for j in (i + 1)..N_POINTS {
-            r[pos] = point_dist(&positions, 3 * i, 3 * j);
-            pos += 1;
-        }
-    }
-    return r;
-}
-
-fn morse(r: &mut [f32], l: f32) {
-    for x in r {
-        *x = f32::exp(-*x / l);
-    }
-    //r = r.iter().map(|x| f32::exp(-x / l)).collect();
-}
-
 #[autodiff(d_energy_rev, Reverse, Active, Duplicated, Const)]
 fn f_energy(inputs: &[f32; N_R], weights: &[f32; N_POLYS]) -> f32{
-    let mut distances = dist::<N_R, N_DISTANCES>(inputs);
+    let mut distances = dist::<N_R>(inputs);
     morse(&mut distances, 1.0);
     let outs = f_polynomials(&distances);
     assert!(outs.len() == weights.len());
@@ -72,7 +39,7 @@ fn f_energy(inputs: &[f32; N_R], weights: &[f32; N_POLYS]) -> f32{
 }
 
 fn f_energy_inplace(inputs: &[f32; N_R], weights: &[f32; N_POLYS], res: &mut f32) {
-    let mut distances = dist::<N_R, N_DISTANCES>(inputs);
+    let mut distances = dist::<N_R>(inputs);
     morse(&mut distances, 1.0);
     let outs = f_polynomials(&distances);
     assert!(outs.len() == weights.len());
@@ -95,17 +62,6 @@ fn f_energy2(#[dup] inputs: &[f32; N_R], weights: &[f32; N_POLYS]) -> f32 {
 // #[autodiff(d_energy_fwd, Forward, DuplicatedNoNeed, Const)]
 // fn f_energy_rev(inputs: &[f32; N_R], &input_shaddow: &[f32; N_R], weights: &[f32; N_POLYS]) -> f32 {
 // 
-// }
-
-// #[autodiff(d_energy_fwd, Reverse, Active)]
-// fn rosenbrock(#[dup] x: &[f64; 2]) -> f64 {
-//     let mut res = 0.0;
-//     for i in 0..(x.len() - 1) {
-//         let a = x[i + 1] - x[i] * x[i];
-//         let b = x[i] - 1.0;
-//         res += 100.0 * a * a + b * b;
-//     }
-//     res
 // }
 
 // const vector<double> r1 = {
