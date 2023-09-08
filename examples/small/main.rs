@@ -1,10 +1,18 @@
 #![allow(dead_code, unused)]
-#![feature(bench_black_box)]
 use autodiff::autodiff;
 mod monomials_;
 mod polynomials_;
 use monomials_::*;
 use polynomials_::*;
+
+use faer_svd::{
+    bidiag::bidiagonalize_in_place, bidiag_real_svd::compute_bidiag_real_svd, compute_svd,
+    SvdParams,
+};
+use reborrow::IntoConst;
+use dyn_stack::*;
+use faer_core::{mat, Mat, MatRef, MatMut, Parallelism};
+use core::ops::Mul;
 
 // compiling single poly fn
 // and all monomial fns takes 24s
@@ -21,9 +29,16 @@ fn point_dist(positions: &[f32; N_R], x: usize, y: usize) -> f32 {
     (a + b + c).sqrt()
 }
 
-fn dist(positions: &[f32; N_R]) -> [f32; N_DISTANCES] {
+const fn get_len(x: usize) -> usize {
+    assert!(x % 3 == 0);
+    let n = x / 3;
+    (n * (n - 1)) / 2
+}
+
+//fn dist<NR>(positions: &NR) -> NDISTANCES {
+fn dist<const NR: usize, const NDISTANCES: usize>(positions: &[f32; NR]) -> [f32; NDISTANCES] {
     assert!(positions.len() % 3 == 0);
-    let mut r = [0.0; N_DISTANCES];
+    let mut r = [0.0; NDISTANCES];
     let mut pos = 0;
 
     for i in 0..N_POINTS {
@@ -44,7 +59,7 @@ fn morse(r: &mut [f32], l: f32) {
 
 #[autodiff(d_energy_rev, Reverse, Active, Duplicated, Const)]
 fn f_energy(inputs: &[f32; N_R], weights: &[f32; N_POLYS]) -> f32{
-    let mut distances = dist(inputs);
+    let mut distances = dist::<N_R, N_DISTANCES>(inputs);
     morse(&mut distances, 1.0);
     let outs = f_polynomials(&distances);
     assert!(outs.len() == weights.len());
@@ -57,7 +72,7 @@ fn f_energy(inputs: &[f32; N_R], weights: &[f32; N_POLYS]) -> f32{
 }
 
 fn f_energy_inplace(inputs: &[f32; N_R], weights: &[f32; N_POLYS], res: &mut f32) {
-    let mut distances = dist(inputs);
+    let mut distances = dist::<N_R, N_DISTANCES>(inputs);
     morse(&mut distances, 1.0);
     let outs = f_polynomials(&distances);
     assert!(outs.len() == weights.len());
@@ -157,7 +172,67 @@ fn main() {
     let mut dx_fwd = [0.0; N_R];
     let mut out = 0.0;
     //let out = d_energy_rev2(&x, &mut dx_rev, &weights, 1.0);
-    d_energy_inplace_rev(&x, &mut dx_rev, &weights, &mut out, &1.0);
+   
+    for i in 0..5 {
+        let m = 4;
+        let n = 3;
+
+        d_energy_inplace_rev(&x, &mut dx_rev, &weights, &mut out, &1.0);
+        // calculate svd(dx_rev) to invert it.
+        // update x with it
+        //x -= 0.005 * dx_rev;
+        let ptr = dx_rev.as_mut_ptr();
+        let mat_mut: MatMut<'_, f32> = unsafe { MatMut::from_raw_parts(ptr, m, n, 1, 1) };
+        let mat_const: Mat<f32> = mat_mut.to_owned();
+        let mat_ref: MatRef<f32> = mat_const.as_ref();
+        dbg!(&mat_ref);
+       
+        
+        let size = m.min(n);
+        let mut s = Mat::zeros(size, 1);
+        let mut s_expanded = Mat::zeros(m, n);
+        let mut u = Mat::zeros(m, m);
+        let mut v = Mat::zeros(n, n);
+        let mut mem = GlobalMemBuffer::new(
+            faer_svd::compute_svd_req::<f64>(
+                m,
+                n,
+                faer_svd::ComputeVectors::Full,
+                faer_svd::ComputeVectors::Full,
+                Parallelism::None,
+                SvdParams::default(),
+            )
+            .unwrap(),
+        );
+        let mut stack = DynStack::new(&mut mem);
+        let mut mat_cpy = Mat::zeros(m, n);
+        let mat_cpy = mat_cpy.clone_from(&mat_const);
+        compute_svd(
+                    mat_ref,
+                    s.as_mut().col(0),
+                    Some(u.as_mut()),
+                    Some(v.as_mut()),
+                    f32::EPSILON,
+                    f32::MIN_POSITIVE,
+                    Parallelism::None,
+                    stack.rb_mut(),
+                    SvdParams::default(),
+                );
+        for i in 0..size {
+            s_expanded.write(i, i, s.read(i, 0));
+        }
+        let res = u.mul(s_expanded).mul(v.transpose());
+        dbg!(&res);
+        // comparing that res and mat_ref are the same
+        let mut diff = 0.0;
+        for i in 0..m {
+          for j in 0..n {
+            diff += (res.read(i, j) - mat_ref.read(i, j)).powi(2);
+          }
+        }
+        println!("diff: {}", diff);
+    }
+    
     for (i, val) in dx_rev.iter().enumerate() {
         if i % 3 == 0 {
             println!("");
