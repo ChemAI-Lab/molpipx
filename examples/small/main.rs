@@ -1,4 +1,5 @@
 #![allow(dead_code, unused)]
+#![feature(generic_const_exprs)]
 use autodiff::autodiff;
 mod monomials_;
 mod polynomials_;
@@ -6,14 +7,12 @@ use monomials_::*;
 use polynomials_::*;
 
 use faer_svd::{
-    bidiag::bidiagonalize_in_place, bidiag_real_svd::compute_bidiag_real_svd, compute_svd,
-    SvdParams,
+    compute_svd, SvdParams,
 };
-use reborrow::IntoConst;
 use dyn_stack::*;
 use faer_core::{mat, Mat, MatRef, MatMut, Parallelism};
-use core::ops::Mul;
 
+use std::ops::Mul;
 use pipenzyme::*;
 
 // compiling single poly fn
@@ -23,7 +22,6 @@ use pipenzyme::*;
 // compiling all monomial fns
 // and a single poly fn  takes 24s
 // and 50       poly fns takes 37s
-
 #[autodiff(d_energy_rev, Reverse, Active, Duplicated, Const)]
 fn f_energy(inputs: &[f32; N_R], weights: &[f32; N_POLYS]) -> f32{
     let mut distances = dist::<N_R>(inputs);
@@ -132,6 +130,7 @@ fn main() {
     for i in 0..5 {
         let m = 4;
         let n = 3;
+        let size = m.min(n);
 
         d_energy_inplace_rev(&x, &mut dx_rev, &weights, &mut out, &1.0);
         // calculate svd(dx_rev) to invert it.
@@ -142,38 +141,12 @@ fn main() {
         let mat_const: Mat<f32> = mat_mut.to_owned();
         let mat_ref: MatRef<f32> = mat_const.as_ref();
         dbg!(&mat_ref);
-       
-        
-        let size = m.min(n);
-        let mut s = Mat::zeros(size, 1);
-        let mut s_expanded = Mat::zeros(m, n);
-        let mut u = Mat::zeros(m, m);
-        let mut v = Mat::zeros(n, n);
-        let mut mem = GlobalMemBuffer::new(
-            faer_svd::compute_svd_req::<f64>(
-                m,
-                n,
-                faer_svd::ComputeVectors::Full,
-                faer_svd::ComputeVectors::Full,
-                Parallelism::None,
-                SvdParams::default(),
-            )
-            .unwrap(),
-        );
-        let mut stack = DynStack::new(&mut mem);
+      
         let mut mat_cpy = Mat::zeros(m, n);
         let mat_cpy = mat_cpy.clone_from(&mat_const);
-        compute_svd(
-                    mat_ref,
-                    s.as_mut().col(0),
-                    Some(u.as_mut()),
-                    Some(v.as_mut()),
-                    f32::EPSILON,
-                    f32::MIN_POSITIVE,
-                    Parallelism::None,
-                    stack.rb_mut(),
-                    SvdParams::default(),
-                );
+        let (u,s,v) = get_svd(mat_ref);
+        
+        let mut s_expanded = Mat::zeros(m, n);
         for i in 0..size {
             s_expanded.write(i, i, s.read(i, 0));
         }
