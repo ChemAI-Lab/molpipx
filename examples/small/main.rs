@@ -11,6 +11,16 @@ use faer_core::{mat, Mat, MatRef, MatMut, Parallelism};
 use std::ops::Mul;
 use pipenzyme::*;
 
+
+// paper: The size of the matrix is (N + 3nN) × M
+//
+// M = linear coefficients, thus weights, thus = N_POLYS
+//
+// "n atoms"
+// n(n − 1)/2 monomials, thus n = N_POINTS
+//
+// N energies and 3N components of the gradient vector obtained at N conﬁgurations, thus N = 
+
 // compiling single poly fn
 // and all monomial fns takes 24s
 // and one monomial fn  takes  9s
@@ -76,6 +86,11 @@ fn main() {
     let mut dx_fwd = [0.0; N_R];
     let mut out = 0.0;
     //let out = d_energy_rev2(&x, &mut dx_rev, &weights, 1.0);
+
+    let primal_elems = get_len(N_R);
+    let width = 
+
+    let mut large_mat = Mat::zeros();
    
     for i in 0..5 {
         let m = 4;
@@ -112,7 +127,6 @@ fn main() {
         let mut dx_activity = [0.0; N_R];
         dx_activity[i] = 1.0;
         *val = d_energy_fwd(&x, &mut dx_activity, &weights);
-        //(*val, _) = d_energy_fwd(&x, &mut dx_activity, &weights);
     }
     d_energy_inplace_rev(&x, &mut dx_rev, &weights, &mut out, &1.0);
   
