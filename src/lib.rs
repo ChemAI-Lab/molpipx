@@ -92,7 +92,6 @@ pub fn read_xyz(p: std::path::PathBuf, N: usize, use_grads: bool) -> (Vec<f32>, 
     let mut lines = s.lines();
 
     // First, we need to figure out how many rows we need.
-    println!("num_lines: {}", num_lines);
     let num_atoms = lines.next().unwrap().trim_start().parse::<usize>().unwrap();
     lines.next().unwrap(); // skip energy
     let elems_in_line = lines.next().unwrap().split_whitespace().count();
@@ -107,7 +106,6 @@ pub fn read_xyz(p: std::path::PathBuf, N: usize, use_grads: bool) -> (Vec<f32>, 
     let num_examples: usize = num_lines / (num_atoms + 2); // N \leq num_lines
     assert!(N <= num_examples, "The file: {}\n only contains {} entries, but you requested {}!", p.display()
             , num_examples, N);
-    println!("num_lines: {}", num_lines);
     let num_cols = 3;
     let num_rows;
     if use_grads {

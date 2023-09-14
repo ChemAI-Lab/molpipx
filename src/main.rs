@@ -51,7 +51,7 @@ fn morse(r: &mut [f32], l: f32) {
 fn f_energy(#[dup] inputs: &[f32; N_R], poly_outs: &mut [f32; N_POLYS], weights: &[f32; N_POLYS]) -> f32 {
     let mut distances = dist(inputs);
     morse(&mut distances, 1.0);
-    let outs = f_polynomials::<N_DISTANCES>(&distances);
+    let outs = f_polynomials(&distances);
     assert!(outs.len() == weights.len());
     poly_outs.copy_from_slice(&outs);
 

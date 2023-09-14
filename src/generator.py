@@ -17,6 +17,7 @@ def f_monomial_flag_0(x):
 def init_monos(Lines, f_out_monomials):
     f_out = open(f_out_monomials, 'a+')
     f_out.write('fn f_init_monomials(mono: &mut [f32; N_MONOS], r: & [f32; N_DISTANCES]) { \n')
+    f_out.write('  assert!(2 * N_DISTANCES == N_ATOMS * (N_ATOMS - 1), "library author error!");\n')
     # skip first line and set first entry to 1.0, thus i+1 for all following steps
     f_out.write('  mono[0] = 1.0;\n')
     for i, line in enumerate(Lines[1:]):
