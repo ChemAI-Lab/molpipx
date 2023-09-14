@@ -130,14 +130,18 @@ fn main() {
 
 
     // Jacobian - correct
-    //let mut dx = [0.0; N_R];
-    //let mut polys2 = [0.0; N_POLYS];
-    //let out = d_energy_rev(&x, &mut dx, &mut polys2, &weights, 1.0);
-    //for (i, val) in dx.iter().enumerate() {
-    //    if i % 3 == 0 {
-    //        println!("");
-    //    }
-    //    print!("{:10.3e} ", val);
-    //}
+    let mut x = [0.0; N_R];
+    for i in 0..N_R {
+        x[i] = inputs[i];
+    }
+    let mut dx = [0.0; N_R];
+    let mut polys2 = [0.0; N_POLYS];
+    let out = d_energy_rev(&x, &mut dx, &mut polys2, &weights, 1.0);
+    for (i, val) in dx.iter().enumerate() {
+        if i % 3 == 0 {
+            println!("");
+        }
+        print!("{:10.3e} ", val);
+    }
     println!("");
 }
