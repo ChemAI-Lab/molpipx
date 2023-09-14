@@ -1,6 +1,7 @@
 import os
 import numpy as np
 import argparse
+import math
 
 # ----------------------------------------------------------------------------------------
 #   READ MONOMIALS  
@@ -57,13 +58,19 @@ def create_f_monomials(file_mono, file_label):
     
     f_out.write('// File created from {} \n'.format(file_mono))
     f_out.write('// Total number of monomials = {} \n\n'.format(n_mono))
-    f_out.write('pub const N_MONOS: usize = {};\n'.format(n_mono))
-
-    f_out.close()
+    f_out.write('pub const N_MONOS: usize = {};\n\n'.format(n_mono))
 
     block_size = 50
     blocks = [ones[i:i+block_size] for i in range(0, len(ones), block_size)]
     offset = len(zeros)
+    N_DISTANCES = offset - 1
+    f_out.write('// N_DISTANCES == N_ATOMS * (N_ATOMS - 1) / 2;\n')
+    f_out.write('pub const N_DISTANCES: usize = {};\n'.format(N_DISTANCES))
+    N_ATOMS = round(math.sqrt(2*N_DISTANCES + 0.25) + 0.5)
+    f_out.write('pub const N_ATOMS: usize = {};\n'.format(N_ATOMS))
+    f_out.write('pub const N_R: usize = N_ATOMS * 3;\n\n')
+    f_out.close()
+
     for i, block in enumerate(blocks):
         gen_mono_block(block, i, offset, f_out_monomials)
         offset += block_size
