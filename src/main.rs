@@ -1,10 +1,14 @@
 #![allow(dead_code, unused)]
 #![feature(bench_black_box)]
 use autodiff::autodiff;
-mod monomials_;
-mod polynomials_;
-use monomials_::*;
-use polynomials_::*;
+mod monomials_ethanol;
+mod polynomials_ethanol;
+use monomials_ethanol::*;
+use polynomials_ethanol::*;
+
+use pipenzyme::*;
+
+use std::path::PathBuf;
 
 // compiling single poly fn
 // and all monomial fns takes 24s
@@ -120,6 +124,9 @@ fn main() {
     ];
 
     let weights = [1.0; N_POLYS];
+
+    let ethanol_path = PathBuf::from("/h/344/drehwald/prog/msa_data/DDEthanol/Train_data_50000.xyz");
+    let mut mat = read_xyz(ethanol_path, N_POINTS);
 
     // Primary - correct
     let energy = f_energy(&x, &weights);
