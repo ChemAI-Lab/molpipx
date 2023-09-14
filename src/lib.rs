@@ -41,8 +41,8 @@ pub fn morse(r: &mut [f32], l: f32) {
 }
 
 pub fn get_svd(mat_ref: MatRef<f32>) -> (Mat<f32>, Mat<f32>, Mat<f32>) {
-    //let parallelism = Parallelism::Rayon(48);
-    let parallelism = Parallelism::None;
+    let parallelism = Parallelism::Rayon(48);
+    //let parallelism = Parallelism::None;
 
     let m = mat_ref.nrows();
     let n = mat_ref.ncols();

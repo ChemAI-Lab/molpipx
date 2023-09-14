@@ -91,8 +91,42 @@ fn main() {
     println!("Computed Polys and energy");
 
     let mat_ref: MatRef<f32> = A.as_ref();
-    let (u,s,v) = get_svd(mat_ref);
+    let (u,mut s,v) = get_svd(mat_ref);
     println!("Computed SVD");
+
+    let mut s_pinv = Mat::zeros(N_POLYS, N);
+    for i in 0..N_POLYS.min(N) {
+        let val = s.read(i,0);
+        if val > 0.0 {
+            s_pinv.write(i, i, 1.0 / val);
+        }
+    }
+    println!("Computed S_pinv");
+
+    assert!(v.ncols() == s_pinv.nrows());
+    assert!(s_pinv.ncols() == u.ncols());
+    let A_pinv = v * s_pinv * u.transpose();
+    let mut b_vec = Mat::zeros(N, 1);
+    for i in 0..N {
+        b_vec.write(i, 0, b[i]);
+    }
+    println!("Computed Pseudoinverse");
+
+    let x_min = A_pinv.clone() * b_vec.clone();
+    println!("Computed x_min");
+
+    let I = A_pinv * A.clone();
+    for i in 0..I.nrows() {
+        println!("{}", I.read(i, i));
+    }
+    println!("Computed I");
+
+    let b_hat = A * x_min.clone();
+
+    for i in 0..N_R {
+       println!("{} : {}", b_hat.read(i, 0), b[i]);
+    }
+
 
 
     // Jacobian - correct
