@@ -2,9 +2,6 @@
 
 use std::fs::File;
 use std::io::Read;
-//use faer_svd::{compute_svd, SvdParams};
-//use dyn_stack::*;
-//use faer_core::{Mat, MatRef, Parallelism};
 
 fn point_dist<const NR: usize>(positions: &[f32; NR], x: usize, y: usize) -> f32 {
     let a = (positions[x] - positions[y]).powi(2);

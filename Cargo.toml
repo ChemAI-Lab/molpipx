@@ -8,14 +8,6 @@ edition = "2021"
 [dependencies]
 autodiff = { path = "/u/drehwald/prog/rust/library/autodiff" }
 faer          = "0.11"
-faer-core     = "0.11"
-faer-lu       = "0.11"
-faer-qr       = "0.11"
-faer-cholesky = "0.11"
-faer-svd      = "0.11"
-reborrow = "0.5.4"
-dyn-stack = "0.9.0"
-
 
 [lib]
 name = "pipenzyme"
