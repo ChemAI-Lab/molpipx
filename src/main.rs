@@ -6,7 +6,7 @@ mod polynomials_ethanol;
 use monomials_ethanol::*;
 use polynomials_ethanol::*;
 
-use faer_core::*;
+use faer::*;
 use pipenzyme::*;
 
 use std::path::PathBuf;
@@ -90,32 +90,27 @@ fn main() {
     }
     println!("Computed Polys and energy");
 
-    let mat_ref: MatRef<f32> = A.as_ref();
-    let (u,mut s,v) = get_svd(mat_ref);
+    let m = A.nrows();
+    let n = A.ncols();
+    let svd = A.svd();
     println!("Computed SVD");
-
-    let mut s_pinv = Mat::zeros(N_POLYS, N);
-    for i in 0..N_POLYS.min(N) {
-        let val = s.read(i,0);
-        if val > 0.0 {
-            s_pinv.write(i, i, 1.0 / val);
-        }
+    let s_diag = svd.s_diagonal();
+    let mut s_inv = Mat::zeros(m, n);
+    for i in 0..Ord::min(m, n) {
+        s_inv[(i, i)] = 1.0 / s_diag[(i, 0)];
     }
-    println!("Computed S_pinv");
+    let pseudoinv = svd.v() * &s_inv * svd.u().adjoint();
+    println!("Computed Pseudoinverse");
 
-    assert!(v.ncols() == s_pinv.nrows());
-    assert!(s_pinv.ncols() == u.ncols());
-    let A_pinv = v * s_pinv * u.transpose();
     let mut b_vec = Mat::zeros(N, 1);
     for i in 0..N {
         b_vec.write(i, 0, b[i]);
     }
-    println!("Computed Pseudoinverse");
 
-    let x_min = A_pinv.clone() * b_vec.clone();
+    let x_min = pseudoinv.clone() * b_vec.clone();
     println!("Computed x_min");
 
-    let I = A_pinv * A.clone();
+    let I = pseudoinv * A.clone();
     for i in 0..I.nrows() {
         println!("{}", I.read(i, i));
     }
@@ -126,8 +121,6 @@ fn main() {
     for i in 0..N_R {
        println!("{} : {}", b_hat.read(i, 0), b[i]);
     }
-
-
 
     // Jacobian - correct
     let mut x = [0.0; N_R];
