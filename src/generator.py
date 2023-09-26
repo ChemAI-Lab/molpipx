@@ -16,7 +16,7 @@ def f_monomial_flag_0(x):
 
 def init_monos(Lines, f_out_monomials):
     f_out = open(f_out_monomials, 'a+')
-    f_out.write('fn f_init_monomials(mono: &mut [f32; N_MONOS], r: & [f32; N_DISTANCES]) { \n')
+    f_out.write('fn f_init_monomials(mono: &mut [f64; N_MONOS], r: & [f64; N_DISTANCES]) { \n')
     f_out.write('  assert!(2 * N_DISTANCES == N_ATOMS * (N_ATOMS - 1), "library author error!");\n')
     # skip first line and set first entry to 1.0, thus i+1 for all following steps
     f_out.write('  mono[0] = 1.0;\n')
@@ -33,7 +33,7 @@ def init_monos(Lines, f_out_monomials):
 
 def gen_mono_block(block, i, offset, f_out_monomials):
     f_out = open(f_out_monomials, 'a+')
-    f_out.write('fn f_monomials{}(mono: &mut [f32; N_MONOS]) {{ \n'.format(i))
+    f_out.write('fn f_monomials{}(mono: &mut [f64; N_MONOS]) {{ \n'.format(i))
     for j,line in enumerate(block):
         z = line.split()
         z = np.array(z,dtype=int)
@@ -69,7 +69,7 @@ def create_f_monomials(file_mono, file_label):
     f_out.write('pub const N_DISTANCES: usize = {};\n'.format(N_DISTANCES))
     N_ATOMS = round(math.sqrt(2*N_DISTANCES + 0.25) + 0.5)
     f_out.write('pub const N_ATOMS: usize = {};\n'.format(N_ATOMS))
-    f_out.write('pub const N_R: usize = N_ATOMS * 3;\n\n')
+    f_out.write('pub const N_XYZ: usize = N_ATOMS * 3;\n\n')
     f_out.close()
 
     for i, block in enumerate(blocks):
@@ -80,7 +80,7 @@ def create_f_monomials(file_mono, file_label):
 #     MAIN
     f_out = open(f_out_monomials, 'a+')
     init_monos(zeros, f_out_monomials)
-    f_out.write('pub fn f_monomials(r: &[f32; N_DISTANCES]) -> [f32; N_MONOS] {\n\n')
+    f_out.write('pub fn f_monomials(r: &[f64; N_DISTANCES]) -> [f64; N_MONOS] {\n\n')
     f_out.write('  let mut mono = [0.0; N_MONOS];\n\n'.format(n_mono))
     f_out.write('  f_init_monomials(&mut mono, r);\n\n')
     
@@ -101,7 +101,7 @@ def create_f_monomials(file_mono, file_label):
 
 def create_poly_block(block, i, offset, f_out_polynomials):
     f_out = open(f_out_polynomials, 'a+')
-    f_out.write('fn f_polynomials{}(poly: &mut [f32; N_POLYS],mono: &[f32; N_MONOS]) {{\n'.format(i))
+    f_out.write('fn f_polynomials{}(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {{\n'.format(i))
     for i,l in enumerate(block):
         z = l.split()
         z = np.array(z,dtype=int)
@@ -158,8 +158,8 @@ def create_f_polynomials(file_poly,file_label):
 
     f_out = open(f_out_polynomials, 'a+')
     f_out.write('// Total number of monomials = {} \n\n'.format(n_poly))
-    f_out.write('pub fn f_polynomials(r: &[f32; N_DISTANCES]) -> [f32; N_POLYS] {\n\n')
-    f_out.write('    let mono: [f32; N_MONOS] = f_monomials(r);\n')
+    f_out.write('pub fn f_polynomials(r: &[f64; N_DISTANCES]) -> [f64; N_POLYS] {\n\n')
+    f_out.write('    let mono: [f64; N_MONOS] = f_monomials(r);\n')
     f_out.write('    let mut poly = [0.0; N_POLYS];\n\n'.format(n_poly))
     for i in range(len(blocks)):
         f_out.write('    f_polynomials{}(&mut poly, &mono);\n'.format(i))

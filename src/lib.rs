@@ -3,7 +3,7 @@
 use std::fs::File;
 use std::io::Read;
 
-fn point_dist<const NR: usize>(positions: &[f32; NR], x: usize, y: usize) -> f32 {
+fn point_dist<const NR: usize>(positions: &[f64; NR], x: usize, y: usize) -> f64 {
     let a = (positions[x] - positions[y]).powi(2);
     let b = (positions[x + 1] - positions[y + 1]).powi(2);
     let c = (positions[x + 2] - positions[y + 2]).powi(2);
@@ -16,7 +16,7 @@ pub const fn get_len(x: usize) -> usize {
     (n * (n - 1)) / 2
 }
 
-pub fn dist<const NR: usize>(positions: &[f32; NR]) -> [f32; get_len(NR)] {
+pub fn dist<const NR: usize>(positions: &[f64; NR]) -> [f64; get_len(NR)] {
     assert!(NR % 3 == 0);
     let mut r = [0.0; get_len(NR)];
     let mut pos = 0;
@@ -30,11 +30,11 @@ pub fn dist<const NR: usize>(positions: &[f32; NR]) -> [f32; get_len(NR)] {
     return r;
 }
 
-pub fn morse(r: &mut [f32], l: f32) {
+pub fn morse(r: &mut [f64], l: f64) {
     for x in r {
-        *x = f32::exp(-*x / l);
+        *x = f64::exp(-*x / l);
     }
-    //r = r.iter().map(|x| f32::exp(-x / l)).collect();
+    //r = r.iter().map(|x| f64::exp(-x / l)).collect();
 }
 
 // paper: The size of the matrix is (N + 3nN) × M
@@ -45,7 +45,7 @@ pub fn morse(r: &mut [f32], l: f32) {
 // n(n − 1)/2 monomials, thus n = N_ATOMS
 
 #[allow(non_snake_case)]
-pub fn read_xyz(p: std::path::PathBuf, N: usize, use_grads: bool) -> (Vec<f32>, Vec<f32>){
+pub fn read_xyz(p: std::path::PathBuf, N: usize, use_grads: bool) -> (Vec<f64>, Vec<f64>){
     let mut f = File::open(p.clone()).unwrap();
     let mut s = String::new();
     f.read_to_string(&mut s).unwrap();
@@ -88,7 +88,7 @@ pub fn read_xyz(p: std::path::PathBuf, N: usize, use_grads: bool) -> (Vec<f32>, 
         assert!(n_atoms == num_atoms);
 
         let mut line = lines.next().unwrap().split_whitespace();
-        let energy = line.next().unwrap().trim_start().parse::<f32>().unwrap();
+        let energy = line.next().unwrap().trim_start().parse::<f64>().unwrap();
         energies.push(energy);
 
         for _ in 0..num_atoms {
@@ -96,13 +96,13 @@ pub fn read_xyz(p: std::path::PathBuf, N: usize, use_grads: bool) -> (Vec<f32>, 
             line.next().unwrap(); // skip atom name
             
             for _ in 0..3 {
-                let val = line.next().unwrap().parse::<f32>().unwrap();
+                let val = line.next().unwrap().parse::<f64>().unwrap();
                 mat.push(val);
             }
 
             if use_grads {
                for _ in 0..3 {
-                   let val = line.next().unwrap().parse::<f32>().unwrap();
+                   let val = line.next().unwrap().parse::<f64>().unwrap();
                    grads.push(val);
                }
             }
