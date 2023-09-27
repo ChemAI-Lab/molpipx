@@ -55,67 +55,64 @@ fn f(#[dup] inputs: &[f64; N_XYZ], #[dup] poly_outs: &mut [f64; N_POLYS]) {
     assert!(outs.len() == poly_outs.len());
     poly_outs.copy_from_slice(&outs);
 }
-//#[autodiff(d_energy_rev, Reverse, Active)]
-//fn f_energy(#[dup] inputs: &[f64; N_XYZ], poly_outs: &mut [f64; N_POLYS], weights: &[f64; N_POLYS]) -> f64 {
-//    let mut distances = dist(inputs);
-//    morse(&mut distances, 1.0);
-//    let outs = f_polynomials(&distances);
-//    assert!(outs.len() == weights.len());
-//    poly_outs.copy_from_slice(&outs);
-//
-//    let mut res = 0.0;
-//    for i in 0..N_POLYS {
-//        res += weights[i] * outs[i];
-//    }
-//    return res;
-//}
 
-pub const N: usize = 50_000;
+pub const N: usize = 50;
+//pub const N: usize = 50_000;
 
 #[allow(non_snake_case)]
 fn main() {
 
-    let weights = [1.0; N_POLYS];
-
-    let use_grads = false;
+    let use_grads = std::env::var("USE_GRADS").is_ok();
+    println!("use_grads: {use_grads}");
     let ethanol_path = PathBuf::from("/h/344/drehwald/prog/msa_data/DDEthanol/Train_data_50000.xyz");
     assert!(ethanol_path.exists());
     let (mut inputs, b) = read_xyz(ethanol_path, N, use_grads);
-    assert!(inputs.len() == N * 3 * N_ATOMS);
     println!("read {N} lines");
 
-    let m = if use_grads { 3*N_ATOMS*N+N } else { N };
+    let m = if use_grads { N_XYZ*N+N } else { N };
     let n = N_POLYS;
+    assert!(inputs.len() == N * N_XYZ);
+    assert!(b.len() == m);
     println!("Allocating: {} GB for A", m * n * 4 / 1024 / 1024 / 1024);
     let mut A = Mat::zeros(m, n);
-    assert!(A.nrows() == m);
-    assert!(A.ncols() == n);
 
     // Primary - correct
     unsafe {
-      for (i, input) in inputs.as_chunks_unchecked::<N_XYZ>().iter().enumerate() {
+      for (i, molecule) in inputs.as_chunks_unchecked::<N_XYZ>().iter().enumerate() {
           let mut polys = [0.0; N_POLYS];
-          f(&input, &mut polys);
+          f(&molecule, &mut polys);
           for j in 0..N_POLYS {
               A[(i, j)] = polys[j];
           }
+          assert!(i < N);
       }
     }
     if use_grads {
-    }
-    println!("Computed Polys and energy");
-    for i in 0..5 {
-        for j in 0..N_ATOMS {
-            println!("{} {} {}", inputs[i * 3 * N_ATOMS + 3 * j], inputs[i * 3 * N_ATOMS + 3 * j + 1], inputs[i * 3 * N_ATOMS + 3 * j + 2]);
+        unsafe {
+            assert!(inputs.len() / N_XYZ == N);
+            for (i, molecule) in inputs.as_chunks_unchecked::<N_XYZ>().iter().enumerate() {
+                for j in 0..N_POLYS {
+                    let mut dmolecule = [0.0; N_XYZ];
+                    let mut polys = [0.0; N_POLYS];
+                    let mut dpolys = [0.0; N_POLYS];
+                    dpolys[j] = 1.0;
+                    d_f(&molecule, &mut dmolecule, &mut polys, &mut dpolys);
+                    for k in 0..N_XYZ {
+                        A[(N + i * N_XYZ + k, j)] = dmolecule[k];
+                    }
+                }
+            }
         }
     }
+    println!("Computed Polys and energy");
 
+    //let regularization: f64 = 0.00001;
+    //for i in 0..N_POLYS {
+    //    A[(i, i)] += regularization;
+    //}
     let svd = A.svd();
     println!("Computed SVD");
     let s_diag = svd.s_diagonal();
-    for i in 0..Ord::min(m, n) {
-        println!("diagonal: {} {}", i, s_diag[(i, 0)]);
-    }
     let mut s_inv = Mat::zeros(n, m);
     for i in 0..Ord::min(m, n) {
         s_inv[(i, i)] = 1.0 / s_diag[(i, 0)];
@@ -123,46 +120,17 @@ fn main() {
     let pseudoinv = svd.v() * &s_inv * svd.u().adjoint();
     println!("Computed Pseudoinverse");
     
-    assert_matrix_eq!(
-        &pseudoinv * &A,
-        Mat::identity(n, n),
-        comp = abs,
-        tol = 1e-10
-    );
-
-    let mut b_vec = Mat::zeros(N, 1);
-    for i in 0..N {
+    let mut b_vec = Mat::zeros(m, 1);
+    for i in 0..m {
         b_vec[(i, 0)] = b[i];
     }
-
-    let x_min = pseudoinv.clone() * b_vec.clone();
+    let x_min = pseudoinv * b_vec.clone();
     println!("Computed x_min");
 
-    let I = pseudoinv * A.clone();
-    for i in 0..I.nrows() {
-        println!("{}", I[(i, i)]);
-    }
-    println!("Computed I");
-
     let b_hat = A * x_min.clone();
-
     for i in 0..N_XYZ {
        println!("{} : {}", b_hat[(i, 0)], b[i]);
     }
 
-    // Jacobian - correct
-    //let mut x = [0.0; N_XYZ];
-    //for i in 0..N_XYZ {
-    //    x[i] = inputs[i];
-    //}
-    //let mut dx = [0.0; N_XYZ];
-    //let mut polys2 = [0.0; N_POLYS];
-    //let out = d_energy_rev(&x, &mut dx, &mut polys2, &weights, 1.0);
-    //for (i, val) in dx.iter().enumerate() {
-    //    if i % 3 == 0 {
-    //        println!("");
-    //    }
-    //    print!("{:10.3e} ", val);
-    //}
     println!("");
 }

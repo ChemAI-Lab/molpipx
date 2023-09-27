@@ -68,16 +68,11 @@ pub fn read_xyz(p: std::path::PathBuf, N: usize, use_grads: bool) -> (Vec<f64>, 
     assert!(N <= num_examples, "The file: {}\n only contains {} entries, but you requested {}!", p.display()
             , num_examples, N);
     let num_cols = 3;
-    let num_rows;
-    if use_grads {
-        num_rows = N + 3 * num_atoms * N;
-    } else {
-        num_rows = N;
-    }
+    let num_rows = if use_grads  { N + 3 * num_atoms * N } else { N };
     let mut mat = Vec::with_capacity(num_rows * num_cols);
     let mut grads = vec![];
     if use_grads {
-        grads = vec![0.0; 3 * num_atoms * N];
+        grads.reserve(3 * num_atoms * N);
     }
     let mut energies = Vec::with_capacity(num_rows);
 
