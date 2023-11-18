@@ -1,6 +1,7 @@
 import os
 import numpy as np
 import argparse
+import math
 
 # ----------------------------------------------------------------------------------------
 #   READ MONOMIALS  
@@ -22,11 +23,22 @@ def create_f_monomials(file_mono,file_label):
     f_out.write('\n')
     f_out.write('# File created from {} \n'.format(file_mono))
     f_out.write('\n')
-    f_out.close()
 
     f = open(file_mono, 'r')
     Lines = f.readlines() 
     n_mono = len(Lines)
+    index = 0 
+    while Lines[index][0] == '0':
+        index += 1
+    zeros, ones = (Lines[:index], Lines[index:])
+    offset = len(zeros)
+    N_DISTANCES = offset - 1
+    f_out.write('# N_DISTANCES == N_ATOMS * (N_ATOMS - 1) / 2;\n')
+    f_out.write('N_DISTANCES = {}\n'.format(N_DISTANCES))
+    N_ATOMS = round(math.sqrt(2*N_DISTANCES + 0.25) + 0.5)
+    f_out.write('N_ATOMS = {}\n'.format(N_ATOMS))
+    f_out.write('N_XYZ = N_ATOMS * 3\n\n')
+    f_out.close()
 
 #     ----------------------------
 #     MAIN
@@ -76,7 +88,6 @@ def create_f_monomials(file_mono,file_label):
 #   READ POLYNOMIALS 
 
 def create_f_polynomials(file_poly,file_label):
-
     f_out_polynomials = 'polynomials_{}.py'.format(file_label)
     
     f_out = open(f_out_polynomials, 'w+')
@@ -89,11 +100,12 @@ def create_f_polynomials(file_poly,file_label):
     f_out.write('# File created from {} \n'.format(file_poly))
     f_out.write('\n')
     f_out.write('\n')
-    f_out.close()
     
     f = open(file_poly,'r')
     Lines = f.readlines() 
     n_poly = len(Lines)
+    f_out.write('N_POLYS = {}\n\n'.format(n_poly))
+    f_out.close()
     
 #     TEST
 #     MAIN
@@ -155,6 +167,12 @@ def create_f_polynomials(file_poly,file_label):
     f_out.close()
     f.close() 
         
+#pub const N_MONOS: usize = 209;
+#
+#// N_DISTANCES == N_ATOMS * (N_ATOMS - 1) / 2;
+#pub const N_DISTANCES: usize = 36;
+#pub const N_ATOMS: usize = 9;
+#pub const N_XYZ: usize = N_ATOMS * 3;
 
 
 # ----------------------------------------------------------------------------------------
