@@ -1,40 +1,12 @@
 #![feature(generic_const_exprs)]
 
 use std::fs::File;
-use std::io::Read;
-
-fn point_dist<const NR: usize>(positions: &[f64; NR], x: usize, y: usize) -> f64 {
-    let a = (positions[x] - positions[y]).powi(2);
-    let b = (positions[x + 1] - positions[y + 1]).powi(2);
-    let c = (positions[x + 2] - positions[y + 2]).powi(2);
-    (a + b + c).sqrt()
-}
+use std::io::{Read, BufReader};
 
 pub const fn get_len(x: usize) -> usize {
     assert!(x % 3 == 0);
     let n = x / 3;
     (n * (n - 1)) / 2
-}
-
-pub fn dist<const NR: usize>(positions: &[f64; NR]) -> [f64; get_len(NR)] {
-    assert!(NR % 3 == 0);
-    let mut r = [0.0; get_len(NR)];
-    let mut pos = 0;
-
-    for i in 0..(NR / 3) {
-        for j in (i + 1)..(NR / 3) {
-            r[pos] = point_dist::<NR>(positions, 3 * i, 3 * j);
-            pos += 1;
-        }
-    }
-    return r;
-}
-
-pub fn morse(r: &mut [f64], l: f64) {
-    for x in r {
-        *x = f64::exp(-*x / l);
-    }
-    //r = r.iter().map(|x| f64::exp(-x / l)).collect();
 }
 
 // paper: The size of the matrix is (N + 3nN) × M
@@ -45,10 +17,18 @@ pub fn morse(r: &mut [f64], l: f64) {
 // n(n − 1)/2 monomials, thus n = N_ATOMS
 
 #[allow(non_snake_case)]
+pub fn write_xyz(p: std::path::PathBuf, A: Vec<f64>, b: Vec<f64>, N: usize) {
+    let mut f = File::create(p.clone()).unwrap();
+    for i in 0..N {
+    }
+}
+
+#[allow(non_snake_case)]
 pub fn read_xyz(p: std::path::PathBuf, N: usize, use_grads: bool) -> (Vec<f64>, Vec<f64>){
     let mut f = File::open(p.clone()).unwrap();
+    let mut buf_reader = BufReader::new(f);
     let mut s = String::new();
-    f.read_to_string(&mut s).unwrap();
+    buf_reader.read_to_string(&mut s).unwrap();
     let num_lines = s.lines().clone().count();
     let mut lines = s.lines();
 
@@ -67,14 +47,13 @@ pub fn read_xyz(p: std::path::PathBuf, N: usize, use_grads: bool) -> (Vec<f64>, 
     let num_examples: usize = num_lines / (num_atoms + 2); // N \leq num_lines
     assert!(N <= num_examples, "The file: {}\n only contains {} entries, but you requested {}!", p.display()
             , num_examples, N);
-    let num_cols = 3;
-    let num_rows = if use_grads  { N + 3 * num_atoms * N } else { N };
-    let mut mat = Vec::with_capacity(num_rows * num_cols);
+    let n_elems = if use_grads { N * num_atoms * 6 } else { N * num_atoms * 3 };
+    let mut mat = Vec::with_capacity(n_elems);
     let mut grads = vec![];
     if use_grads {
         grads.reserve(3 * num_atoms * N);
     }
-    let mut energies = Vec::with_capacity(num_rows);
+    let mut energies = Vec::with_capacity(N * num_atoms);
 
     // Phew, finally done. Now let's actually read the file.
     lines = s.lines();

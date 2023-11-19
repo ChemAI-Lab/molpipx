@@ -2,7 +2,7 @@ import timeit
 import jax 
 import jax.numpy as jnp 
 import numpy as np
-from jax import grad, jit, jacfwd, value_and_grad, hessian
+from jax import grad, jit, jacfwd, jacrev, value_and_grad, hessian
 from polynomials_ethanol import f_polynomials, N_POLYS
 from monomials_ethanol import N_XYZ, N_ATOMS
 
@@ -25,9 +25,11 @@ def read_xyz(p, N, use_grads):
         assert num_lines % (num_atoms + 2) == 0
         num_examples = num_lines / (num_atoms + 2) # N \leq num_lines
         assert N <= num_examples, "The file: {}\n only contains {} entries, but you requested {}!".format(p, num_examples, N)
-        n_elems =  N * num_atoms * 6 if use_grads else N * num_atoms * 3 
-        mat = np.zeros(n_elems)
-        energies = np.zeros((N, 1))
+        n_elems = N * num_atoms * 3
+        xyz = np.zeros(n_elems)
+        energies = np.zeros(N)
+        if use_grads:
+            grads = np.zeros(n_elems)
         # continue 
         # Phew, finally done. Now let's actually read the file.
         f.seek(0)
@@ -40,10 +42,14 @@ def read_xyz(p, N, use_grads):
                 line = f.readline().split()[1:]
                 line = [float(x) for x in line]
                 pos = i * 3 * num_atoms + 3 * j
-                mat[pos:pos + 3] = line[0:3]
+                xyz[pos:pos + 3] = line[0:3]
+                if use_grads:
+                    grads[pos:pos + 3] = line[3:6]
         if use_grads:
-            energies = np.concatenate((energies, grads), axis=1)
-        return (mat, energies, n_atoms)
+            print("energies: ", energies.shape)
+            print("grads: ", grads.shape)
+            energies = np.concatenate((energies, grads))
+        return (xyz, energies, n_atoms)
 
 @jit
 def _fb(xi):
@@ -59,6 +65,7 @@ def _fb(xi):
 
 @jit
 def f(x, l):
+    assert(x.shape[0] == N_ATOMS)
     z = _fb(x)
     z_morse = jnp.exp(-l*z)
     z = f_polynomials(z_morse)
@@ -71,56 +78,68 @@ def f_energy(xyz,w,l):
     z = f_polynomials(z_morse)
     return jnp.vdot(w,z)
 
+# RODRIGO FACTOR
+# How patient are you?
 N = 50
-
-#x = jnp.array([[0.00000000,  0.00000000,  14.00307401],
-#               [0.00000000,  -1.98144397, 1.00782504],
-#               [-1.71598081, 0.99072198,  1.00782504],
-#               [1.71598081,  0.99072198,  1.00782504]])
-
-#print(y)
-#print(jacfwd(f_energy,argnums=(0))(x,w,1.))
-#print()
-#print(hessian(f_energy,argnums=(0))(x,w,1.))
+use_grads = True
+ethanol_path = "/h/344/drehwald/prog/msa_data/DDEthanol/Train_data_50000.xyz"
 
 def main():
-    use_grads = False
-    ethanol_path = "/h/344/drehwald/prog/msa_data/DDEthanol/Train_data_50000.xyz"
-    (mat, b, n_atoms) = read_xyz(ethanol_path, N, use_grads)
-    mat = mat.reshape((N * n_atoms, 3))
+    (xyz, b, n_atoms) = read_xyz(ethanol_path, N, use_grads)
+    # if use_grads, than b will first have N energies, then N * N_XYZ gradients
+    # the gradients are in the x, y, z, x, y, z, ... order 
+    # thus for the file above we have b[50:53] = [0.03725021, 0.00255395, -0.00297219]
+    xyz = xyz.reshape((N * n_atoms, 3))
     m = N 
-    if use_grads:
-        m += N_XYZ*N
     n = N_POLYS
     print("m: ", m)
     print("n: ", n)
-    print("len(mat): ", mat.shape)
-    print("len(b): ", b.shape)
+    print("xyz: ", xyz.shape)
+    print("b: ", b.shape)
     print("N_XYZ: ", N_XYZ)
     print("N_POLYS: ", N_POLYS)
-    assert len(b) == m
-    print("energy: ", f_energy(mat, jnp.ones(N_POLYS), 1.))
     print("Allocating: {} GB for A", m * n * 4 / 1024 / 1024 / 1024)
     A = np.zeros((m, n));
+    if use_grads:
+        dA = np.zeros((N * N_XYZ, n))
     for i in range(N):
         if i % 10 == 0:
-            print("i: ", i)
-        molecule = mat[i*N_ATOMS:(i+1)*N_ATOMS, :]
+            print(i,", ", end='')
+        molecule = xyz[i*N_ATOMS:(i+1)*N_ATOMS, :]
         polys = f(molecule, 1.0)
-        if (i == 0):
-            print("molecule: {:?}", molecule)
-        for j in range(N_POLYS):
-            A[(i, j)] = polys[j]
-        assert i < N
-    print("Computed Polys and energy")
+        A[i, :] = polys
+        if use_grads:
+            molecule = xyz[i*N_ATOMS:(i+1)*N_ATOMS, :]
+            tmp = jacrev(f, argnums=(0))(molecule, 1.0)
+            assert(not np.allclose(tmp, 0.0))
+            tmp = tmp.reshape((N_POLYS, N_XYZ)).transpose()
+            dA[i*N_XYZ:(i+1)*N_XYZ, :] = tmp
+    if use_grads:
+        A = np.concatenate((A, dA))
+    print("\nComputed Polys and energy")
 
-    pseudoinv = np.linalg.pinv(A)
-    print("pseudoinv: ", pseudoinv.shape)
-    x_min = np.dot(pseudoinv, b)
+
+    A2 = A[0:N, :]
+    b2 = b[0:N]
+    x2_min = np.linalg.lstsq(A2, b2, rcond=None)[0]
+    b2_hat = np.dot(A2, x2_min)
+
+    A3 = A[N:, :]
+    b3 = b[N:]
+    x3_min = np.linalg.lstsq(A3, b3, rcond=None)[0]
+    b3_hat = np.dot(A3, x3_min)
+
+    print("Computed gradients")
+
+    print("A: ", A.shape)
+    print("b: ", b.shape)
+    # lstdq ret consists of a tuple of (x_min, residuals, rank, s)
+    x_min = np.linalg.lstsq(A, b, rcond=None)[0]
     b_hat = np.dot(A, x_min)
-    for i in range(N_XYZ):
-        print("b[{}]: {}, b_hat[{}]: {}".format(i, b[i], i, b_hat[i]))
+    for i in range(N):
+        print("b: ", b[i], " b_hat: ", b_hat[i], " b2_hat: ", b2_hat[i], " b3_hat: ", b3_hat[i])
+    for i in range(N_POLYS):
+        print("x_min: ", x_min[i], " x2_min: ", x2_min[i], " x3_min: ", x3_min[i])
 
-
-
-main()
+if __name__ == "__main__":
+    main()

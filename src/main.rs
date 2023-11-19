@@ -56,8 +56,8 @@ fn f(#[dup] inputs: &[f64; N_XYZ], #[dup] poly_outs: &mut [f64; N_POLYS]) {
     poly_outs.copy_from_slice(&outs);
 }
 
-pub const N: usize = 50;
-//pub const N: usize = 50_000;
+//pub const N: usize = 50;
+pub const N: usize = 500;
 
 #[allow(non_snake_case)]
 fn main() {
@@ -81,6 +81,9 @@ fn main() {
       for (i, molecule) in inputs.as_chunks_unchecked::<N_XYZ>().iter().enumerate() {
           let mut polys = [0.0; N_POLYS];
           f(&molecule, &mut polys);
+          if (i == 0) {
+              println!("molecule: {:?}", molecule);
+          }
           for j in 0..N_POLYS {
               A[(i, j)] = polys[j];
           }
@@ -89,7 +92,7 @@ fn main() {
     }
     if use_grads {
         unsafe {
-            assert!(inputs.len() / N_XYZ == N);
+            assert!(inputs.len() == N * N_XYZ);
             for (i, molecule) in inputs.as_chunks_unchecked::<N_XYZ>().iter().enumerate() {
                 for j in 0..N_POLYS {
                     let mut dmolecule = [0.0; N_XYZ];
@@ -97,6 +100,10 @@ fn main() {
                     let mut dpolys = [0.0; N_POLYS];
                     dpolys[j] = 1.0;
                     d_f(&molecule, &mut dmolecule, &mut polys, &mut dpolys);
+                    if (i == 0 && j == 0) {
+                        println!("molecule: {:?}", molecule);
+                        println!("dmolecule: {:?}", dmolecule);
+                    }
                     for k in 0..N_XYZ {
                         A[(N + i * N_XYZ + k, j)] = dmolecule[k];
                     }
@@ -110,24 +117,29 @@ fn main() {
     //for i in 0..N_POLYS {
     //    A[(i, i)] += regularization;
     //}
-    let svd = A.svd();
-    println!("Computed SVD");
-    let s_diag = svd.s_diagonal();
-    let mut s_inv = Mat::zeros(n, m);
-    for i in 0..Ord::min(m, n) {
-        s_inv[(i, i)] = 1.0 / s_diag[(i, 0)];
-    }
-    let pseudoinv = svd.v() * &s_inv * svd.u().adjoint();
-    println!("Computed Pseudoinverse");
-    
-    let mut b_vec = Mat::zeros(m, 1);
-    for i in 0..m {
-        b_vec[(i, 0)] = b[i];
-    }
-    let x_min = pseudoinv * b_vec.clone();
-    println!("Computed x_min");
+   
+    // The code below is numerically unsmart
+    // let svd = A.svd();
+    // println!("Computed SVD");
+    // let s_diag = svd.s_diagonal();
+    // let mut s_inv = Mat::zeros(n, m);
+    // for i in 0..Ord::min(m, n) {
+    //     s_inv[(i, i)] = 1.0 / s_diag[(i, 0)];
+    // }
+    // let pseudoinv = svd.v() * &s_inv * svd.u().adjoint();
+    // println!("Computed Pseudoinverse");
+    // 
+    // let mut b_vec = Mat::zeros(m, 1);
+    // for i in 0..m {
+    //     b_vec[(i, 0)] = b[i];
+    // }
+    // let x_min = pseudoinv * b_vec.clone();
+    // println!("Computed x_min");
+    //
+    // lets rather use this
+    let x_min = A.solve_lstsq(&b);
 
-    let b_hat = A * x_min.clone();
+    let b_hat = A * x_min;
     for i in 0..N_XYZ {
        println!("{} : {}", b_hat[(i, 0)], b[i]);
     }
