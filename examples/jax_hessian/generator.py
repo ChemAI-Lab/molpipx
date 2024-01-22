@@ -16,6 +16,7 @@ def f_monomial_flag_0(x):
 def create_f_monomials(file_mono,file_label):
     
     f_out_monomials = 'monomials_{}.py'.format(file_label)
+    f_out_monomials = os.path.join(_path,f_out_monomials)
     
     f_out = open(f_out_monomials, 'w+')
     f_out.write('import jax \n')
@@ -92,6 +93,7 @@ def create_f_monomials(file_mono,file_label):
 
 def create_f_polynomials(file_poly,file_label):
     f_out_polynomials = 'polynomials_{}.py'.format(file_label)
+    f_out_polynomials = os.path.join(_path,f_out_polynomials)
     
     f_out = open(f_out_polynomials, 'w+')
     f_out.write('import jax \n')
@@ -185,10 +187,13 @@ def main():
 
     parser = argparse.ArgumentParser(description='MSA monomials and polynomials to JAX')
     parser.add_argument('--file', type=str, default='MOL_1_3_4', help='head of the file')
+    parser.add_argument('--path', type=str, default='.', help='path to the file')
     parser.add_argument('--label', type=str, default='', help='label for the file')
     args = parser.parse_args()
     
-    f_head = args.file
+    global _path
+    _path = args.path
+    f_head = os.path.join(_path,args.file)
     f_label = args.label
 
     file_mono = '{}.MONO'.format(f_head)
