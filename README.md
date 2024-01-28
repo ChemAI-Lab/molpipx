@@ -1,33 +1,30 @@
-# MSA PIP ENZYME MAGIC!
+<h1 align='center'>PIPJAX</h1>
+<h2 align='center'>Differentiable version of Permutationally Invariant Polynomial (PIP) models in JAX, compatible with Flax and the JAX-ecosystem. </h2>
 
-## How to run?
-Get your own rust-enzyme fork from your local compiler vendor
-Run the following three commands:
+**PIPJAX** is a [JAX](https://jax.readthedocs.io/en/latest/)-based library that provides an implementation of PIP models compatible with,
+1. [FLAX](flax.readthedocs.io/): Nueral netowkr library.
+2. GPU friendly.
+3. Fully differentiable.
+
+## MSA files to JAX ##
+This library translates the [MSA](https://scholarblogs.emory.edu/bowman/msa/) files, specifically the ``_file_.MONO`` and ``_file_.POLY`` files to the corresponding JAX version, ``_file_mono.py`` and ``_file_poly.py``. 
+The MSA files must be generated before, for more information please see https://github.com/szquchen/MSA-2.0
+
+
+**MSA References:**
+* Xie, Z.; Bowman, J.M. Permutationally Invariant Polynomial Basis for Molecular Energy Surface Fitting via Monomial Symmetrization. J. Chem. Theory Comput. 2010, 6, 26-34.
+
+
+### MSA-JAX files generation ###
+```python
+import jax
+import pipjax
+
+head_files = 'MOL_<info>_<deg>'
+path = '<path_to_the_files>'
+label = '<file_label'
+pipjax.msa_file_generator()
 ```
-export ENZYME_STRICT_ALIASING=1
-python3 src/generator.py --file /u/drehwald/prog/msa_code/src/data/MOL_2_2_2_2_1_1_1_1_3 --label ethanol
-cargo +enzyme run --release
-```
-
-Adjust the file and label on the second line based on your own data as you whish.
-Enjoy!
 
 
-when training with energies do not change the sing of the foreces, keep it possitive.
-
-# Generate the files: #
-Download the data from [QM-22](https://github.com/jmbowma/QM-22)
-| molecule | max polynomial order |	symmetry| Files |
-| -------- | -------- | -------- | ------- |
-Methane	 | 6 | 4 1 | PIP (deg 3 to 6)
-Acetaldehyde |	5 |	4 2 1 or 3 1 1 1 1 | PIP done(4 2 1)
-Ethanoal |	3 or 4 |	1 1 2 3 1 1  or 2 5 1 1 | PIP done(1 1 2 3 1 1)
-Formic acid dimer |	3 or 4 | 4 4 2
-Glycine | 4 | 1 2 1 2 1 2 1
-H2CO / HCOH | 7 |	2 1 1
-Hydronium |	7 |	3 1
-N-methylacetamide | 3 |	3 1 1 1 1 1 1 3
-OCHCO cation | 5 | 2 2 1
-Tropolone | 3 |1 2 2 2 2 2 2 1 1 or 1 2 6 4 1 1
-syn-CH3CHOO (Criegee) |	5 |	4 2 2 or 3 1 1 1 2
-
+The structure of the library is kept simple, as each molecular system could need individual elements. 

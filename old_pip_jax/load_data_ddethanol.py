@@ -2,7 +2,7 @@ import os
 import re
 import numpy as np
 
-ang_to_bohr = 0.529177210929
+ang_to_bohr = 1.8897259886
 bhor_to_ang = ang_to_bohr * 1.0e-1
 
 
@@ -24,7 +24,7 @@ def is_float(s):
 
 def read_geometry_energy(filename: str = '/Users/ravh011/Documents/GitHub/PIPMSA_jax/Data/DDEthanol/Train_data_50000.xyz',
                          num_atoms: int = 9,
-                         energy_normalization: bool = True):
+                         energy_normalization: bool = False):
 
     with open(filename, 'r') as file:
         data = file.read()
@@ -66,8 +66,8 @@ def read_geometry_energy(filename: str = '/Users/ravh011/Documents/GitHub/PIPMSA
 
     energies = np.array(energies)
     geometries_and_forces = np.array(geometries)
-    geometries = geometries_and_forces[:, :, 0:3]
-    forces = geometries_and_forces[:, :, 3:]  # *ang_to_bohr
+    geometries = geometries_and_forces[:, :, 0:3] * ang_to_bohr
+    forces = geometries_and_forces[:, :, 3:]
     if energy_normalization:
         e_min, e_max = np.min(energies), np.max(energies)
         energies = (energies - e_min) / (e_max - e_min)
