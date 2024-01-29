@@ -1,0 +1,13 @@
+README.md
+setup.py
+pipjax/__init__.py
+pipjax/grad_utils.py
+pipjax/pip_flax.py
+pipjax/pip_generator.py
+pipjax/training_utils.py
+pipjax/utils.py
+pipjax.egg-info/PKG-INFO
+pipjax.egg-info/SOURCES.txt
+pipjax.egg-info/dependency_links.txt
+pipjax.egg-info/requires.txt
+pipjax.egg-info/top_level.txt

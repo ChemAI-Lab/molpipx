@@ -8,7 +8,7 @@ from jaxtyping import Array, Float, PyTree
 import flax
 from flax import linen as nn
 
-from utils import all_distances, softplus_inverse, morse_variables
+from pipjax.utils import all_distances, softplus_inverse, morse_variables
 
 
 @nn.jit

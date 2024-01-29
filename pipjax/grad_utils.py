@@ -27,7 +27,7 @@ def get_pip_grad(model_pip: Callable, x: Float[Array, "..."], params_pip: PyTree
     return vmap(grad_pip_rev_i, in_axes=(0,))(x)
 
 
-def get_forces(model: Callable, x: Any, params: Any):
+def get_forces(model: Callable, x: Float[Array, "..."], params: PyTree) -> Float[Array, "..."]:
 
     @jit
     def grad_forces_rev_i(xyzi: Any):
