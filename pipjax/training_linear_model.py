@@ -2,7 +2,7 @@ from typing import Callable
 import jax
 import jax.numpy as jnp
 from jax import lax, jit
-from jaxtyping import Array, Float, PyTree
+from jaxtyping import Array, Float, PyTree, Key
 
 from pipjax.grad_utils import get_pip_grad
 
@@ -35,10 +35,10 @@ def training(model_pip: Callable, X_tr: Float[Array, "..."], y_tr: Float[Array, 
     return theta
 
 
-def trainining_w_gradients(model_pip: Callable,
-                           X_tr: Float[Array, "..."],
-                           F_tr: Float[Array, "..."],
-                           y_tr: Float[Array, "..."]) -> Float[Array, "..."]:
+def training_w_gradients(model_pip: Callable,
+                         X_tr: Float[Array, "..."],
+                         F_tr: Float[Array, "..."],
+                         y_tr: Float[Array, "..."]) -> Float[Array, "..."]:
     """Simple training function for PIP models with Forces.
     Warning: Geometries must be in Bhor Units and Forces in Ha/Bhorn Units
 
@@ -84,7 +84,7 @@ def flax_params(w: Float[Array, '...'], params: PyTree) -> PyTree:
     """Array to Flax PyTree parameters
 
     Args:
-        w (Float[Array, &#39;...&#39;]): Array with linear parameters for PIP
+        w (Float[Array]): Array with linear parameters for PIP
         params (PyTree): Flax PyTree parameters
 
     Returns:

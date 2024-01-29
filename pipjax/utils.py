@@ -2,6 +2,7 @@ from typing import Any
 import jax
 import jax.numpy as jnp
 from jax import jit
+from optax.losses import squared_error
 
 from jaxtyping import Array, Float, PyTree
 
@@ -43,3 +44,31 @@ def morse_variables(x: Float[Array, "dim1"], l: Float[Array, ""]) -> Float[Array
     """
     r = all_distances(x)
     return jnp.exp(-l*r)
+
+
+@jit
+def mse_loss(predictions: Float[Array, "dim1"], targets: Float[Array, "dim1"]) -> Float:
+    """Compute the Mean squared error
+
+    Args:
+        predictions: 
+        targets: 
+
+    Returns:
+        Float: mean squared error
+    """
+    return jnp.mean(squared_error(predictions-targets))
+
+
+@jit
+def mae_loss(predictions: Float[Array, "dim1"], targets: Float[Array, "dim1"]) -> Float:
+    """Computes the mean absolute error
+
+    Args:
+        predictions: 
+        targets: 
+
+    Returns:
+        Float: mean absolute error
+    """
+    return jnp.mean(jnp.abs(predictions-targets))
