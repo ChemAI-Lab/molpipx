@@ -33,7 +33,7 @@ def split_train_and_test_data(Geometries: Float[Array, "..."], Energies: Float[A
 
 def split_train_and_test_data_w_forces(Geometries: Float[Array, "..."], Forces: Float[Array, "..."],
                                        Energies: Float[Array, "..."],
-                                       N: int, key: Key,
+                                       N: int, key: Key, Nval: int = 0,
                                        ) -> ((Float, Float, Float), (Float, Float, Float)):
 
     _, key = jrnd.split(key)
@@ -46,8 +46,14 @@ def split_train_and_test_data_w_forces(Geometries: Float[Array, "..."], Forces: 
     G_tr = Forces[i0_tr]
     y_tr = Energies[i0_tr]
 
-    X_tst = Geometries[i0_tst]
-    G_tst = Forces[i0_tst]
-    y_tst = Energies[i0_tst]
+    if Nval == None or int(Nval) == 0:
+        X_tst = Geometries[i0_tst]
+        G_tst = Forces[i0_tst]
+        y_tst = Energies[i0_tst]
+    elif Nval > 0:
+        i0_val = i0_tst[:Nval]
+        X_tst = Geometries[i0_val]
+        G_tst = Forces[i0_val]
+        y_tst = Energies[i0_val]
 
     return (X_tr, G_tr, y_tr), (X_tst, G_tst, y_tst)
