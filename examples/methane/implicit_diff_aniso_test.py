@@ -10,7 +10,6 @@ from pipjax import flax_params_aniso, flax_params
 from pipjax import training
 from pipjax import mse_loss
 
-
 from jaxtyping import (
     Array,
     Float,
@@ -18,6 +17,7 @@ from jaxtyping import (
 )
 import flax
 from flax import linen as nn
+import jaxopt
 
 from monomials_deg_3 import f_monomials as f_mono
 from polynomials_deg_3 import f_polynomials as f_poly
@@ -48,17 +48,6 @@ params_energy = model.init(key, X_all[:1], mask)
 print(params_energy)
 
 
-l_init = jrnd.uniform(key, shape=(2, 1), minval=1., maxval=2.)
-print(nn.softplus(l_init))
-data = ((X_tr, y_tr), (X_val, y_val))
-models = (model_pip, model)
-params = (params_pip, params_energy, mask)
-
-# v,g = jax.value_and_grad(validation_loss,argnums=(0,))(l_init, data,params,models)
-# print(v)
-# print(g)
-
-
 def validation_loss(l, data, params, models):
     (X_tr, y_tr), (X_val, y_val) = data
     params_pip, params_energy, mask = params
@@ -78,32 +67,19 @@ def validation_loss(l, data, params, models):
     return loss
 
 
-# def inner_training(l, X_tr, y_tr, params_pip):
-#     params_pip = flax_params_aniso(l, params_pip)
-#     Pip_tr = model_pip.apply(params_pip, X_tr, mask)
-#     results = jnp.linalg.lstsq(Pip_tr, y_tr)
-#     w = results[0]
-#     return jnp.sum(w)
-
-#     # def matvec_A(x):
-#     #     print(x.shape)
-#     #     return Pip_tr @ x
-#     # results = linear_solve.solve_lu(matvec_A, y_tr.ravel())
-#     # # w = results[0]
-#     # return results
-# print(jax.value_and_grad(loss, argnums=(0,))
-#       (l_init, X_tr, y_tr, params_pip))
-# print(inner_training(l_init, X_tr, y_tr, params_pip))
-
-
 l_init = jrnd.uniform(key, shape=(2, 1), minval=1., maxval=2.)
 print(nn.softplus(l_init))
 data = ((X_tr, y_tr), (X_val, y_val))
 models = (model_pip, model)
 params = (params_pip, params_energy, mask)
+maxiter = 3
 
+# v, g = jax.value_and_grad(validation_loss, argnums=(0,))(
+#     l_init, data, params, models)
+# print(v)
+# print(g)
 
-v, g = jax.value_and_grad(validation_loss, argnums=(0,))(
-    l_init, data, params, models)
-print(v)
-print(g)
+solver = jaxopt.LBFGS(fun=validation_loss, maxiter=maxiter)
+res = solver.run(l_init, data=data, params=params, models=models)
+params, state = res
+print(params, state)
