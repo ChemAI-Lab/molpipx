@@ -28,6 +28,11 @@ def get_pip_grad(model_pip: Callable, x: Float[Array, "..."], params_pip: PyTree
 
 
 def get_forces(model: Callable, x: Float[Array, "..."], params: PyTree) -> Float[Array, "..."]:
+    """Compute the forces for a Flax based PIP model using reverse mode differentiation.
+
+    Returns:
+        array: forces of the PIP model, (batch, number of atoms * 3)
+    """
 
     @jit
     def grad_forces_rev_i(xyzi: Any):

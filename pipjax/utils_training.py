@@ -10,6 +10,18 @@ from jaxtyping import Key, Float, Array
 def split_train_and_test_data(Geometries: Float[Array, "..."], Energies: Float[Array, "..."],
                               N: int, key: Key, Nval: int = 0,
                               ) -> ((Float, Float), (Float, Float)):
+    """Split the data into training and validation data.
+
+    Args:
+        Geometries:
+        Energies:
+        N: number of training data
+        key: Key to split the training
+        Nval: number of validation data
+
+    Returns:
+        Tuple: (Training geometries and energy), (Validation geometries and energy)
+    """
 
     _, key = jrnd.split(key)
     ni = jnp.arange(Energies.shape[0], dtype=jnp.int32)
@@ -35,6 +47,18 @@ def split_train_and_test_data_w_forces(Geometries: Float[Array, "..."], Forces: 
                                        Energies: Float[Array, "..."],
                                        N: int, key: Key, Nval: int = 0,
                                        ) -> ((Float, Float, Float), (Float, Float, Float)):
+    """Split the data into training and validation.
+
+    Args:
+        Geometries:
+        Forces:
+        Energies:
+        N: number of training data
+        key: Key to split the training
+        Nval: number of validation data
+    Returns:
+        Tuple: (Training geometries, forces and energy), (Validation geometries, forces and energy)
+    """
 
     _, key = jrnd.split(key)
     ni = jnp.arange(Energies.shape[0], dtype=jnp.int32)

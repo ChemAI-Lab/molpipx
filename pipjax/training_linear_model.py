@@ -9,7 +9,7 @@ from pipjax.grad_utils import get_pip_grad
 
 def training(model_pip: Callable, X_tr: Float[Array, "..."], y_tr: Float[Array, "..."]) -> Float[Array, "..."]:
     """Simple training function for PIP models.
-    Warning: Geometries must be in Bhor Units
+    Warning: Geometries must be in Bohr Units
 
     Args:
         model_pip: Callable, Flax class to compute the PIP vectors
@@ -22,10 +22,10 @@ def training(model_pip: Callable, X_tr: Float[Array, "..."], y_tr: Float[Array, 
     rng = jax.random.PRNGKey(0)
     _, key = jax.random.split(rng)
 
-    xyz0 = X_tr[0]  # single point to initilze the PIP model
+    xyz0 = X_tr[0]  # single point to initialize the PIP model
     params_pip = model_pip.init(key, xyz0[jnp.newaxis])
 
-    # PIP vector for all training points
+    # PIP matrix training
     Pip_tr = model_pip.apply(params_pip, X_tr)
 
     # Solving the linear system of equations  PIP x = Energy
@@ -40,12 +40,12 @@ def training_w_gradients(model_pip: Callable,
                          F_tr: Float[Array, "..."],
                          y_tr: Float[Array, "..."]) -> Float[Array, "..."]:
     """Simple training function for PIP models with Forces.
-    Warning: Geometries must be in Bhor Units and Forces in Ha/Bhorn Units
+    Warning: Geometries must be in Bohr Units and Forces in Ha/Bohr Units
 
     Args:
         model_pip: Callable, Flax class to compute the PIP vectors
         X_tr: Training Geometries, (batch,number of atoms, 3) 
-        F_tr: Training Forces, (batch, numer of atoms, 3)
+        F_tr: Training Forces, (batch, number of atoms, 3)
         y_tr: Training Energies, (batch,1)
 
     Returns:
@@ -62,7 +62,7 @@ def training_w_gradients(model_pip: Callable,
     x0_pip = model_pip.apply(params_pip, xyz0[jnp.newaxis])
     n_pip = x0_pip.shape[1]
 
-    # Training data
+    # Training PIP matrix
     Pip_tr = model_pip.apply(params_pip, X_tr)
     GPIP_tr = get_pip_grad(model_pip.apply, X_tr, params_pip)
 
@@ -78,20 +78,3 @@ def training_w_gradients(model_pip: Callable,
     results_w_grad = jnp.linalg.lstsq(Pip_tr_w_grad_full, y_tr_w_grad_full)
     theta = results_w_grad[0]
     return theta
-
-
-def flax_params(w: Float[Array, '...'], params: PyTree) -> PyTree:
-    """Array to Flax PyTree parameters
-
-    Args:
-        w (Float[Array]): Array with linear parameters for PIP
-        params (PyTree): Flax PyTree parameters
-
-    Returns:
-        PyTree: Updated Flax PyTree parameters
-    """
-
-    w_base = params['params']['Dense_0']['kernel']
-    w = jnp.reshape(w, w_base.shape)
-    params['params']['Dense_0']['kernel'] = w
-    return params

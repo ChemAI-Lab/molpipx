@@ -72,3 +72,37 @@ def mae_loss(predictions: Float[Array, "dim1"], targets: Float[Array, "dim1"]) -
         Float: mean absolute error
     """
     return jnp.mean(jnp.abs(predictions-targets))
+
+
+def flax_params(w: Float[Array, '...'], params: PyTree) -> PyTree:
+    """Array to Flax PyTree parameters
+
+    Args:
+        w (Float[Array]): Array with linear parameters for PIP
+        params (PyTree): Flax PyTree parameters
+
+    Returns:
+        PyTree: Updated Flax PyTree parameters
+    """
+
+    w_base = params['params']['Dense_0']['kernel']
+    w = jnp.reshape(w, w_base.shape)
+    params['params']['Dense_0']['kernel'] = w
+    return params
+
+
+def flax_params_aniso(l: Float[Array, '...'], params: PyTree) -> PyTree:
+    """Array to Flax PyTree parameters
+    warning: only works for the anisotropic PIP, atom-atom type length scale parameters
+
+    Args:
+        l (Float[Array]): Array with length scale parameters
+        params (PyTree): Flax PyTree parameters
+
+    Returns:
+        PyTree: Updated Flax PyTree parameters
+    """
+    l_base = params['params']['VmapJitPIPAniso_0']['lambda']
+    l = jnp.reshape(l, l_base.shape)
+    params['params']['VmapJitPIPAniso_0']['lambda'] = l
+    return params
