@@ -34,7 +34,7 @@ def get_mask(atom_types):
             else:
                 maski.append(0.)
         mask.append(maski)
-    return jnp.array(mask, dtype=jnp.float32)
+    return jnp.array(mask, dtype=jnp.float32), unique_pairs_
 
 
 @nn.jit
@@ -81,7 +81,7 @@ class PIPAniso(nn.Module):
         morse = jnp.exp(-1*jnp.sum(morse_, axis=0))
 
         # mono = f_mono(morse)
-        # compute PIP vector, morse is computed insed f_pip
+        # compute PIP vector, morse is computed inside f_pip
         pip = f_poly(morse)
         return pip
 

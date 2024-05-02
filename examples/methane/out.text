@@ -1,0 +1,259 @@
+{'params': {'VmapJitPIPAniso_0': {'lambda': Array([0.5413248, 0.5413248], dtype=float32)}}}
+(2, 30)
+{'params': {'Dense_0': {'kernel': Array([[ 0.11259066],
+       [-0.36451352],
+       [ 0.34924597],
+       [ 0.32477313],
+       [-0.16053773],
+       [-0.04156984],
+       [-0.14751948],
+       [-0.3737869 ],
+       [ 0.15433332],
+       [ 0.34224874],
+       [-0.05897916],
+       [-0.32168746],
+       [-0.06582695],
+       [ 0.18156654],
+       [ 0.0261033 ],
+       [ 0.12183518],
+       [-0.1231598 ],
+       [-0.02898795],
+       [-0.33764586],
+       [ 0.13511756],
+       [-0.23357956],
+       [ 0.01978089],
+       [ 0.05865089],
+       [ 0.02172922],
+       [ 0.12642488],
+       [ 0.26689187],
+       [ 0.01075803],
+       [ 0.17837593],
+       [-0.01628433],
+       [ 0.20572126]], dtype=float32)}, 'VmapJitPIPAniso_0': {'lambda': Array([0.5413248, 0.5413248], dtype=float32)}}}
+[[1.7644291]
+ [1.540358 ]]
+caca
+6.176976
+(Array([[-6.672781],
+       [75.393036]], dtype=float32),)
+caca
+caca
+caca
+caca
+caca
+caca
+caca
+Traced<ConcreteArray([[1.650537 ]
+ [0.4632307]], dtype=float32)>with<JVPTrace(level=2/0)> with
+  primal = Array([[1.650537 ],
+       [0.4632307]], dtype=float32)
+  tangent = Traced<ShapedArray(float32[2,1])>with<JaxprTrace(level=1/0)> with
+    pval = (ShapedArray(float32[2,1]), None)
+    recipe = JaxprEqnRecipe(eqn_id=<object object at 0x7fb8e4664ac0>, in_tracers=(Traced<ConcreteArray([[1.650537 ]
+ [0.4632307]], dtype=float32):JaxprTrace(level=1/0)>, Traced<ShapedArray(float32[2,1]):JaxprTrace(level=1/0)>), out_tracer_refs=[<weakref at 0x7fb7be13ce00; to 'JaxprTracer' at 0x7fb7be13c950>], out_avals=[ShapedArray(float32[2,1])], primitive=tie, params={}, effects=frozenset(), source_info=SourceInfo(traceback=<jaxlib.xla_extension.Traceback object at 0x7fb8e42c91b0>, name_stack=NameStack(stack=()))) LbfgsState(iter_num=Array(1, dtype=int32, weak_type=True), value=Traced<ConcreteArray(0.3283001780509949, dtype=float32)>with<JVPTrace(level=2/0)> with
+  primal = Array(0.32830018, dtype=float32)
+  tangent = Traced<ShapedArray(float32[])>with<JaxprTrace(level=1/0)> with
+    pval = (ShapedArray(float32[]), None)
+    recipe = JaxprEqnRecipe(eqn_id=<object object at 0x7fb8e46644b0>, in_tracers=(Traced<ConcreteArray(0.3283001780509949, dtype=float32):JaxprTrace(level=1/0)>, Traced<ShapedArray(float32[]):JaxprTrace(level=1/0)>), out_tracer_refs=[<weakref at 0x7fb7be13cae0; to 'JaxprTracer' at 0x7fb7be13cb30>], out_avals=[ShapedArray(float32[])], primitive=tie, params={}, effects=frozenset(), source_info=SourceInfo(traceback=<jaxlib.xla_extension.Traceback object at 0x7fb8e429d730>, name_stack=NameStack(stack=()))), grad=Traced<ConcreteArray([[-3.3530958]
+ [-1.5897403]], dtype=float32)>with<JVPTrace(level=2/0)> with
+  primal = Array([[-3.3530958],
+       [-1.5897403]], dtype=float32)
+  tangent = Traced<ShapedArray(float32[2,1])>with<JaxprTrace(level=1/0)> with
+    pval = (ShapedArray(float32[2,1]), None)
+    recipe = JaxprEqnRecipe(eqn_id=<object object at 0x7fb8e4664650>, in_tracers=(Traced<ConcreteArray([[-3.3530958]
+ [-1.5897403]], dtype=float32):JaxprTrace(level=1/0)>, Traced<ShapedArray(float32[2,1]):JaxprTrace(level=1/0)>), out_tracer_refs=[<weakref at 0x7fb7be13c0e0; to 'JaxprTracer' at 0x7fb7be13c130>], out_avals=[ShapedArray(float32[2,1])], primitive=tie, params={}, effects=frozenset(), source_info=SourceInfo(traceback=<jaxlib.xla_extension.Traceback object at 0x7fb8e429d6b0>, name_stack=NameStack(stack=()))), stepsize=Traced<ConcreteArray(0.011087780818343163, dtype=float32)>with<JVPTrace(level=2/0)> with
+  primal = Array(0.01108778, dtype=float32)
+  tangent = Traced<ShapedArray(float32[])>with<JaxprTrace(level=1/0)> with
+    pval = (ShapedArray(float32[]), None)
+    recipe = JaxprEqnRecipe(eqn_id=<object object at 0x7fb8e4664500>, in_tracers=(Traced<ConcreteArray(0.011087780818343163, dtype=float32):JaxprTrace(level=1/0)>, Traced<ShapedArray(float32[]):JaxprTrace(level=1/0)>), out_tracer_refs=[<weakref at 0x7fb7be13c3b0; to 'JaxprTracer' at 0x7fb7be13c2c0>], out_avals=[ShapedArray(float32[])], primitive=tie, params={}, effects=frozenset(), source_info=SourceInfo(traceback=<jaxlib.xla_extension.Traceback object at 0x7fb8e429b470>, name_stack=NameStack(stack=()))), error=Traced<ConcreteArray(3.7108657360076904, dtype=float32)>with<JVPTrace(level=2/0)> with
+  primal = Array(3.7108657, dtype=float32)
+  tangent = Traced<ShapedArray(float32[])>with<JaxprTrace(level=1/0)> with
+    pval = (ShapedArray(float32[]), None)
+    recipe = JaxprEqnRecipe(eqn_id=<object object at 0x7fb8e4664cb0>, in_tracers=(Traced<ConcreteArray(3.7108657360076904, dtype=float32):JaxprTrace(level=1/0)>, Traced<ShapedArray(float32[]):JaxprTrace(level=1/0)>), out_tracer_refs=[<weakref at 0x7fb7be13c540; to 'JaxprTracer' at 0x7fb7be13c7c0>], out_avals=[ShapedArray(float32[])], primitive=tie, params={}, effects=frozenset(), source_info=SourceInfo(traceback=<jaxlib.xla_extension.Traceback object at 0x7fb8e429b730>, name_stack=NameStack(stack=()))), s_history=Traced<ConcreteArray([[[ 0.07398629]
+  [-0.83594143]]
+
+ [[ 0.        ]
+  [ 0.        ]]
+
+ [[ 0.        ]
+  [ 0.        ]]
+
+ [[ 0.        ]
+  [ 0.        ]]
+
+ [[ 0.        ]
+  [ 0.        ]]
+
+ [[ 0.        ]
+  [ 0.        ]]
+
+ [[ 0.        ]
+  [ 0.        ]]
+
+ [[ 0.        ]
+  [ 0.        ]]
+
+ [[ 0.        ]
+  [ 0.        ]]
+
+ [[ 0.        ]
+  [ 0.        ]]], dtype=float32)>with<JVPTrace(level=2/0)> with
+  primal = Array([[[ 0.07398629],
+        [-0.83594143]],
+
+       [[ 0.        ],
+        [ 0.        ]],
+
+       [[ 0.        ],
+        [ 0.        ]],
+
+       [[ 0.        ],
+        [ 0.        ]],
+
+       [[ 0.        ],
+        [ 0.        ]],
+
+       [[ 0.        ],
+        [ 0.        ]],
+
+       [[ 0.        ],
+        [ 0.        ]],
+
+       [[ 0.        ],
+        [ 0.        ]],
+
+       [[ 0.        ],
+        [ 0.        ]],
+
+       [[ 0.        ],
+        [ 0.        ]]], dtype=float32)
+  tangent = Traced<ShapedArray(float32[10,2,1])>with<JaxprTrace(level=1/0)> with
+    pval = (ShapedArray(float32[10,2,1]), None)
+    recipe = JaxprEqnRecipe(eqn_id=<object object at 0x7fb8e4664b20>, in_tracers=(Traced<ConcreteArray([[[ 0.07398629]
+  [-0.83594143]]
+
+ [[ 0.        ]
+  [ 0.        ]]
+
+ [[ 0.        ]
+  [ 0.        ]]
+
+ [[ 0.        ]
+  [ 0.        ]]
+
+ [[ 0.        ]
+  [ 0.        ]]
+
+ [[ 0.        ]
+  [ 0.        ]]
+
+ [[ 0.        ]
+  [ 0.        ]]
+
+ [[ 0.        ]
+  [ 0.        ]]
+
+ [[ 0.        ]
+  [ 0.        ]]
+
+ [[ 0.        ]
+  [ 0.        ]]], dtype=float32):JaxprTrace(level=1/0)>, Traced<ShapedArray(float32[10,2,1]):JaxprTrace(level=1/0)>), out_tracer_refs=[<weakref at 0x7fb8e41f5180; to 'JaxprTracer' at 0x7fb8e41f5090>], out_avals=[ShapedArray(float32[10,2,1])], primitive=tie, params={}, effects=frozenset(), source_info=SourceInfo(traceback=<jaxlib.xla_extension.Traceback object at 0x7fb8e429b530>, name_stack=NameStack(stack=()))), y_history=Traced<ConcreteArray([[[  3.3196852]
+  [-76.98277  ]]
+
+ [[  0.       ]
+  [  0.       ]]
+
+ [[  0.       ]
+  [  0.       ]]
+
+ [[  0.       ]
+  [  0.       ]]
+
+ [[  0.       ]
+  [  0.       ]]
+
+ [[  0.       ]
+  [  0.       ]]
+
+ [[  0.       ]
+  [  0.       ]]
+
+ [[  0.       ]
+  [  0.       ]]
+
+ [[  0.       ]
+  [  0.       ]]
+
+ [[  0.       ]
+  [  0.       ]]], dtype=float32)>with<JVPTrace(level=2/0)> with
+  primal = Array([[[  3.3196852],
+        [-76.98277  ]],
+
+       [[  0.       ],
+        [  0.       ]],
+
+       [[  0.       ],
+        [  0.       ]],
+
+       [[  0.       ],
+        [  0.       ]],
+
+       [[  0.       ],
+        [  0.       ]],
+
+       [[  0.       ],
+        [  0.       ]],
+
+       [[  0.       ],
+        [  0.       ]],
+
+       [[  0.       ],
+        [  0.       ]],
+
+       [[  0.       ],
+        [  0.       ]],
+
+       [[  0.       ],
+        [  0.       ]]], dtype=float32)
+  tangent = Traced<ShapedArray(float32[10,2,1])>with<JaxprTrace(level=1/0)> with
+    pval = (ShapedArray(float32[10,2,1]), None)
+    recipe = JaxprEqnRecipe(eqn_id=<object object at 0x7fb8e4664760>, in_tracers=(Traced<ConcreteArray([[[  3.3196852]
+  [-76.98277  ]]
+
+ [[  0.       ]
+  [  0.       ]]
+
+ [[  0.       ]
+  [  0.       ]]
+
+ [[  0.       ]
+  [  0.       ]]
+
+ [[  0.       ]
+  [  0.       ]]
+
+ [[  0.       ]
+  [  0.       ]]
+
+ [[  0.       ]
+  [  0.       ]]
+
+ [[  0.       ]
+  [  0.       ]]
+
+ [[  0.       ]
+  [  0.       ]]
+
+ [[  0.       ]
+  [  0.       ]]], dtype=float32):JaxprTrace(level=1/0)>, Traced<ShapedArray(float32[10,2,1]):JaxprTrace(level=1/0)>), out_tracer_refs=[<weakref at 0x7fb8e41f53b0; to 'JaxprTracer' at 0x7fb8e41f5360>], out_avals=[ShapedArray(float32[10,2,1])], primitive=tie, params={}, effects=frozenset(), source_info=SourceInfo(traceback=<jaxlib.xla_extension.Traceback object at 0x7fb8e429b970>, name_stack=NameStack(stack=()))), rho_history=Traced<ConcreteArray([0.01548019 0.         0.         0.         0.         0.
+ 0.         0.         0.         0.        ], dtype=float32)>with<JVPTrace(level=2/0)> with
+  primal = Array([0.01548019, 0.        , 0.        , 0.        , 0.        ,
+       0.        , 0.        , 0.        , 0.        , 0.        ],      dtype=float32)
+  tangent = Traced<ShapedArray(float32[10])>with<JaxprTrace(level=1/0)> with
+    pval = (ShapedArray(float32[10]), None)
+    recipe = JaxprEqnRecipe(eqn_id=<object object at 0x7fb8e46641f0>, in_tracers=(Traced<ConcreteArray([0.01548019 0.         0.         0.         0.         0.
+ 0.         0.         0.         0.        ], dtype=float32):JaxprTrace(level=1/0)>, Traced<ShapedArray(float32[10]):JaxprTrace(level=1/0)>), out_tracer_refs=[<weakref at 0x7fb8e41fbef0; to 'JaxprTracer' at 0x7fb8e41fbf40>], out_avals=[ShapedArray(float32[10])], primitive=tie, params={}, effects=frozenset(), source_info=SourceInfo(traceback=<jaxlib.xla_extension.Traceback object at 0x7fb8e429baf0>, name_stack=NameStack(stack=()))), gamma=Traced<ConcreteArray(0.010880024172365665, dtype=float32)>with<JVPTrace(level=2/0)> with
+  primal = Array(0.01088002, dtype=float32)
+  tangent = Traced<ShapedArray(float32[])>with<JaxprTrace(level=1/0)> with
+    pval = (ShapedArray(float32[]), None)
+    recipe = JaxprEqnRecipe(eqn_id=<object object at 0x7fb8e4664d90>, in_tracers=(Traced<ConcreteArray(0.010880024172365665, dtype=float32):JaxprTrace(level=1/0)>, Traced<ShapedArray(float32[]):JaxprTrace(level=1/0)>), out_tracer_refs=[<weakref at 0x7fb7bdcd1220; to 'JaxprTracer' at 0x7fb7bdcd11d0>], out_avals=[ShapedArray(float32[])], primitive=tie, params={}, effects=frozenset(), source_info=SourceInfo(traceback=<jaxlib.xla_extension.Traceback object at 0x7fb8e42dc6f0>, name_stack=NameStack(stack=()))), aux=None, failed_linesearch=Array(False, dtype=bool), num_fun_eval=Array(7, dtype=int32), num_grad_eval=Array(7, dtype=int32), num_linesearch_iter=Array(5, dtype=int32))

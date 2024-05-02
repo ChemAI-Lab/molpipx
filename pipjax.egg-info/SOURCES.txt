@@ -2,10 +2,14 @@ README.md
 setup.py
 pipjax/__init__.py
 pipjax/grad_utils.py
+pipjax/load_pip.py
+pipjax/pip_anisotropic_flax.py
 pipjax/pip_flax.py
 pipjax/pip_generator.py
-pipjax/training_utils.py
+pipjax/trainig_anisotropic_model.py
+pipjax/training_linear_model.py
 pipjax/utils.py
+pipjax/utils_training.py
 pipjax.egg-info/PKG-INFO
 pipjax.egg-info/SOURCES.txt
 pipjax.egg-info/dependency_links.txt

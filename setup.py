@@ -24,7 +24,7 @@ setup(
         'jaxopt',
         'optax>0.1.7',
         'orbax-checkpoint>0.4.4',
-        'gpjax',
+        #'gpjax',
     ],
     python_requires='>=3.6',
     keywords="jax, pip, computational chemistry, pes, potential energy surface, force field",

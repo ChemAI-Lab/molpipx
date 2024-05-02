@@ -49,7 +49,7 @@ class PIP(nn.Module):
         morse = jnp.exp(-l*d)  # comput morse variables
 
         # mono = f_mono(morse)
-        # compute PIP vector, morse is computed insed f_pip
+        # compute PIP vector, morse is computed inside f_pip
         pip = f_poly(morse)
         return pip
 

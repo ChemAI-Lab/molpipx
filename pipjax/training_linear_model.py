@@ -4,10 +4,12 @@ import jax.numpy as jnp
 from jax import lax, jit
 from jaxtyping import Array, Float, PyTree, Key
 
-from pipjax.grad_utils import get_pip_grad
+from pipjax.utils_gradients import get_pip_grad
 
 
-def training(model_pip: Callable, X_tr: Float[Array, "..."], y_tr: Float[Array, "..."]) -> Float[Array, "..."]:
+def training(model_pip: Callable,
+             X_tr: Float[Array, "..."],
+             y_tr: Float[Array, "..."]) -> Float[Array, "..."]:
     """Simple training function for PIP models.
     Warning: Geometries must be in Bohr Units
 

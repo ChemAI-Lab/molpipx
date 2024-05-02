@@ -16,7 +16,7 @@ def f_monomial_flag_0(x):
     return j
 
 
-def create_f_monomials(file_mono, file_label):
+def create_f_monomials(file_mono: str, file_label: str):
 
     f_out_monomials = 'monomials_{}.py'.format(file_label)
     f_out_monomials = os.path.join(_path, f_out_monomials)
@@ -33,8 +33,16 @@ def create_f_monomials(file_mono, file_label):
     Lines = f.readlines()
     n_mono = len(Lines)
     index = 0
-    while Lines[index][0] == '0':
-        index += 1
+    # old
+    # while Lines[index][0] == '0':
+    #     print(index)
+    #     index += 1
+
+    # new
+    for l in Lines:
+        if l[0] == '0':
+            index += 1
+
     zeros, ones = (Lines[:index], Lines[index:])
     offset = len(zeros)
     N_DISTANCES = offset - 1
@@ -95,7 +103,7 @@ def create_f_monomials(file_mono, file_label):
 #   READ POLYNOMIALS
 
 
-def create_f_polynomials(file_poly, file_label):
+def create_f_polynomials(file_poly: str, file_label: str, parents_path: str = ''):
     f_out_polynomials = 'polynomials_{}.py'.format(file_label)
     f_out_polynomials = os.path.join(_path, f_out_polynomials)
 
@@ -105,7 +113,7 @@ def create_f_polynomials(file_poly, file_label):
     f_out.write('from jax import jit\n')
     f_out.write('\n')
     f_out.write(
-        'from monomials_{} import f_monomials as f_monos \n'.format(file_label))
+        'from {}.monomials_{} import f_monomials as f_monos \n'.format(parents_path, file_label))
     f_out.write('\n')
     f_out.write('\n')
     f_out.write('# File created from {} \n'.format(file_poly))
@@ -188,7 +196,7 @@ def create_f_polynomials(file_poly, file_label):
 
 
 # ----------------------------------------------------------------------------------------
-def msa_file_generator(filename: str, path: str = './', label: str = None):
+def msa_file_generator(filename: str, path: str = './', label: str = None, parents_path: str = ''):
 
     global _path
     _path = path
@@ -202,6 +210,7 @@ def msa_file_generator(filename: str, path: str = './', label: str = None):
     file_poly = '{}.POLY'.format(f_head)
 
     if not os.path.isfile(file_mono):
+        print(file_mono)
         print('File {} does not exist!'.format(file_mono))
         assert 0
     if not os.path.isfile(file_poly):
@@ -212,7 +221,7 @@ def msa_file_generator(filename: str, path: str = './', label: str = None):
     create_f_monomials(file_mono, f_label)
 
 #     construct polynomials
-    create_f_polynomials(file_poly, f_label)
+    create_f_polynomials(file_poly, f_label, parents_path)
 
 
 def main():
