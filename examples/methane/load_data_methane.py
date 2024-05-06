@@ -68,7 +68,7 @@ def read_geometry_energy(filename: str = '/home/r/ravh011/ravh011/PIPMSA_jax/Dat
     energies = np.array(energies)
     geometries_and_forces = np.array(geometries)
     geometries = geometries_and_forces[:, :, 0:3]
-    forces = geometries_and_forces[:, :, 3:]  # *ang_to_bohr
+    forces = geometries_and_forces[:, :, 3:] / ang_to_bohr
     if energy_normalization:
         e_min, e_max = np.min(energies), np.max(energies)
         energies = (energies - e_min) / (e_max - e_min)

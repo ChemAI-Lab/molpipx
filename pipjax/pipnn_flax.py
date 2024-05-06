@@ -12,6 +12,7 @@ from pipjax.utils import all_distances, softplus_inverse, morse_variables
 from pipjax.pip_flax import PIPlayer
 
 
+@nn.jit
 class MLP(nn.Module):
     features: Tuple[int]
     act_fun: Callable = nn.tanh
@@ -32,6 +33,7 @@ class MLP(nn.Module):
         return self.last_layer(z)
 
 
+@nn.jit
 class PIPNN(nn.Module):
     f_mono: Callable
     f_poly: Callable
