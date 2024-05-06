@@ -6,6 +6,7 @@ from .utils_training import split_train_and_test_data, split_train_and_test_data
 from .utils import *
 from .pip_anisotropic_flax import *
 from .load_pip import get_functions, detect_molecule
+from .pipnn_flax import PIPNN
 
 import sys
 sys.path.append('. /')
