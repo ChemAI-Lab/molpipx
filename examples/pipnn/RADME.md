@@ -1,32 +1,10 @@
-from absl import app
-from absl import flags
-from absl import logging
-from clu import platform
-import jax
+### PIP-NN Training tutorial ###
+In this tutorial we show how to train a PIP neural network from scratch.<br>
+We will use methane as example. 
 
-import argparse
-from ml_collections import config_flags, config_dict
+The ```main.py``` file contains the following ```argparse```,
 
-from train import train_and_evaluate
-
-
-def get_default_config():
-    """Get the default hyperparameter configuration."""
-    config = config_dict.ConfigDict()
-
-    config.learning_rate = 0.1
-    config.batch_size = 128
-    config.num_epochs = 100
-    config.molecule = 'A4B'
-    config.poly_degree = 3
-    config.n_layers = 2
-    config.n_neurons = 128
-#   config.features = (128,128,)
-    config.ntr = 1000
-    config.nval = 1000
-    config.ntst = 2000
-    return config
-
+```python
 
 def parse_args():
     parser = argparse.ArgumentParser(
@@ -59,32 +37,40 @@ def parse_args():
     return parser.parse_args()
 
 
-def merge_configs():
-    import os
-    config = get_default_config()
-    args = parse_args()
+```
 
-    # Update the configuration with any non-None values from the command line arguments
-    for key, value in vars(args).items():
-        if value is not None:
-            setattr(config, key, value)
+The main training code can be executed from terminal,
+```bash
+python main.py --workdir /directory/path
+```
+Another hyper-prameters from the default one can be considered, for example, a single layer PIPNN trained with 5000 points,
+```bash
+python main.py --workdir /directory/path --n_layers 1 --ntr 5000
+```
 
-    if args.workdir is None:
-        workdir = os.getcwd()
-    else:
-        workdir = args.workdir
-
-    return config, workdir
+The code will save the optimal parameters in the last epoch, combined with a CSV file with the information of the training trajectory, filename: ```training_trajectory_ema.csv```.
 
 
-def main():
-    config, workdir = merge_configs()
-    print("Effective Configuration:")
-    print(config)
-    print(workdir)
+The main training code is contained in the ```train.py``` file, where for methane the ```PIPNN``` model initialized the following way,
 
-    train_and_evaluate(config, workdir)
+```python
+from pipjax import PIPNN
+from pipjax import get_functions, detect_molecule, 
 
+molecule_type = 'A4B' # molecular symmetry
+na = 5 #number of atoms
+poly_degree = 3 # polynomial degree for PIP
+features = (128,128,) # number of neurons per layer
 
-if __name__ == "__main__":
-    main()
+# load f_mono and f_poly functions from PIPx
+f_mono, f_poly = get_functions(molecule_type, poly_degree)
+
+# PIPNN model in flax
+pipnn = PIPNN(f_mono, f_poly, features,)
+
+x0 = jnp.ones([1, na, 3]) #dummy geometry for methane
+params = pipnn.init(rng, x0)['params']
+
+# energy prediction
+y = pipnn.apply(params,x0)
+```
