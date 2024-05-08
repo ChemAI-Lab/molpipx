@@ -37,9 +37,9 @@ class MLP(nn.Module):
 class PIPNN(nn.Module):
     f_mono: Callable
     f_poly: Callable
-    features: Tuple[int]
+    features: Tuple[int]  # fetures per layer in Tuple
     l: float = float(1.)
-    act_fun: Callable = nn.tanh
+    act_fun: Callable = nn.tanh  # lambda x:  f(x)
 
     def setup(self):
         self.layers = [nn.Dense(feat)
