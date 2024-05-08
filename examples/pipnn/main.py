@@ -7,16 +7,14 @@ import jax
 import argparse
 from ml_collections import config_flags, config_dict
 
-from train import train_and_evaluate
-
 
 def get_default_config():
     """Get the default hyperparameter configuration."""
     config = config_dict.ConfigDict()
 
-    config.learning_rate = 0.1
+    config.learning_rate = 2E-3
     config.batch_size = 128
-    config.num_epochs = 100
+    config.num_epochs = 500
     config.molecule = 'A4B'
     config.poly_degree = 3
     config.n_layers = 2
@@ -25,6 +23,7 @@ def get_default_config():
     config.ntr = 1000
     config.nval = 1000
     config.ntst = 2000
+    config.l0 = 0.1
     return config
 
 
@@ -55,6 +54,10 @@ def parse_args():
                         help='Number of validation examples.')
     parser.add_argument('--ntst', type=int, default=2000,
                         help='Number of test examples.')
+    parser.add_argument('--l0', type=float, default=1.,
+                        help='Relative weighting between Energy and Loss.')
+    parser.add_argument('--grad_bool', type=bool, default=False,
+                        help='If True training with Forces.')
 
     return parser.parse_args()
 
@@ -74,16 +77,21 @@ def merge_configs():
     else:
         workdir = args.workdir
 
-    return config, workdir
+    return config, workdir, args.grad_bool
 
 
 def main():
-    config, workdir = merge_configs()
+    config, workdir, bool_grad = merge_configs()
     print("Effective Configuration:")
     print(config)
     print(workdir)
 
-    train_and_evaluate(config, workdir)
+    if bool_grad:
+        from train_w_grad import train_and_evaluate
+        train_and_evaluate(config, workdir)
+    else:
+        from train import train_and_evaluate
+        train_and_evaluate(config, workdir)
 
 
 if __name__ == "__main__":

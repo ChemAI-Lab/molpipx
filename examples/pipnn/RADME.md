@@ -74,3 +74,12 @@ params = pipnn.init(rng, x0)['params']
 # energy prediction
 y = pipnn.apply(params,x0)
 ```
+
+
+Given the flexibility of JAX, we can jointly compute the energy and the froce using ```jax.value_and_grad```,
+```python
+from pipjax import get_energy_and_forces
+@jax.jit
+def f_w_grad(params, geoms): return get_energy_and_forces(
+    pipnn.apply, geoms, params)
+```
