@@ -1,3 +1,4 @@
+import os
 from absl import logging
 import ml_collections
 import numpy as onp
@@ -164,7 +165,11 @@ def train_and_evaluate(
     n_tst = config.ntst
     l0 = config.l0
 
-    # read training data
+    workdir_parms = workdir + f'_l0_{l0:.4f}'
+    if not os.path.exists(workdir_parms):
+        os.makedirs(workdir_parms)
+
+        # read training data
     train_ds, val_ds = get_datasets(n_tr, rng, n_val)
 
     rng, init_rng = jax.random.split(rng)
@@ -213,10 +218,10 @@ def train_and_evaluate(
         df = pd.concat(
             [df, pd.DataFrame(r_epoch, index=[0])], ignore_index=True)
         df.to_csv(
-            f"{workdir}/training_trajectory_ema_wgrad_l0_{l0:.3f}.csv", index=False)
+            f"{workdir}/training_trajectory_ema_wgrad_l0_{l0:.4f}.csv", index=False)
 
         # save models
         checkpoints.save_checkpoint(
-            ckpt_dir=workdir, target=state.params, step=epoch, keep=1, overwrite=True)
+            ckpt_dir=workdir_parms, target=state.params, step=epoch, keep=1, overwrite=True)
 
     return state
