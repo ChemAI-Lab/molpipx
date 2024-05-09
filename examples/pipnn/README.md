@@ -43,7 +43,7 @@ The main training code can be executed from terminal,
 ```bash
 python main.py --workdir /directory/path
 ```
-Another hyper-prameters from the default one can be considered, for example, a single layer PIPNN trained with 5000 points,
+Another hyper-parameters from the default one can be considered, for example, a single layer PIPNN trained with 5000 points,
 ```bash
 python main.py --workdir /directory/path --n_layers 1 --ntr 5000
 ```
@@ -76,7 +76,7 @@ y = pipnn.apply(params,x0)
 ```
 
 
-Given the flexibility of JAX, we can jointly compute the energy and the froce using ```jax.value_and_grad```,
+Given the flexibility of JAX, we can jointly compute the energy and the force using ```jax.value_and_grad```,
 ```python
 from pipjax import get_energy_and_forces
 @jax.jit
