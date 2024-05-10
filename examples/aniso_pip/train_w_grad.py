@@ -137,7 +137,7 @@ def train_and_evaluate(config: config_dict.ConfigDict,
                   epoch,
                   loss_tr_i,
                   loss_val_i,
-              ), nn.softplus(l0_epoch),l2_norm(jtu.tree_map(lambda x, y: x - y, l_params, l0_params)), l_params, l0_params)
+              ), nn.softplus(l0_epoch))
 
         # save to file
         l_names = ['l_' + str(i)
