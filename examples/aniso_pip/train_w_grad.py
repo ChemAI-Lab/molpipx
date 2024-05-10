@@ -15,7 +15,7 @@ from pipjax import LayerPIPAniso, EnergyPIPAniso, get_mask
 from pipjax import flax_params_aniso, flax_params
 from pipjax import mse_loss, softplus_inverse
 from pipjax import get_forces, get_f_mask, lambda_random_init
-from pipjax import get_functions, detect_molecule, split_train_and_test_data_w_forces
+from pipjax import get_functions, detect_molecule, get_pip_grad
 
 from load_data_methane import read_geometry_energy
 
@@ -44,16 +44,17 @@ def train_and_evaluate(config: config_dict.ConfigDict,
     f_mono, f_poly = get_functions(molecule_type, poly_degree)
 
     # load all CH4 data
-    X_all, _, y_all, atoms = read_geometry_energy()
+    X_all, F_all, y_all, atoms = read_geometry_energy()
     atoms = atoms[0]
 
     # split training and validation data
     i0 = 0
     rng = jax.random.PRNGKey(i0)
     _, key = jax.random.split(rng)
-    (X_tr, y_tr), (X_val, y_val) = split_train_and_test_data(
-        X_all, y_all, n_tr, key, n_val)
-    data = ((X_tr, y_tr), (X_val, y_val))
+    (X_tr, F_tr, y_tr), (X_val, F_val, y_val) = split_train_and_test_data_w_forces(
+        X_all, F_all, y_all, n_tr, key, n_val)
+    n, na, _ = X_tr.shape
+    data = ((X_tr, F_tr, y_tr), (X_val, F_val, y_val))
 
     mask, unique_pairs = get_mask(atoms)
     n_pairs = mask.shape[0]
@@ -69,24 +70,40 @@ def train_and_evaluate(config: config_dict.ConfigDict,
 
     model_energy = EnergyPIPAniso(f_mono, f_poly, f_mask, n_pairs)
     params_energy = model_energy.init(key, X_tr[:1])
-
-    # validation function
+    
     @jax.jit
     def validation_loss(params_pip, data_, params_energy):
-        (X_tr, y_tr), (X_val, y_val) = data_
+        (X_tr, F_tr, y_tr), (X_val, F_val, y_val) = data_
+        # params_pip, params_energy = params_
 
-        def inner_loss(params_pip, X_tr, y_tr):
+        # params_pip = flax_params_aniso(l, params_pip)
+        @jax.jit
+        def inner_loss(params_pip):
             Pip_tr = model_pip.apply(params_pip, X_tr)
-            results = jnp.linalg.lstsq(Pip_tr, y_tr)
-            w = results[0]
-            return w
+            n_pip = Pip_tr.shape[-1]
+            Gpip_tr = get_pip_grad(model_pip.apply, X_tr, params_pip)
+            # (bs*n_atoms*3,number of pip)
+            Gpip_tr = Gpip_tr.reshape(n*na*3, n_pip)
+            Pip_tr_w_grad_full = jax.lax.concatenate(
+            (Pip_tr, Gpip_tr), dimension=0)
 
-        w_opt = inner_loss(params_pip, X_tr, y_tr)
+            y_tr_w_grad_full = jax.lax.concatenate(
+            (y_tr, F_tr.reshape(n*na*3, 1)), dimension=0)
+
+            # Optimization
+            results_w_grad = jnp.linalg.lstsq(
+            Pip_tr_w_grad_full, y_tr_w_grad_full)
+            theta = results_w_grad[0]
+            return theta
+
+        w_opt = inner_loss(params_pip)
+        # print(w_opt)
         params_energy = flax_params(w_opt, params_energy)
         y_val_pred = model_energy.apply(params_energy, X_val)
 
         loss_val = mse_loss(y_val_pred, y_val)
-        return loss_val, (params_energy, mse_loss(model_energy.apply(params_energy, X_tr), y_tr))
+        loss_tr = mse_loss(model_energy.apply(params_energy, X_tr), y_tr)
+        return loss_val, (params_energy, loss_tr)
 
     params_all = (params_pip, params_energy)
 
@@ -134,7 +151,7 @@ def train_and_evaluate(config: config_dict.ConfigDict,
         df = pd.concat(
             [df, pd.DataFrame(r_epoch, index=[0])], ignore_index=True)
         df.to_csv(
-            f"{workdir}/training_trajectory_and_l_params.csv", index=False)
+            f"{workdir}/training_w_grad_trajectory_and_l_params.csv", index=False)
 
         if l2_norm(jtu.tree_map(lambda x, y: x + y, l_params, l0_params)) < opt_tol:
             break

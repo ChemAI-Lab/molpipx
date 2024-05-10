@@ -83,7 +83,7 @@ def main():
     # assert 0
 
     if bool_grad:
-        from train import train_and_evaluate_w_gradients as train_and_evaluate
+        from train_w_grad import train_and_evaluate
         train_and_evaluate(config, workdir)
     else:
         from train import train_and_evaluate
