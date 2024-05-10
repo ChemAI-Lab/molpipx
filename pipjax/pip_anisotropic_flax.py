@@ -1,7 +1,8 @@
-from typing import Any, Callable
+from typing import Any, Callable, Tuple
 
 import jax
 import jax.numpy as jnp
+import jax.random as jrnd
 from jax import lax, vmap
 
 from jaxtyping import Array, Float, PyTree
@@ -11,8 +12,11 @@ from flax import linen as nn
 
 from pipjax.utils import all_distances, softplus_inverse, morse_variables
 
+KeyArray = Array
+KeyArrayLike = Array
 
-def get_mask(atom_types):
+
+def get_mask(atom_types: list) -> Tuple:
     pairs_ = []
     unique_pairs_ = []
     for i in range(len(atom_types)):
@@ -37,6 +41,24 @@ def get_mask(atom_types):
     return jnp.array(mask, dtype=jnp.float32), unique_pairs_
 
 
+def get_f_mask(mask: Array) -> Callable:
+    @jax.jit
+    def f_mask(l, inputs):
+        z = jax.vmap(lambda li, di, maski: (li*maski) *
+                     di, in_axes=(0, None, 0))(l, inputs, mask)
+        return jnp.sum(z, axis=0)
+    return f_mask
+
+
+def lambda_random_init(params_pip: Any, key: KeyArray) -> Any:
+    w_l = params_pip['params']['VmapJitPIPAniso_0']['lambda']
+
+    _, key = jrnd.split(key)
+    w_rnd = jrnd.uniform(key, shape=(w_l.shape), minval=0.3, maxval=2.5)
+    params_pip['params']['VmapJitPIPAniso_0']['lambda'] = w_rnd
+    return params_pip
+
+
 @nn.jit
 class PIPAniso(nn.Module):
     """Permutationally Invariant Polynomials layer.
@@ -49,12 +71,13 @@ class PIPAniso(nn.Module):
     """
     f_mono: Callable
     f_poly: Callable
+    f_mask: Callable
     n_pairs: int = 1
     l: float = float(1.)
     bias_init: Callable = nn.initializers.constant
 
     @nn.compact
-    def __call__(self, input, mask):
+    def __call__(self, input):
         """Applies the PIP transformation to the inputs.
         Anisotropic version, where we considered different atom-atom type length scale parameter
         (warning: this function only works for a single input)
@@ -68,6 +91,7 @@ class PIPAniso(nn.Module):
         """
         f_mono = self.f_mono
         f_poly = self.f_poly
+        f_mask = self.f_mask
         _lambda = self.param('lambda',
                              # Initialization function
                              self.bias_init(softplus_inverse(self.l)),
@@ -76,9 +100,12 @@ class PIPAniso(nn.Module):
 
         d = all_distances(input)  # compute distances
 
-        morse_ = jax.vmap(lambda li, di, maski: (li*maski) *
-                          di, in_axes=(0, None, 0))(l, d, mask)
-        morse = jnp.exp(-1*jnp.sum(morse_, axis=0))
+        # morse_ = jax.vmap(lambda li, di, maski: (li*maski) *
+        #                   di, in_axes=(0, None, 0))(l, d, mask)
+        morse_ = f_mask(l, d)
+        print(morse_.shape)
+        # morse = jnp.exp(-1*jnp.sum(morse_, axis=0))
+        morse = jnp.exp(-1*morse_)
 
         # mono = f_mono(morse)
         # compute PIP vector, morse is computed inside f_pip
@@ -98,11 +125,12 @@ class LayerPIPAniso(nn.Module):
     """
     f_mono: Callable
     f_poly: Callable
+    f_mask: Callable
     n_pairs: int = 1
     l: float = float(jnp.exp(1))
 
     @nn.compact
-    def __call__(self, inputs, mask):
+    def __call__(self, inputs):
         """Applies a vectorize map to PIP.apply.
 
         Args:
@@ -114,9 +142,12 @@ class LayerPIPAniso(nn.Module):
         """
         vmap_pipblock = nn.vmap(PIPAniso, variable_axes={'params': None, },
                                 split_rngs={'params': False, },
-                                in_axes=(0, None))(self.f_mono, self.f_poly, self.n_pairs)
+                                in_axes=(0,))(self.f_mono,
+                                              self.f_poly,
+                                              self.f_mask,
+                                              self.n_pairs)
 
-        return vmap_pipblock(inputs, mask)
+        return vmap_pipblock(inputs)
 
 
 @nn.jit
@@ -130,11 +161,12 @@ class EnergyPIPAniso(nn.Module):
     """
     f_mono: Callable
     f_poly: Callable
+    f_mask: Callable
     n_pairs: int = 1
     l: float = float(jnp.exp(1))
 
     @nn.compact
-    def __call__(self, inputs, mask):
+    def __call__(self, inputs):
         """Applies the ``PIPLayer`` and a ``nn.Dense`` modules to compute the energy.
 
         Args:
@@ -146,10 +178,11 @@ class EnergyPIPAniso(nn.Module):
         """
         vmap_pipblock = nn.vmap(PIPAniso, variable_axes={'params': None, },
                                 split_rngs={'params': False, },
-                                in_axes=(0, None))(self.f_mono, self.f_poly, self.n_pairs)
+                                in_axes=(0, ))(self.f_mono, self.f_poly,
+                                               self.f_mask, self.n_pairs)
 
         layer = nn.Dense(1, use_bias=False)
 
-        pip = vmap_pipblock(inputs, mask)  # computes the pip vectors
+        pip = vmap_pipblock(inputs)  # computes the pip vectors
         energy = layer(pip)  # linear layer
         return energy
