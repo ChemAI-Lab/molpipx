@@ -55,6 +55,7 @@ def lambda_random_init(params_pip: Any, key: KeyArray) -> Any:
 
     _, key = jrnd.split(key)
     w_rnd = jrnd.uniform(key, shape=(w_l.shape), minval=0.3, maxval=2.5)
+    w_rnd = softplus_inverse(w_rnd)
     params_pip['params']['VmapJitPIPAniso_0']['lambda'] = w_rnd
     return params_pip
 
@@ -100,11 +101,7 @@ class PIPAniso(nn.Module):
 
         d = all_distances(input)  # compute distances
 
-        # morse_ = jax.vmap(lambda li, di, maski: (li*maski) *
-        #                   di, in_axes=(0, None, 0))(l, d, mask)
         morse_ = f_mask(l, d)
-        print(morse_.shape)
-        # morse = jnp.exp(-1*jnp.sum(morse_, axis=0))
         morse = jnp.exp(-1*morse_)
 
         # mono = f_mono(morse)
