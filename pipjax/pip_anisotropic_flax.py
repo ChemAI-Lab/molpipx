@@ -55,7 +55,7 @@ def lambda_random_init(params_pip: Any, key: KeyArray) -> Any:
 
     _, key = jrnd.split(key)
     w_rnd = jrnd.uniform(key, shape=(w_l.shape), minval=0.3, maxval=2.5)
-    w_rnd = softplus_inverse(w_rnd)
+    # w_rnd = softplus_inverse(w_rnd)
     params_pip['params']['VmapJitPIPAniso_0']['lambda'] = w_rnd
     return params_pip
 
@@ -67,6 +67,7 @@ class PIPAniso(nn.Module):
     Attributes:
         f_mono: callable function that returns the monomials
         f_poly: callable function that returns the polynomials
+        f_mask: callable function that returns the masked distances
         l: initial value of the morse variables length scale parameter
         bias_init: initializer function for the the l parameter
     """
@@ -118,6 +119,7 @@ class LayerPIPAniso(nn.Module):
     Attributes:
         f_mono: callable function that returns the monomials
         f_poly: callable function that returns the polynomials
+        f_mask: callable function that returns the masked distances
         l: initial value of the morse variables length scale parameter
     """
     f_mono: Callable
@@ -154,6 +156,7 @@ class EnergyPIPAniso(nn.Module):
     Attributes:
         f_mono: callable function that returns the monomials
         f_poly: callable function that returns the polynomials
+        f_mask: callable function that returns the masked distances
         l: initial value of the morse variables length scale parameter
     """
     f_mono: Callable
