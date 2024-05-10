@@ -28,7 +28,6 @@ def get_number_of_atoms(molecule_dict):
         na += molecule_dict[k]
     return na
 
-
 def train_and_evaluate(config: config_dict.ConfigDict,
                        workdir: str,):
 
@@ -138,7 +137,7 @@ def train_and_evaluate(config: config_dict.ConfigDict,
                   epoch,
                   loss_tr_i,
                   loss_val_i,
-              ), nn.softplus(l0_epoch))
+              ), nn.softplus(l0_epoch),l2_norm(jtu.tree_map(lambda x, y: x - y, l_params, l0_params)), l_params, l0_params)
 
         # save to file
         l_names = ['l_' + str(i)
@@ -153,7 +152,7 @@ def train_and_evaluate(config: config_dict.ConfigDict,
         df.to_csv(
             f"{workdir}/training_w_grad_trajectory_and_l_params.csv", index=False)
 
-        if l2_norm(jtu.tree_map(lambda x, y: x + y, l_params, l0_params)) < opt_tol:
+        if l2_norm(jtu.tree_map(lambda x, y: x - y, l_params, l0_params)) < opt_tol:
             break
 
     return params_e

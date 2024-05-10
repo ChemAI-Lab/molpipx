@@ -47,7 +47,7 @@ def parse_args():
                         help='Number of validation examples.')
     parser.add_argument('--ntst', type=int, default=2000,
                         help='Number of test examples.')
-    parser.add_argument('--opt_tol', type=float, default=1E-4,
+    parser.add_argument('--opt_tol', type=float, default=1E-3,
                         help='Tolerance parameters.')
     parser.add_argument('--grad_bool', type=bool, default=False,
                         help='If True training with Forces.')
