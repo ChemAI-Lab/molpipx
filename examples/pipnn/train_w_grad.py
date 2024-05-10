@@ -41,7 +41,7 @@ def apply_model_training(state, geometries, force_true, e_true, l0):
         loss_e = mse_loss(e_pred, e_true)
         loss_f = jnp.linalg.norm(f_pred - force_true)
 
-        return loss_e + l0*loss_f, (loss_e, loss_f)
+        return l0*loss_e + loss_f, (loss_e, loss_f)
 
     grad_fn = jax.value_and_grad(loss_fn, has_aux=True)
     (loss, (loss_e, loss_f)), grads = grad_fn(state.params)
