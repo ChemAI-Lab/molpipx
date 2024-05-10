@@ -114,8 +114,11 @@ def train_and_evaluate_w_gradients(config: config_dict.ConfigDict,
     loss_energy_tr = mse_loss(y_pred_tr, y_tr)
     loss_energy_val = mse_loss(y_pred_val, y_val)
 
-    loss_force_tr = mse_loss(F_pred_tr, F_tr)
-    loss_force_val = mse_loss(F_pred_val, F_val)
+    # loss_force_tr = mse_loss(F_pred_tr, F_tr)
+    # loss_force_val = mse_loss(F_pred_val, F_val)
+
+    loss_force_tr = jnp.linalg.norm(F_pred_tr - F_tr)
+    loss_force_val = jnp.linalg.norm(F_pred_val - F_val)
     print(n_tr, loss_energy_tr, loss_energy_val, loss_force_tr, loss_force_val)
 
     results = {'X_tr': X_tr, 'F_tr': F_tr, 'y_tr': y_tr, 'y_pred_tr': y_pred_tr, 'F_pred_tr': F_pred_tr,
