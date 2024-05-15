@@ -69,18 +69,11 @@ y = pip.apply(params,x0)
 Other value of the **Morse variable** can be used during the initialization of the model,
 ```python
 
-l = jnp.array(2.)
+l = jnp.array(2.) # new parameter value
 l0 = nn.softplus(l) 
 pip = PIP(f_mono, f_poly,l0)
 ```
 
-Given the flexibility of JAX, we can jointly compute the energy and the force using ```jax.value_and_grad```,
-```python
-from pipjax import get_energy_and_forces
-@jax.jit
-def f_w_grad(params, geoms): return get_energy_and_forces(
-    pipnn.apply, geoms, params)
-```
 
 ## Training parameters ##
 
@@ -94,8 +87,25 @@ model_energy = EnergyPIP(f_mono, f_poly)
 params = model_energy.init(key, X_tr[:1])
 
 # training
-w = training(model_pip, X_tr, y_tr)  # jnp.array
-params = flax_params(w, params)  # transform to Pytree
+w = training(model_pip, X_tr, y_tr)  # Array
+params_opt = flax_params(w, params)  # Array to Pytree
 ```
 the function ```flax_params()``` copies the parameters to the Pytree object that is used in flax.
+
+
+## Energy and forces ##
+Given the flexibility of JAX, we can jointly compute the energy and the force using ```jax.value_and_grad```,
+<!-- ```python
+from pipjax import get_energy_and_forces
+@jax.jit
+def f_w_grad(params, geoms): return get_energy_and_forces(
+    pipnn.apply, geoms, params)
+``` -->
+```python
+from pipjax import get_energy_and_forces
+
+e_pip_model = EnergyPIP(f_mono, f_poly) # linear PIP model
+y = e_pip_model.apply(params_opt, X) # only energy 
+y, f = get_energy_and_forces(e_pip_model.apply, X, params_opt) # energy and forces
+```
 
