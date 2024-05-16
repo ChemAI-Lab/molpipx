@@ -206,14 +206,15 @@ def plotting(bs=100, jit_style='jitting'):
         plt.ticklabel_format(style='sci', axis='y', scilimits=(0, 0))
         plt.ylabel('Time [s]', fontsize=16)
     # g.despine(left=True)
+    plt.grid(False)
     plt.tight_layout()
     path = '/scratch/r/ravh011/ravh011/pipjax_test'
     if jit_style == 'jitting':
         plt.savefig(
-            f"{path}/pip_value_and_grad_{str(bs)}_jitting2.png", dpi=600)
+            f"{path}/pip_value_and_grad_{str(bs)}_jitting3.png", dpi=600)
     elif jit_style == 'jitted':
         plt.savefig(
-            f"{path}/pip_value_and_grad_{str(bs)}_jitted2.png", dpi=600)
+            f"{path}/pip_value_and_grad_{str(bs)}_jitted3.png", dpi=600)
 
 
 def list_of_strings(arg):

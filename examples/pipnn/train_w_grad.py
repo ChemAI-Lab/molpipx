@@ -8,10 +8,10 @@ import jax
 import jax.numpy as jnp
 import jax.random as jrnd
 
-from pipjax import PIPNN
-from pipjax import mse_loss, mae_loss
-from pipjax import get_functions, detect_molecule, split_train_and_test_data_w_forces
-from pipjax import get_energy_and_forces
+from pipx import PIPNN
+from pipx import mse_loss, mae_loss
+from pipx import get_functions, detect_molecule, split_train_and_test_data_w_forces
+from pipx import get_energy_and_forces
 
 from jaxtyping import (
     Array,

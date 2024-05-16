@@ -5,7 +5,7 @@ from setuptools import find_packages
 from setuptools import setup
 
 setup(
-    name='pipjax',
+    name='pipx',
     packages=find_packages(),
     version='0.1',
     description='Permutationally Invariant Polynomials in JAX',
