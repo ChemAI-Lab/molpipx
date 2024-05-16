@@ -4,14 +4,12 @@ from ml_collections import config_dict
 import jax
 import jax.numpy as jnp
 
-from pipjax import training, training_w_gradients
-from pipjax import split_train_and_test_data, split_train_and_test_data_w_forces
-from pipjax import PIPlayer as PIP
-from pipjax import EnergyPIP
-from pipjax import flax_params
-from pipjax import mse_loss
-from pipjax import get_forces
-from pipjax import get_functions, detect_molecule, split_train_and_test_data_w_forces
+from pipx import EnergyPIP, PIPlayer as PIP
+from pipx import training, training_w_gradients, get_forces
+from pipx import split_train_and_test_data, split_train_and_test_data_w_forces
+from pipx import flax_params
+from pipx import mse_loss
+from pipx import get_functions, detect_molecule
 
 from load_data_methane import read_geometry_energy
 
