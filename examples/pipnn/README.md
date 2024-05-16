@@ -77,9 +77,17 @@ y = pipnn.apply(params,x0)
 
 
 Given the flexibility of JAX, we can jointly compute the energy and the force using ```jax.value_and_grad```,
-```python
+<!-- ```python
 from pipjax import get_energy_and_forces
 @jax.jit
 def f_w_grad(params, geoms): return get_energy_and_forces(
     pipnn.apply, geoms, params)
+``` -->
+
+```python
+from pipjax import get_energy_and_forces
+
+y, f = get_energy_and_forces(pipnn.apply, X, params_opt) # energy and forces
 ```
+
+See [train_and_evaluate](train.py), and with forces [train_and_evaluate](train_w_grad.py), for training a PIP-NN using Optax.
