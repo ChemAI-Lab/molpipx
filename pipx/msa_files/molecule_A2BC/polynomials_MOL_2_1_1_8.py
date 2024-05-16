@@ -2,7 +2,7 @@ import jax
 import jax.numpy as jnp 
 from jax import jit
 
-from pipjax.msa_files.molecule_A2BC.monomials_MOL_2_1_1_8 import f_monomials as f_monos 
+from pipx.msa_files.molecule_A2BC.monomials_MOL_2_1_1_8 import f_monomials as f_monos 
 
 
 # File created from /gpfs/fs1/home/r/ravh011/ravh011/PIPMSA_jax/pipjax/msa_files/molecule_A2BC/MOL_2_1_1_8.POLY 
