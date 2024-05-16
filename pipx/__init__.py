@@ -7,7 +7,6 @@ from .utils import *
 from .pip_anisotropic_flax import *
 from .load_pip import get_functions, detect_molecule
 from .pipnn_flax import PIPNN
-from .pipnn_falx import *
 
 import sys
 sys.path.append('. /')
