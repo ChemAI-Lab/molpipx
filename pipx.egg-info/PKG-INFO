@@ -16,3 +16,4 @@ Requires-Dist: pytest>=7.4.3
 Requires-Dist: jaxopt
 Requires-Dist: optax>0.1.7
 Requires-Dist: orbax-checkpoint>0.4.4
+Requires-Dist: ml-collections

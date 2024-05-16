@@ -24,6 +24,7 @@ setup(
         'jaxopt',
         'optax>0.1.7',
         'orbax-checkpoint>0.4.4',
+        'ml-collections',
         #'gpjax',
     ],
     python_requires='>=3.6',
