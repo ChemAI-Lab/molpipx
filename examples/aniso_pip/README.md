@@ -82,7 +82,7 @@ The code will save the predicted values filename: ```'<workdir>/training_traject
 The main training code is contained in the ```train.py``` file. 
 
 
-This demo uses **Adam**, using optax, to optimize the validation loss function with respect to the length-scale parameters. 
+This demo uses **Adam**, using Optax, to optimize the validation loss function with respect to the length-scale parameters. 
 This nested loss function is defined as, 
 
 ```python 

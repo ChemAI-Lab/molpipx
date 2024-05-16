@@ -80,7 +80,7 @@ class PIPlayer(nn.Module):
         """
         vmap_pipblock = nn.vmap(PIP, variable_axes={'params': None, },
                                 split_rngs={'params': False, },
-                                in_axes=(0,))(self.f_mono, self.f_poly)
+                                in_axes=(0,))(self.f_mono, self.f_poly, self.l)
 
         return vmap_pipblock(inputs)
 
@@ -110,7 +110,7 @@ class EnergyPIP(nn.Module):
         """
         vmap_pipblock = nn.vmap(PIP, variable_axes={'params': None, },
                                 split_rngs={'params': False, },
-                                in_axes=(0,))(self.f_mono, self.f_poly)
+                                in_axes=(0,))(self.f_mono, self.f_poly, self.l)
         layer = nn.Dense(1, use_bias=False)
 
         pip = vmap_pipblock(inputs)  # computes the pip vectors

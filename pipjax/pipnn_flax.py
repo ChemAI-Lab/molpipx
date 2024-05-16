@@ -45,7 +45,7 @@ class PIPNN(nn.Module):
         self.layers = [nn.Dense(feat)
                        for feat in self.features]  # [1:]
         self.last_layer = nn.Dense(1)
-        self.pip_layer = PIPlayer(self.f_mono, self.f_poly, self.l,)
+        self.pip_layer = PIPlayer(self.f_mono, self.f_poly, self.l)
 
     @nn.compact
     def __call__(self, x):
