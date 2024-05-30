@@ -10,12 +10,12 @@ import optax
 from optax.tree_utils import tree_l2_norm as l2_norm
 from flax import linen as nn
 
-from pipjax import split_train_and_test_data, split_train_and_test_data_w_forces
-from pipjax import LayerPIPAniso, EnergyPIPAniso, get_mask
-from pipjax import flax_params_aniso, flax_params
-from pipjax import mse_loss, softplus_inverse
-from pipjax import get_forces, get_f_mask, lambda_random_init
-from pipjax import get_functions, detect_molecule, split_train_and_test_data_w_forces
+from pipx import split_train_and_test_data
+from pipx import LayerPIPAniso, EnergyPIPAniso, get_mask
+from pipx import flax_params
+from pipx import mse_loss
+from pipx import get_f_mask, lambda_random_init
+from pipx import get_functions, detect_molecule
 
 from load_data_methane import read_geometry_energy
 

@@ -10,12 +10,11 @@ import optax
 from optax.tree_utils import tree_l2_norm as l2_norm
 from flax import linen as nn
 
-from pipjax import split_train_and_test_data, split_train_and_test_data_w_forces
-from pipjax import LayerPIPAniso, EnergyPIPAniso, get_mask
-from pipjax import flax_params_aniso, flax_params
-from pipjax import mse_loss, softplus_inverse
-from pipjax import get_forces, get_f_mask, lambda_random_init
-from pipjax import get_functions, detect_molecule, get_pip_grad
+from pipx import split_train_and_test_data_w_forces
+from pipx import LayerPIPAniso, EnergyPIPAniso, get_mask
+from pipx import flax_params, mse_loss
+from pipx import get_f_mask, lambda_random_init
+from pipx import get_functions, detect_molecule, get_pip_grad
 
 from load_data_methane import read_geometry_energy
 
@@ -27,6 +26,7 @@ def get_number_of_atoms(molecule_dict):
     for i, k in enumerate(molecule_dict):
         na += molecule_dict[k]
     return na
+
 
 def train_and_evaluate(config: config_dict.ConfigDict,
                        workdir: str,):
@@ -69,7 +69,7 @@ def train_and_evaluate(config: config_dict.ConfigDict,
 
     model_energy = EnergyPIPAniso(f_mono, f_poly, f_mask, n_pairs)
     params_energy = model_energy.init(key, X_tr[:1])
-    
+
     @jax.jit
     def validation_loss(params_pip, data_, params_energy):
         (X_tr, F_tr, y_tr), (X_val, F_val, y_val) = data_
@@ -84,14 +84,14 @@ def train_and_evaluate(config: config_dict.ConfigDict,
             # (bs*n_atoms*3,number of pip)
             Gpip_tr = Gpip_tr.reshape(n*na*3, n_pip)
             Pip_tr_w_grad_full = jax.lax.concatenate(
-            (Pip_tr, Gpip_tr), dimension=0)
+                (Pip_tr, Gpip_tr), dimension=0)
 
             y_tr_w_grad_full = jax.lax.concatenate(
-            (y_tr, F_tr.reshape(n*na*3, 1)), dimension=0)
+                (y_tr, F_tr.reshape(n*na*3, 1)), dimension=0)
 
             # Optimization
             results_w_grad = jnp.linalg.lstsq(
-            Pip_tr_w_grad_full, y_tr_w_grad_full)
+                Pip_tr_w_grad_full, y_tr_w_grad_full)
             theta = results_w_grad[0]
             return theta
 
