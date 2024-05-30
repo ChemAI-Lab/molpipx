@@ -1,4 +1,4 @@
-<h1 align='center'>PIPJAX</h1>
+<h1 align='center'>PIPX</h1>
 <h2 align='center'>Differentiable version of Permutationally Invariant Polynomial (PIP) models in JAX, compatible with Flax and the JAX-ecosystem. </h2>
 
 **PIPx** is a [JAX](https://jax.readthedocs.io/en/latest/)-based library that provides an implementation of PIP models compatible with,
