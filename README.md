@@ -1,8 +1,13 @@
 <h1 align='center'>PIPJAX</h1>
 <h2 align='center'>Differentiable version of Permutationally Invariant Polynomial (PIP) models in JAX, compatible with Flax and the JAX-ecosystem. </h2>
 
+<<<<<<< HEAD
 **PIPx** is a [JAX](https://jax.readthedocs.io/en/latest/)-based library that provides an implementation of PIP models compatible with,
 1. [FLAX](flax.readthedocs.io/): Nueral network library.
+=======
+**PIPJAX** is a [JAX](https://jax.readthedocs.io/en/latest/)-based library that provides an implementation of PIP models compatible with,
+1. [FLAX](flax.readthedocs.io/): Neural network library.
+>>>>>>> c5279d36fc6112b26067e0502f8c7524ed4a4f82
 2. GPU friendly.
 3. Fully differentiable.
 
