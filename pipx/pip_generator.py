@@ -8,9 +8,11 @@ import math
 
 
 def f_monomial_flag_0(x):
-    if np.sum(x) > 0:
+    if np.sum(x) == 1:
         j = np.where(x == 1)[0]
-        j = j[0]
+        j = j[0].tolist()
+    elif np.sum(x) > 0:
+        j = x.tolist()
     else:
         j = -1
     return j
@@ -33,22 +35,20 @@ def create_f_monomials(file_mono: str, file_label: str):
     Lines = f.readlines()
     n_mono = len(Lines)
     index = 0
-    # old
-    # while Lines[index][0] == '0':
-    #     print(index)
-    #     index += 1
 
-    # new
     for l in Lines:
         if l[0] == '0':
-            index += 1
+            z = np.array(l.split(), dtype=np.int32)
+            if np.sum(z) == 1:
+                index += 1
 
     zeros, ones = (Lines[:index], Lines[index:])
     offset = len(zeros)
-    N_DISTANCES = offset - 1
+    N_DISTANCES = index  # offset - 1
     f_out.write('# N_DISTANCES == N_ATOMS * (N_ATOMS - 1) / 2;\n')
     f_out.write('N_DISTANCES = {}\n'.format(N_DISTANCES))
-    N_ATOMS = round(math.sqrt(2*N_DISTANCES + 0.25) + 0.5)
+    # N_ATOMS = round(math.sqrt(2*N_DISTANCES + 0.25) + 0.5)
+    N_ATOMS = round(+0.5 + math.sqrt(1 + 4*2*N_DISTANCES)*0.5)
     f_out.write('N_ATOMS = {}\n'.format(N_ATOMS))
     f_out.write('N_XYZ = N_ATOMS * 3\n\n')
     f_out.close()
@@ -73,11 +73,19 @@ def create_f_monomials(file_mono: str, file_label: str):
 #         FLAG = 0
         if z[0] == 0:
             j = f_monomial_flag_0(x)
-            if j > -1:
-                #               x.at[idx].set(y)
-                f_out.write('    mono_{} = jnp.take(r,{}) \n'.format(i, j))
-            else:
-                f_out.write('    mono_{} = 1. \n'.format(i))
+            if isinstance(j, int):
+                if j > -1:
+                    f_out.write('    mono_{} = jnp.take(r,{}) \n'.format(i, j))
+                else:
+                    f_out.write('    mono_{} = 1. \n'.format(i))
+            elif isinstance(j, list):
+                f_out.write(
+                    '    mono_{} = jnp.prod(jnp.power(r,jnp.array({},dtype=jnp.int32))) \n'.format(i, j))
+            # if j > -1:
+            #     #               x.at[idx].set(y)
+            #     f_out.write('    mono_{} = jnp.take(r,{}) \n'.format(i, j))
+            # else:
+            #     f_out.write('    mono_{} = 1. \n'.format(i))
 #         FLAG = 1
         elif int(z[0]) == 1:
             a, b = x[0], x[1]
