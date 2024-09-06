@@ -1,0 +1,46 @@
+[package]
+name = "piprx"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[profile.release]
+lto = "fat"
+codegen-units = 1
+
+[profile.dev]
+lto = "fat"
+codegen-units = 1
+
+[dependencies]
+divan = "0.1.14"
+
+
+[lib]
+name = "piprx"
+# "cdylib" is necessary to produce a shared library for Python to import from.
+#
+# Downstream Rust code (including code in `bin/`, `examples/`, and `tests/`) will not be able
+# to `use string_sum;` unless the "rlib" or "lib" crate type is also included, e.g.:
+# crate-type = ["cdylib", "rlib"]
+crate-type = ["cdylib", "rlib"]
+
+[tool.maturin]
+# Build artifacts with the specified Cargo profile
+profile = "release"
+# List of features to activate
+features = ["pyo3"]
+
+[features]
+default = []
+
+[dependencies.pyo3]
+optional = true
+version = "0.15.1"
+features = ["extension-module"]
+
+[[bench]]
+name = "piprx"
+path = "src/main.rs"
+harness = false

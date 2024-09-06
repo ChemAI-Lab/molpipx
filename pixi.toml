@@ -1,0 +1,19 @@
+[project]
+name = "piprx"
+version = "0.1.0"
+description = "Add a short description here"
+authors = ["Manuel Drehwald <git@manuel.drehwald.info>"]
+channels = ["conda-forge"]
+platforms = ["linux-64"]
+
+[tasks]
+hello = "python hello_world.py"
+
+[dependencies]
+python = "3.9.*"
+jax = ">=0.4.27,<0.5"
+jaxtyping = ">=0.2.28,<0.3"
+
+
+[system-requirements]
+linux = "5.4"
