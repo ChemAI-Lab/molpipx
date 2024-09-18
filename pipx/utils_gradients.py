@@ -68,3 +68,18 @@ def get_energy_and_forces(model: Callable, x: Float[Array, "..."], params: PyTre
         return energy, g_forces[0]
 
     return vmap(grad_forces_rev_i, in_axes=(0,))(x)
+
+def get_forces_gp(train_data,gp_model,x):
+
+    def gp_prediction(x):
+        latent_dist = gp_model(x, train_data=train_data)
+        predictive_dist = gp_model.likelihood(latent_dist)
+        predictive_mean = predictive_dist.mean()
+        predictive_std = predictive_dist.stddev()
+        return jnp.sum(predictive_mean), jnp.sum(predictive_std)
+
+    def grad_forces_rev_i(xyzi: Any):
+        mu_and_std, g_forces = jax.value_and_grad(gp_prediction, argnums=(0,),has_aux=True)(jax.lax.expand_dims(xyzi, dimensions=(0,)))
+        return g_forces[0], mu_and_std
+
+    return jax.vmap(grad_forces_rev_i, in_axes=(0,))(x)

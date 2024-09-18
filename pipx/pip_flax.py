@@ -24,6 +24,7 @@ class PIP(nn.Module):
     f_mono: Callable
     f_poly: Callable
     l: float = float(1.)
+    trainable_l: bool = False
     bias_init: Callable = nn.initializers.constant
 
     @nn.compact
@@ -39,11 +40,17 @@ class PIP(nn.Module):
         """
         f_mono = self.f_mono
         f_poly = self.f_poly
-        _lambda = self.param('lambda',
-                             # Initialization function
-                             self.bias_init(softplus_inverse(self.l)),
-                             (1,))  # shape info.
-        l = nn.softplus(_lambda)  # positive initialization
+        # _lambda = self.param('lambda',
+        #                      # Initialization function
+        #                      self.bias_init(softplus_inverse(self.l)),
+        #                      (1,))  # shape info.
+        # l = nn.softplus(_lambda)  # positive initialization
+
+        if self.trainable_l:
+            _lambda = self.param('lambda', self.bias_init(softplus_inverse(self.l)), (1,))
+            l = nn.softplus(_lambda)
+        else:
+            l = jnp.ones(1)
 
         d = all_distances(input)  # compute distances
         morse = jnp.exp(-l*d)  # comput morse variables
@@ -67,6 +74,7 @@ class PIPlayer(nn.Module):
     f_mono: Callable
     f_poly: Callable
     l: float = float(jnp.exp(1))
+    trainable_l: bool = False
 
     @nn.compact
     def __call__(self, inputs):
@@ -80,7 +88,7 @@ class PIPlayer(nn.Module):
         """
         vmap_pipblock = nn.vmap(PIP, variable_axes={'params': None, },
                                 split_rngs={'params': False, },
-                                in_axes=(0,))(self.f_mono, self.f_poly, self.l)
+                                in_axes=(0,))(self.f_mono, self.f_poly, self.l, self.trainable_l)
 
         return vmap_pipblock(inputs)
 
@@ -97,6 +105,7 @@ class EnergyPIP(nn.Module):
     f_mono: Callable
     f_poly: Callable
     l: float = float(jnp.exp(1))
+    trainable_l: bool = False
 
     @nn.compact
     def __call__(self, inputs):
@@ -116,3 +125,29 @@ class EnergyPIP(nn.Module):
         pip = vmap_pipblock(inputs)  # computes the pip vectors
         energy = layer(pip)  # linear layer
         return energy
+    
+class PIPlayerGP(nn.Module):
+    """Wrapper for PIPlayer to reshape the inputs before passing to PIPlayer."""
+
+    f_mono: Callable
+    f_poly: Callable
+    l: float = float(jnp.exp(1))
+    trainable_l:bool = False
+
+    @nn.compact
+    def __call__(self, inputs):
+        """Reshape inputs and apply PIPlayer.
+
+        Args:
+            inputs: geometries, can be either (batch, number of atoms, 3) or (batch * number of atoms * 3)
+
+        Returns:
+            pip_vector: pip vector for each geometry, (batch, number of pips)
+        """
+        if inputs.ndim == 1:
+            inputs = inputs.reshape(1, inputs.shape[0] // 3, 3)
+
+        pip_layer = PIPlayer(f_mono=self.f_mono, f_poly=self.f_poly, l=self.l, trainable_l = self.trainable_l)
+        pip_vector = pip_layer(inputs)
+
+        return pip_vector
