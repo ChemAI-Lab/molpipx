@@ -23,7 +23,7 @@ def is_float(s):
         return False
 
 
-def read_geometry_energy(filename: str = '/scratch/r/ravh011/asmaj/PIPMSA_jax/examples/Data/Methane/Methane.xyz', #'/home/r/ravh011/ravh011/PIPMSA_jax/Data/Methane/Methane.xyz', #examples/Data
+def read_geometry_energy(filename: str = '../Data/Methane/Methane.xyz', #examples/Data
                          num_atoms: int = 5,
                          energy_normalization: bool = False):
 
