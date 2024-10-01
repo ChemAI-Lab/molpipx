@@ -1,6 +1,6 @@
 import os
 
-from pipjax import msa_file_generator
+from molpipx import msa_file_generator
 
 def main():
     msa_head = 'MOL_1_1_2_3_1_1_2'

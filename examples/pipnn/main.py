@@ -1,7 +1,3 @@
-# from absl import app
-# from absl import flags
-# from absl import logging
-# from clu import platform
 import jax
 
 import argparse
@@ -19,7 +15,6 @@ def get_default_config():
     config.poly_degree = 3
     config.n_layers = 2
     config.n_neurons = 128
-#   config.features = (128,128,)
     config.ntr = 1000
     config.nval = 1000
     config.ntst = 2000

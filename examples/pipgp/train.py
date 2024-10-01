@@ -6,11 +6,11 @@ import optax as ox
 import gpjax as gpx
 from gpjax import Dataset
 jax.config.update("jax_enable_x64", True)
-from pipx import get_functions, detect_molecule
-from pipx import split_train_and_test_data, split_train_and_test_data_w_forces
-from pipx import PIPlayerGP
-from pipx import PIPLayerKernel
-from pipx import get_forces_gp
+from molpipx import get_functions, detect_molecule
+from molpipx import split_train_and_test_data, split_train_and_test_data_w_forces
+from molpipx import PIPlayerGP
+from molpipx import PIPLayerKernel
+from molpipx import get_forces_gp
 
 import os
 import pandas as pd

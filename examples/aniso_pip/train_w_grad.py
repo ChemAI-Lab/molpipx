@@ -10,11 +10,11 @@ import optax
 from optax.tree_utils import tree_l2_norm as l2_norm
 from flax import linen as nn
 
-from pipx import split_train_and_test_data_w_forces
-from pipx import LayerPIPAniso, EnergyPIPAniso, get_mask
-from pipx import flax_params, mse_loss
-from pipx import get_f_mask, lambda_random_init
-from pipx import get_functions, detect_molecule, get_pip_grad
+from molpipx import split_train_and_test_data_w_forces
+from molpipx import LayerPIPAniso, EnergyPIPAniso, get_mask
+from molpipx import flax_params, mse_loss
+from molpipx import get_f_mask, lambda_random_init
+from molpipx import get_functions, detect_molecule, get_pip_grad
 
 from load_data_methane import read_geometry_energy
 

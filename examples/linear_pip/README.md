@@ -45,8 +45,8 @@ The code will save the predicted values filename: ```'<workdir>/results_N_<ntr>_
 The main training code is contained in the ```train.py``` file,
 
 ```python
-from pipjax import PIPlayer as PIP
-from pipjax import get_functions, detect_molecule, 
+from pipx import PIPlayer as PIP
+from pipx import get_functions, detect_molecule, 
 
 molecule_type = 'A4B' # molecular symmetry
 na = 5 # number of atoms
@@ -79,7 +79,7 @@ pip = PIP(f_mono, f_poly,l0)
 
 For training these linear models with and without forces we have implemented the following functions,
 ```python
-from pipjax import training, training_w_gradients
+from pipx import training, training_w_gradients
 
 # load PIP-Flax model
 model_pip = PIP(f_mono, f_poly)
@@ -96,13 +96,13 @@ the function ```flax_params()``` copies the parameters to the Pytree object that
 ## Energy and forces ##
 Given the flexibility of JAX, we can jointly compute the energy and the force using ```jax.value_and_grad```,
 <!-- ```python
-from pipjax import get_energy_and_forces
+from pipx import get_energy_and_forces
 @jax.jit
 def f_w_grad(params, geoms): return get_energy_and_forces(
     pipnn.apply, geoms, params)
 ``` -->
 ```python
-from pipjax import get_energy_and_forces
+from pipx import get_energy_and_forces
 
 e_pip_model = EnergyPIP(f_mono, f_poly) # linear PIP model
 y = e_pip_model.apply(params_opt, X) # only energy 
