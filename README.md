@@ -17,7 +17,7 @@ The MSA files must be generated before, for more information please see https://
 
 ### MSA-JAX files generation ###
 ```python
-from pipx import msa_file_generator
+from molpipx import msa_file_generator
 
 head_files = 'MOL_<info>_<deg>'
 path = '<path_to_the_files>'
