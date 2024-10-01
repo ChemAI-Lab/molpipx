@@ -1,4 +1,4 @@
-<h1 align='center'><img src="/scratch/r/ravh011/asmaj/PIPMSA_jax/Images/molpipx_logo.png" alt="MOLPIPx Logo" width="400"></h1>
+<h1 align='center'><img src="Images/molpipx_logo.png" alt="MOLPIPx Logo" width="400"></h1>
 <h2 align='center'>Differentiable version of Permutationally Invariant Polynomial (PIP) models in JAX, compatible with Flax and the JAX-ecosystem. </h2>
 
 **MOLPIPx** is a [JAX](https://jax.readthedocs.io/en/latest/)-based library that provides an implementation of PIP models compatible with,
@@ -33,7 +33,7 @@ The structure of the library is kept simple, as each molecular system could need
 MOLPIPx incorporated PIPs with three main regression models, i.e., linear regression, neural networks and Gaussian processes. This library leverages two main automatic differentiation engines, JAX for
 The Python version and Enzyme-AD for the Rust version improve the simulation of a wide range of chemical systems.
 
-<h1 align='center'><img src="/scratch/r/ravh011/asmaj/PIPMSA_jax/Images/diagram.png" alt="MOLPIPx Logo" width="700"></h1>
+<h1 align='center'><img src="Images/diagram.png" alt="diagram" width="700"></h1>
 
 ## Installation ##
 Install MOLPIPx via PyPi:
