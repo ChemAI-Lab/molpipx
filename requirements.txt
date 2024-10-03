@@ -1,0 +1,56 @@
+absl-py==2.0.0
+asttokens==2.4.1
+chex==0.1.85
+contourpy==1.2.0
+cycler==0.12.1
+decorator==5.1.1
+etils==1.5.2
+executing==2.0.1
+flax @ git+https://github.com/google/flax.git@d3b2cbb2386086c4e21fa013fd56f034b3c09bd5
+fonttools==4.45.1
+fsspec==2023.10.0
+importlib-metadata @ file:///home/conda/feedstock_root/build_artifacts/importlib-metadata_1688754491823/work
+importlib-resources==6.1.1
+ipython==8.18.1
+jax @ file:///home/conda/feedstock_root/build_artifacts/jax_1698427139406/work
+jaxlib==0.4.19.dev20231025
+jaxopt==0.8.2
+jaxtyping==0.2.25
+jedi==0.19.1
+kiwisolver==1.4.5
+markdown-it-py==3.0.0
+matplotlib==3.8.2
+matplotlib-inline==0.1.6
+mdurl==0.1.2
+ml-dtypes @ file:///Users/runner/miniforge3/conda-bld/ml_dtypes_1697644267108/work
+msgpack==1.0.7
+nest-asyncio==1.5.8
+numpy @ file:///Users/runner/miniforge3/conda-bld/numpy_1700874567832/work/dist/numpy-1.26.2-cp312-cp312-macosx_10_9_x86_64.whl#sha256=77d5769364f161b525bb34fa051bfedec44a3a9153f29e9a7d49a99542fb131c
+opt-einsum @ file:///home/conda/feedstock_root/build_artifacts/opt_einsum_1696448916724/work
+optax==0.1.7
+orbax-checkpoint==0.4.4
+packaging==23.2
+parso==0.8.3
+pexpect==4.9.0
+Pillow==10.1.0
+prompt-toolkit==3.0.41
+protobuf==4.25.1
+ptyprocess==0.7.0
+pure-eval==0.2.2
+Pygments==2.17.2
+pyparsing==3.1.1
+python-dateutil==2.8.2
+PyYAML==6.0.1
+rich==13.7.0
+SciPy @ file:///Users/runner/miniforge3/conda-bld/scipy-split_1700812573211/work/dist/scipy-1.11.4-cp312-cp312-macosx_10_9_x86_64.whl#sha256=bff87204e50766286e497874aa7e28f851a935a5745b1b166e355bf328c5f721
+setuptools==68.0.0
+six==1.16.0
+stack-data==0.6.3
+tensorstore==0.1.50
+toolz==0.12.0
+traitlets==5.14.0
+typeguard==2.13.3
+typing_extensions==4.8.0
+wcwidth==0.2.12
+wheel==0.41.2
+zipp @ file:///home/conda/feedstock_root/build_artifacts/zipp_1695255097490/work
