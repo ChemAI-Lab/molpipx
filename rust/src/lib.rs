@@ -1,17 +1,14 @@
 #![allow(non_snake_case)]
 #![allow(dead_code)]
-#![feature(autodiff)]
-
+                       
+                              
 mod data;
-pub use crate::data::molecule_A2B::{monomials_2_1_3::*, polynomials_2_1_3::*};
-
-//mod methane;
-//pub use crate::methane::polynomials_deg_3::*;
-//pub use crate::methane::monomials_deg_3::*;
+pub use crate::data::molecule_ABCDE::{monomials_1_1_1_1_1_5::*, polynomials_1_1_1_1_1_5::*};
+//pub use crate::data::molecule_ABCDE::{monomials_1_1_1_1_1_7::*, polynomials_1_1_1_1_1_7::*};
 
 use std::io::Read;
 
-#[cfg(pyo3)]
+#[cfg(feature = "pyo3")]
 pub mod python;
 
 // TODO: Here you see some example lines of an .xyz file that we are going to parse.
@@ -144,30 +141,30 @@ pub fn morse(r: &mut [f64], l: f64) {
 //}
 //
 
-#[no_mangle]
-pub extern "C" fn c_d_energy(inputs: *const [f64; N_XYZ], d_inputs: *mut [f64; N_XYZ], weights: *const [f64; N_POLYS], res: *mut f64, d_res: *mut f64) {
-    unsafe {
-        let inputs = &*inputs;
-        let d_inputs = &mut *d_inputs;
-        let weights = &*weights;
-        let res = &mut *res;
-        let d_res = &mut *d_res;
-        d_energy(inputs, d_inputs, weights, res, d_res);
-    }
-}
+//#[no_mangle]
+//pub extern "C" fn c_d_energy(inputs: *const [f64; N_XYZ], d_inputs: *mut [f64; N_XYZ], weights: *const [f64; N_POLYS], res: *mut f64, d_res: *mut f64) {
+//    unsafe {
+//        let inputs = &*inputs;
+//        let d_inputs = &mut *d_inputs;
+//        let weights = &*weights;
+//        let res = &mut *res;
+//        let d_res = &mut *d_res;
+//        d_energy(inputs, d_inputs, weights, res, d_res);
+//    }
+//}
 
-#[autodiff(d_energy, Reverse, Duplicated, Const, Duplicated)]
-pub fn f_energy_inplace(inputs: &[f64; N_XYZ], weights: &[f64; N_POLYS], res: &mut f64) {
-    let mut distances = dist(inputs);
-    //let mut distances = dist::<N_XYZ>(inputs);
-    morse(&mut distances, 1.0);
-    let outs = f_polynomials(&distances);
-    assert!(outs.len() == weights.len());
-
-    for i in 0..N_POLYS {
-        *res += weights[i] * outs[i];
-    }
-}
+//#[autodiff(d_energy, Reverse, Duplicated, Const, Duplicated)]
+//pub fn f_energy_inplace(inputs: &[f64; N_XYZ], weights: &[f64; N_POLYS], res: &mut f64) {
+//    let mut distances = dist(inputs);
+//    //let mut distances = dist::<N_XYZ>(inputs);
+//    morse(&mut distances, 1.0);
+//    let outs = f_polynomials(&distances);
+//    assert!(outs.len() == weights.len());
+//
+//    for i in 0..N_POLYS {
+//        *res += weights[i] * outs[i];
+//    }
+//}
 
 //#[test]
 //fn test_energy() {
@@ -178,18 +175,18 @@ pub fn f_energy_inplace(inputs: &[f64; N_XYZ], weights: &[f64; N_POLYS], res: &m
 //    assert_eq!(res, 1.0 * N_POLYS as f64);
 //}
 
-#[test]
-fn test_denergy() {
-    let inputs = [0.0; N_XYZ];
-    let mut d_inputs = [0.0; N_XYZ];
-    let weights = [1.0; N_POLYS];
-    let mut res = 0.0;
-    let mut d_res = 0.0;
-    d_energy(&inputs, &mut d_inputs, &weights, &mut res, &mut d_res);
-    assert_eq!(res, 1.0 * N_POLYS as f64);
-    assert_eq!(d_res, 0.0);
-    assert_eq!(d_inputs, [1.0; N_XYZ]);
-}
+//#[test]
+//fn test_denergy() {
+//    let inputs = [0.0; N_XYZ];
+//    let mut d_inputs = [0.0; N_XYZ];
+//    let weights = [1.0; N_POLYS];
+//    let mut res = 0.0;
+//    let mut d_res = 0.0;
+//    d_energy(&inputs, &mut d_inputs, &weights, &mut res, &mut d_res);
+//    assert_eq!(res, 1.0 * N_POLYS as f64);
+//    assert_eq!(d_res, 0.0);
+//    assert_eq!(d_inputs, [1.0; N_XYZ]);
+//}
 
 //
 //#[autodiff(f_energy_inplace, Reverse, Const, Duplicated, Const, Duplicated)]

@@ -7,11 +7,11 @@ edition = "2021"
 
 [profile.release]
 lto = "fat"
-codegen-units = 1
+#codegen-units = 1
 
 [profile.dev]
 lto = "fat"
-codegen-units = 1
+#codegen-units = 1
 
 [dependencies]
 divan = "0.1.14"
@@ -41,6 +41,5 @@ version = "0.15.1"
 features = ["extension-module"]
 
 [[bench]]
-name = "piprx"
-path = "src/main.rs"
+name = "pip"
 harness = false
