@@ -1,0 +1,510 @@
+molecule_A2B,2_1_3
+├─ add                    0.351 ns      │ 0.407 ns      │ 0.395 ns      │ 0.388 ns      │ 100     │ 204800
+├─ divan_inference        261.2 µs      │ 289.8 µs      │ 261.5 µs      │ 263 µs        │ 100     │ 100
+├─ divan_training         342 µs        │ 347.8 µs      │ 342.2 µs      │ 342.8 µs      │ 100     │ 100
+╰─ divan_training_verify  334.9 µs      │ 340.5 µs      │ 338.1 µs      │ 338 µs        │ 100     │ 100
+
+molecule_A2B,2_1_4
+├─ add                    0.394 ns      │ 0.406 ns      │ 0.395 ns      │ 0.396 ns      │ 100     │ 204800
+├─ divan_inference        332.5 µs      │ 364.1 µs      │ 333.6 µs      │ 335 µs        │ 100     │ 100
+├─ divan_training         498.1 µs      │ 583.2 µs      │ 500.5 µs      │ 501.5 µs      │ 100     │ 100
+╰─ divan_training_verify  496.5 µs      │ 577.8 µs      │ 498.1 µs      │ 499.1 µs      │ 100     │ 100
+
+molecule_A2B,2_1_5
+├─ add                    0.779 ns      │ 0.805 ns      │ 0.781 ns      │ 0.782 ns      │ 100     │ 204800
+├─ divan_inference        436.3 µs      │ 475.5 µs      │ 439 µs        │ 440.2 µs      │ 100     │ 100
+├─ divan_training         649.7 µs      │ 661.6 µs      │ 652 µs        │ 652.1 µs      │ 100     │ 100
+╰─ divan_training_verify  646.6 µs      │ 658.2 µs      │ 649.9 µs      │ 649.7 µs      │ 100     │ 100
+
+molecule_A2B,2_1_6
+├─ add                    0.779 ns      │ 0.792 ns      │ 0.781 ns      │ 0.781 ns      │ 100     │ 204800
+├─ divan_inference        578.7 µs      │ 620.6 µs      │ 582.1 µs      │ 582.6 µs      │ 100     │ 100
+├─ divan_training         947.4 µs      │ 966.7 µs      │ 950.5 µs      │ 950.6 µs      │ 100     │ 100
+╰─ divan_training_verify  948.9 µs      │ 955.2 µs      │ 950.7 µs      │ 950.7 µs      │ 100     │ 100
+
+molecule_A2B,2_1_7
+├─ add                    0.733 ns      │ 0.782 ns      │ 0.776 ns      │ 0.762 ns      │ 100     │ 409600
+├─ divan_inference        847 µs        │ 902.9 µs      │ 849.2 µs      │ 850.1 µs      │ 100     │ 100
+├─ divan_training         1.501 ms      │ 1.6 ms        │ 1.503 ms      │ 1.505 ms      │ 100     │ 100
+╰─ divan_training_verify  1.5 ms        │ 1.508 ms      │ 1.502 ms      │ 1.502 ms      │ 100     │ 100
+
+molecule_A2B,2_1_8
+├─ add                    0.73 ns       │ 3.272 ns      │ 0.779 ns      │ 0.811 ns      │ 100     │ 409600
+├─ divan_inference        1.194 ms      │ 1.258 ms      │ 1.195 ms      │ 1.198 ms      │ 100     │ 100
+├─ divan_training         1.924 ms      │ 2.146 ms      │ 1.931 ms      │ 1.935 ms      │ 100     │ 100
+╰─ divan_training_verify  1.942 ms      │ 3.4 ms        │ 1.962 ms      │ 1.975 ms      │ 100     │ 100
+
+molecule_A2B2,2_2_3
+├─ add                    0.308 ns      │ 0.401 ns      │ 0.392 ns      │ 0.363 ns      │ 100     │ 204800
+├─ divan_inference        465.8 µs      │ 495 µs        │ 466.5 µs      │ 467.4 µs      │ 100     │ 100
+├─ divan_training         610.3 µs      │ 675.1 µs      │ 614.3 µs      │ 615.3 µs      │ 100     │ 100
+╰─ divan_training_verify  608.8 µs      │ 732.8 µs      │ 611.5 µs      │ 614.5 µs      │ 100     │ 100
+
+molecule_A2B2,2_2_4
+├─ add                    0.392 ns      │ 1.976 ns      │ 0.393 ns      │ 0.411 ns      │ 100     │ 204800
+├─ divan_inference        848.3 µs      │ 891.5 µs      │ 854.3 µs      │ 855.1 µs      │ 100     │ 100
+├─ divan_training         1.383 ms      │ 1.399 ms      │ 1.386 ms      │ 1.387 ms      │ 100     │ 100
+╰─ divan_training_verify  1.375 ms      │ 1.384 ms      │ 1.378 ms      │ 1.378 ms      │ 100     │ 100
+
+molecule_A2B2,2_2_5
+├─ add                    0.393 ns      │ 0.412 ns      │ 0.394 ns      │ 0.395 ns      │ 100     │ 204800
+├─ divan_inference        1.596 ms      │ 1.671 ms      │ 1.603 ms      │ 1.603 ms      │ 100     │ 100
+├─ divan_training         3.096 ms      │ 3.15 ms       │ 3.125 ms      │ 3.125 ms      │ 100     │ 100
+╰─ divan_training_verify  3.09 ms       │ 3.127 ms      │ 3.105 ms      │ 3.105 ms      │ 100     │ 100
+
+molecule_A2B2,2_2_6
+├─ add                    0.632 ns      │ 0.642 ns      │ 0.633 ns      │ 0.633 ns      │ 100     │ 204800
+├─ divan_inference        2.801 ms      │ 2.835 ms      │ 2.813 ms      │ 2.813 ms      │ 100     │ 100
+├─ divan_training         6.149 ms      │ 6.176 ms      │ 6.151 ms      │ 6.152 ms      │ 100     │ 100
+╰─ divan_training_verify  6.157 ms      │ 6.18 ms       │ 6.16 ms       │ 6.161 ms      │ 100     │ 100
+
+molecule_A2B2,2_2_7
+├─ add                    0.35 ns       │ 9.312 ns      │ 0.351 ns      │ 0.456 ns      │ 100     │ 204800
+├─ divan_inference        5.373 ms      │ 5.431 ms      │ 5.382 ms      │ 5.383 ms      │ 100     │ 100
+├─ divan_training         12.4 ms       │ 12.46 ms      │ 12.42 ms      │ 12.42 ms      │ 100     │ 100
+╰─ divan_training_verify  12.4 ms       │ 12.47 ms      │ 12.42 ms      │ 12.42 ms      │ 100     │ 100
+
+molecule_A2B2,2_2_8
+├─ add                    0.777 ns      │ 0.783 ns      │ 0.781 ns      │ 0.78 ns       │ 100     │ 409600
+├─ divan_inference        9.512 ms      │ 9.622 ms      │ 9.515 ms      │ 9.517 ms      │ 100     │ 100
+├─ divan_training         25.16 ms      │ 25.24 ms      │ 25.18 ms      │ 25.18 ms      │ 100     │ 100
+╰─ divan_training_verify  25.12 ms      │ 25.22 ms      │ 25.16 ms      │ 25.16 ms      │ 100     │ 100
+
+molecule_A2B2C,2_2_1_3
+├─ add                    0.653 ns      │ 0.671 ns      │ 0.653 ns      │ 0.654 ns      │ 100     │ 204800
+├─ divan_inference        1.028 ms      │ 1.097 ms      │ 1.033 ms      │ 1.035 ms      │ 100     │ 100
+├─ divan_training         1.633 ms      │ 1.681 ms      │ 1.648 ms      │ 1.652 ms      │ 100     │ 100
+╰─ divan_training_verify  1.631 ms      │ 1.754 ms      │ 1.638 ms      │ 1.64 ms       │ 100     │ 100
+
+molecule_A2B2C,2_2_1_4
+├─ add                    0.78 ns       │ 0.792 ns      │ 0.781 ns      │ 0.781 ns      │ 100     │ 204800
+├─ divan_inference        2.727 ms      │ 2.849 ms      │ 2.743 ms      │ 2.744 ms      │ 100     │ 100
+├─ divan_training         6.235 ms      │ 6.255 ms      │ 6.242 ms      │ 6.242 ms      │ 100     │ 100
+╰─ divan_training_verify  6.23 ms       │ 6.247 ms      │ 6.232 ms      │ 6.232 ms      │ 100     │ 100
+
+molecule_A2B2C,2_2_1_5
+├─ add                    0.777 ns      │ 0.79 ns       │ 0.778 ns      │ 0.78 ns       │ 100     │ 204800
+├─ divan_inference        8.488 ms      │ 8.631 ms      │ 8.493 ms      │ 8.495 ms      │ 100     │ 100
+├─ divan_training         22.18 ms      │ 22.27 ms      │ 22.2 ms       │ 22.2 ms       │ 100     │ 100
+╰─ divan_training_verify  22.21 ms      │ 22.29 ms      │ 22.22 ms      │ 22.22 ms      │ 100     │ 100
+
+molecule_A2B2C,2_2_1_6
+├─ add                    0.394 ns      │ 0.407 ns      │ 0.395 ns      │ 0.397 ns      │ 100     │ 204800
+├─ divan_inference        23.11 ms      │ 23.26 ms      │ 23.12 ms      │ 23.12 ms      │ 100     │ 100
+├─ divan_training         55.23 ms      │ 55.32 ms      │ 55.25 ms      │ 55.25 ms      │ 100     │ 100
+╰─ divan_training_verify  55.28 ms      │ 55.37 ms      │ 55.29 ms      │ 55.3 ms       │ 100     │ 100
+
+molecule_A2B2C,2_2_1_7
+├─ add                    0.694 ns      │ 0.787 ns      │ 0.777 ns      │ 0.766 ns      │ 100     │ 204800
+├─ divan_inference        58.05 ms      │ 58.21 ms      │ 58.08 ms      │ 58.09 ms      │ 100     │ 100
+├─ divan_training         137.9 ms      │ 138.1 ms      │ 137.9 ms      │ 137.9 ms      │ 100     │ 100
+╰─ divan_training_verify  137.7 ms      │ 138 ms        │ 137.8 ms      │ 137.8 ms      │ 100     │ 100
+
+molecule_A2B2C,2_2_1_8
+├─ add                    0.394 ns      │ 0.413 ns      │ 0.394 ns      │ 0.395 ns      │ 100     │ 204800
+├─ divan_inference        121.5 ms      │ 121.9 ms      │ 121.7 ms      │ 121.7 ms      │ 100     │ 100
+├─ divan_training         303.6 ms      │ 312.9 ms      │ 304.6 ms      │ 304.8 ms      │ 100     │ 100
+╰─ divan_training_verify  303.5 ms      │ 305.1 ms      │ 304.1 ms      │ 304.2 ms      │ 100     │ 100
+
+molecule_A2BC,2_1_1_3
+├─ add                    0.331 ns      │ 0.341 ns      │ 0.332 ns      │ 0.332 ns      │ 100     │ 204800
+├─ divan_inference        679.3 µs      │ 733.9 µs      │ 685.1 µs      │ 686.5 µs      │ 100     │ 100
+├─ divan_training         850.3 µs      │ 969 µs        │ 852.9 µs      │ 854.3 µs      │ 100     │ 100
+╰─ divan_training_verify  845.7 µs      │ 856 µs        │ 849.8 µs      │ 849.7 µs      │ 100     │ 100
+
+molecule_A2BC,2_1_1_4
+├─ add                    0.777 ns      │ 0.789 ns      │ 0.778 ns      │ 0.778 ns      │ 100     │ 204800
+├─ divan_inference        1.266 ms      │ 1.348 ms      │ 1.291 ms      │ 1.289 ms      │ 100     │ 100
+├─ divan_training         2.37 ms       │ 2.399 ms      │ 2.376 ms      │ 2.377 ms      │ 100     │ 100
+╰─ divan_training_verify  2.37 ms       │ 2.411 ms      │ 2.383 ms      │ 2.385 ms      │ 100     │ 100
+
+molecule_A2BC,2_1_1_5
+├─ add                    0.377 ns      │ 16.38 ns      │ 0.378 ns      │ 0.538 ns      │ 100     │ 204800
+├─ divan_inference        2.466 ms      │ 2.496 ms      │ 2.473 ms      │ 2.473 ms      │ 100     │ 100
+├─ divan_training         5.269 ms      │ 5.301 ms      │ 5.271 ms      │ 5.272 ms      │ 100     │ 100
+╰─ divan_training_verify  5.266 ms      │ 5.297 ms      │ 5.27 ms       │ 5.271 ms      │ 100     │ 100
+
+molecule_A2BC,2_1_1_6
+├─ add                    0.377 ns      │ 0.389 ns      │ 0.378 ns      │ 0.379 ns      │ 100     │ 204800
+├─ divan_inference        5.234 ms      │ 5.279 ms      │ 5.239 ms      │ 5.24 ms       │ 100     │ 100
+├─ divan_training         12.08 ms      │ 12.18 ms      │ 12.13 ms      │ 12.13 ms      │ 100     │ 100
+╰─ divan_training_verify  12.07 ms      │ 12.16 ms      │ 12.1 ms       │ 12.1 ms       │ 100     │ 100
+
+molecule_A2BC,2_1_1_7
+├─ add                    0.779 ns      │ 0.793 ns      │ 0.78 ns       │ 0.782 ns      │ 100     │ 204800
+├─ divan_inference        9.798 ms      │ 9.929 ms      │ 9.804 ms      │ 9.806 ms      │ 100     │ 100
+├─ divan_training         25.04 ms      │ 25.15 ms      │ 25.08 ms      │ 25.08 ms      │ 100     │ 100
+╰─ divan_training_verify  25 ms         │ 25.16 ms      │ 25.06 ms      │ 25.06 ms      │ 100     │ 100
+
+molecule_A2BC,2_1_1_8
+├─ add                    0.78 ns       │ 0.791 ns      │ 0.781 ns      │ 0.781 ns      │ 100     │ 204800
+├─ divan_inference        20.09 ms      │ 20.26 ms      │ 20.11 ms      │ 20.12 ms      │ 100     │ 100
+├─ divan_training         46.62 ms      │ 46.72 ms      │ 46.63 ms      │ 46.64 ms      │ 100     │ 100
+╰─ divan_training_verify  46.21 ms      │ 46.29 ms      │ 46.23 ms      │ 46.23 ms      │ 100     │ 100
+
+molecule_A2BCD,2_1_1_1_3
+├─ add                    0.782 ns      │ 2.792 ns      │ 0.783 ns      │ 0.803 ns      │ 100     │ 204800
+├─ divan_inference        1.401 ms      │ 1.476 ms      │ 1.404 ms      │ 1.406 ms      │ 100     │ 100
+├─ divan_training         2.836 ms      │ 2.905 ms      │ 2.871 ms      │ 2.872 ms      │ 100     │ 100
+╰─ divan_training_verify  2.837 ms      │ 2.908 ms      │ 2.866 ms      │ 2.868 ms      │ 100     │ 100
+
+molecule_A2BCD,2_1_1_1_4
+├─ add                    0.424 ns      │ 10.09 ns      │ 0.426 ns      │ 0.523 ns      │ 100     │ 51200
+├─ divan_inference        4.703 ms      │ 4.945 ms      │ 4.71 ms       │ 4.74 ms       │ 100     │ 100
+├─ divan_training         10.49 ms      │ 10.56 ms      │ 10.52 ms      │ 10.52 ms      │ 100     │ 100
+╰─ divan_training_verify  10.47 ms      │ 10.53 ms      │ 10.5 ms       │ 10.5 ms       │ 100     │ 100
+
+molecule_A2BCD,2_1_1_1_5
+├─ add                    0.777 ns      │ 0.779 ns      │ 0.778 ns      │ 0.778 ns      │ 100     │ 204800
+├─ divan_inference        16.46 ms      │ 16.62 ms      │ 16.47 ms      │ 16.47 ms      │ 100     │ 100
+├─ divan_training         38.74 ms      │ 38.81 ms      │ 38.75 ms      │ 38.75 ms      │ 100     │ 100
+╰─ divan_training_verify  38.72 ms      │ 38.79 ms      │ 38.73 ms      │ 38.74 ms      │ 100     │ 100
+
+molecule_A2BCD,2_1_1_1_6
+├─ add                    0.33 ns       │ 0.341 ns      │ 0.331 ns      │ 0.332 ns      │ 100     │ 204800
+├─ divan_inference        42.29 ms      │ 42.42 ms      │ 42.3 ms       │ 42.3 ms       │ 100     │ 100
+├─ divan_training         103.5 ms      │ 103.7 ms      │ 103.5 ms      │ 103.5 ms      │ 100     │ 100
+╰─ divan_training_verify  103.2 ms      │ 103.3 ms      │ 103.2 ms      │ 103.3 ms      │ 100     │ 100
+
+molecule_A2BCD,2_1_1_1_7
+├─ add                    0.733 ns      │ 1.827 ns      │ 0.776 ns      │ 0.77 ns       │ 100     │ 409600
+├─ divan_inference        106.9 ms      │ 107.2 ms      │ 107 ms        │ 107 ms        │ 100     │ 100
+├─ divan_training         269.5 ms      │ 292 ms        │ 288.9 ms      │ 286.2 ms      │ 100     │ 100
+╰─ divan_training_verify  288.7 ms      │ 291.9 ms      │ 290.5 ms      │ 290.5 ms      │ 100     │ 100
+
+molecule_A2BCD,2_1_1_1_8
+├─ add                    0.778 ns      │ 3.343 ns      │ 0.779 ns      │ 0.806 ns      │ 100     │ 204800
+├─ divan_inference        241.6 ms      │ 242.6 ms      │ 241.8 ms      │ 241.8 ms      │ 100     │ 100
+├─ divan_training         706.6 ms      │ 741.7 ms      │ 714.5 ms      │ 715.1 ms      │ 100     │ 100
+╰─ divan_training_verify  709.1 ms      │ 723.3 ms      │ 712.7 ms      │ 712.8 ms      │ 100     │ 100
+
+molecule_A3,3_3
+├─ add                    0.696 ns      │ 0.707 ns      │ 0.697 ns      │ 0.698 ns      │ 100     │ 204800
+├─ divan_inference        239.5 µs      │ 273 µs        │ 239.7 µs      │ 241.2 µs      │ 100     │ 100
+├─ divan_training         303.3 µs      │ 313.4 µs      │ 304.6 µs      │ 305 µs        │ 100     │ 100
+╰─ divan_training_verify  298.4 µs      │ 302.5 µs      │ 299.7 µs      │ 300 µs        │ 100     │ 100
+
+molecule_A3,3_4
+├─ add                    0.391 ns      │ 0.402 ns      │ 0.392 ns      │ 0.395 ns      │ 100     │ 204800
+├─ divan_inference        276.7 µs      │ 312.6 µs      │ 277.1 µs      │ 278.7 µs      │ 100     │ 100
+├─ divan_training         344.3 µs      │ 354.2 µs      │ 346.1 µs      │ 346.1 µs      │ 100     │ 100
+╰─ divan_training_verify  344.8 µs      │ 348.9 µs      │ 345.3 µs      │ 345.8 µs      │ 100     │ 100
+
+molecule_A3,3_5
+├─ add                    0.677 ns      │ 0.82 ns       │ 0.678 ns      │ 0.692 ns      │ 100     │ 204800
+├─ divan_inference        313.6 µs      │ 332.7 µs      │ 314.1 µs      │ 314.9 µs      │ 100     │ 100
+├─ divan_training         445.2 µs      │ 517.3 µs      │ 446 µs        │ 447.7 µs      │ 100     │ 100
+╰─ divan_training_verify  443.9 µs      │ 450.5 µs      │ 445.2 µs      │ 445.5 µs      │ 100     │ 100
+
+molecule_A3,3_6
+├─ add                    0.391 ns      │ 2.016 ns      │ 0.401 ns      │ 0.413 ns      │ 100     │ 204800
+├─ divan_inference        365.7 µs      │ 402.5 µs      │ 365.9 µs      │ 367.7 µs      │ 100     │ 100
+├─ divan_training         559 µs        │ 661.5 µs      │ 560.9 µs      │ 562.1 µs      │ 100     │ 100
+╰─ divan_training_verify  550.9 µs      │ 558.9 µs      │ 553.7 µs      │ 553.8 µs      │ 100     │ 100
+
+molecule_A3,3_7
+├─ add                    0.776 ns      │ 0.796 ns      │ 0.777 ns      │ 0.778 ns      │ 100     │ 204800
+├─ divan_inference        450.6 µs      │ 487.5 µs      │ 451.5 µs      │ 453.3 µs      │ 100     │ 100
+├─ divan_training         718.7 µs      │ 727.9 µs      │ 721.4 µs      │ 721.3 µs      │ 100     │ 100
+╰─ divan_training_verify  711.8 µs      │ 722.2 µs      │ 717.7 µs      │ 717.7 µs      │ 100     │ 100
+
+molecule_A3,3_8
+├─ add                    0.394 ns      │ 0.416 ns      │ 0.395 ns      │ 0.397 ns      │ 100     │ 204800
+├─ divan_inference        554.3 µs      │ 588.7 µs      │ 556.3 µs      │ 556.7 µs      │ 100     │ 100
+├─ divan_training         822.7 µs      │ 833.2 µs      │ 826.2 µs      │ 826.1 µs      │ 100     │ 100
+╰─ divan_training_verify  820.7 µs      │ 830.5 µs      │ 823.9 µs      │ 823.8 µs      │ 100     │ 100
+
+molecule_A3B,3_1_3
+├─ add                    0.391 ns      │ 0.402 ns      │ 0.392 ns      │ 0.394 ns      │ 100     │ 204800
+├─ divan_inference        385.1 µs      │ 427.8 µs      │ 386 µs        │ 387.8 µs      │ 100     │ 100
+├─ divan_training         599.3 µs      │ 619.5 µs      │ 603.1 µs      │ 603.3 µs      │ 100     │ 100
+╰─ divan_training_verify  592.1 µs      │ 604.1 µs      │ 595.2 µs      │ 595.4 µs      │ 100     │ 100
+
+molecule_A3B,3_1_4
+├─ add                    0.778 ns      │ 2.871 ns      │ 0.779 ns      │ 0.802 ns      │ 100     │ 204800
+├─ divan_inference        695.1 µs      │ 746.4 µs      │ 697.7 µs      │ 699.3 µs      │ 100     │ 100
+├─ divan_training         1.053 ms      │ 1.182 ms      │ 1.055 ms      │ 1.059 ms      │ 100     │ 100
+╰─ divan_training_verify  1.047 ms      │ 1.073 ms      │ 1.048 ms      │ 1.049 ms      │ 100     │ 100
+
+molecule_A3B,3_1_5
+├─ add                    0.779 ns      │ 0.793 ns      │ 0.781 ns      │ 0.782 ns      │ 100     │ 204800
+├─ divan_inference        1.227 ms      │ 1.35 ms       │ 1.259 ms      │ 1.26 ms       │ 100     │ 100
+├─ divan_training         2.237 ms      │ 2.251 ms      │ 2.24 ms       │ 2.24 ms       │ 100     │ 100
+╰─ divan_training_verify  2.203 ms      │ 2.234 ms      │ 2.22 ms       │ 2.219 ms      │ 100     │ 100
+
+molecule_A3B,3_1_6
+├─ add                    0.33 ns       │ 0.349 ns      │ 0.331 ns      │ 0.333 ns      │ 100     │ 204800
+├─ divan_inference        2.256 ms      │ 2.34 ms       │ 2.264 ms      │ 2.264 ms      │ 100     │ 100
+├─ divan_training         5.072 ms      │ 5.095 ms      │ 5.074 ms      │ 5.074 ms      │ 100     │ 100
+╰─ divan_training_verify  5.075 ms      │ 5.105 ms      │ 5.077 ms      │ 5.078 ms      │ 100     │ 100
+
+molecule_A3B,3_1_7
+├─ add                    0.391 ns      │ 0.401 ns      │ 0.392 ns      │ 0.392 ns      │ 100     │ 204800
+├─ divan_inference        3.999 ms      │ 4.096 ms      │ 4.001 ms      │ 4.003 ms      │ 100     │ 100
+├─ divan_training         9.5 ms        │ 9.531 ms      │ 9.503 ms      │ 9.504 ms      │ 100     │ 100
+╰─ divan_training_verify  9.466 ms      │ 9.521 ms      │ 9.47 ms       │ 9.471 ms      │ 100     │ 100
+
+molecule_A3B,3_1_8
+├─ add                    0.392 ns      │ 0.396 ns      │ 0.392 ns      │ 0.393 ns      │ 100     │ 204800
+├─ divan_inference        6.979 ms      │ 7.096 ms      │ 6.982 ms      │ 6.983 ms      │ 100     │ 100
+├─ divan_training         16.92 ms      │ 17.12 ms      │ 17.03 ms      │ 17.02 ms      │ 100     │ 100
+╰─ divan_training_verify  17.01 ms      │ 17.18 ms      │ 17.08 ms      │ 17.08 ms      │ 100     │ 100
+
+molecule_A3BC,3_1_1_3
+├─ add                    0.387 ns      │ 0.397 ns      │ 0.388 ns      │ 0.39 ns       │ 100     │ 409600
+├─ divan_inference        835.8 µs      │ 975.2 µs      │ 907.3 µs      │ 904.8 µs      │ 100     │ 100
+├─ divan_training         1.455 ms      │ 1.593 ms      │ 1.465 ms      │ 1.466 ms      │ 100     │ 100
+╰─ divan_training_verify  1.46 ms       │ 1.467 ms      │ 1.463 ms      │ 1.463 ms      │ 100     │ 100
+
+molecule_A3BC,3_1_1_4
+├─ add                    0.776 ns      │ 0.787 ns      │ 0.777 ns      │ 0.777 ns      │ 100     │ 204800
+├─ divan_inference        2.225 ms      │ 2.319 ms      │ 2.228 ms      │ 2.23 ms       │ 100     │ 100
+├─ divan_training         5.347 ms      │ 5.37 ms       │ 5.351 ms      │ 5.351 ms      │ 100     │ 100
+╰─ divan_training_verify  5.337 ms      │ 5.353 ms      │ 5.339 ms      │ 5.34 ms       │ 100     │ 100
+
+molecule_A3BC,3_1_1_5
+├─ add                    0.743 ns      │ 0.757 ns      │ 0.749 ns      │ 0.75 ns       │ 100     │ 409600
+├─ divan_inference        6.073 ms      │ 6.121 ms      │ 6.074 ms      │ 6.075 ms      │ 100     │ 100
+├─ divan_training         13.89 ms      │ 14.75 ms      │ 14.06 ms      │ 14.11 ms      │ 100     │ 100
+╰─ divan_training_verify  13.95 ms      │ 15.27 ms      │ 14.07 ms      │ 14.11 ms      │ 100     │ 100
+
+molecule_A3BC,3_1_1_6
+├─ add                    0.776 ns      │ 0.798 ns      │ 0.777 ns      │ 0.779 ns      │ 100     │ 204800
+├─ divan_inference        17.74 ms      │ 17.89 ms      │ 17.75 ms      │ 17.75 ms      │ 100     │ 100
+├─ divan_training         43.5 ms       │ 47.7 ms       │ 45.27 ms      │ 45.42 ms      │ 100     │ 100
+╰─ divan_training_verify  43.18 ms      │ 46.75 ms      │ 44.59 ms      │ 44.83 ms      │ 100     │ 100
+
+molecule_A3BC,3_1_1_7
+├─ add                    0.386 ns      │ 0.394 ns      │ 0.39 ns       │ 0.389 ns      │ 100     │ 409600
+├─ divan_inference        42.89 ms      │ 43.07 ms      │ 42.9 ms       │ 42.91 ms      │ 100     │ 100
+├─ divan_training         93.83 ms      │ 99.29 ms      │ 97.29 ms      │ 97.01 ms      │ 100     │ 100
+╰─ divan_training_verify  93.43 ms      │ 98.92 ms      │ 97.13 ms      │ 96.98 ms      │ 100     │ 100
+
+molecule_A3BC,3_1_1_8
+├─ add                    0.631 ns      │ 0.645 ns      │ 0.631 ns      │ 0.634 ns      │ 100     │ 204800
+├─ divan_inference        87.97 ms      │ 88.12 ms      │ 87.99 ms      │ 87.99 ms      │ 100     │ 100
+├─ divan_training         227.4 ms      │ 228.4 ms      │ 227.9 ms      │ 227.9 ms      │ 100     │ 100
+╰─ divan_training_verify  227.1 ms      │ 227.9 ms      │ 227.5 ms      │ 227.5 ms      │ 100     │ 100
+
+molecule_A4,4_3
+├─ add                    0.777 ns      │ 0.79 ns       │ 0.779 ns      │ 0.781 ns      │ 100     │ 204800
+├─ divan_inference        462.1 µs      │ 494.6 µs      │ 463.4 µs      │ 464.5 µs      │ 100     │ 100
+├─ divan_training         549.6 µs      │ 559.9 µs      │ 551.3 µs      │ 551.3 µs      │ 100     │ 100
+╰─ divan_training_verify  544.8 µs      │ 553 µs        │ 546.5 µs      │ 546.5 µs      │ 100     │ 100
+
+molecule_A4,4_4
+├─ add                    0.391 ns      │ 0.404 ns      │ 0.393 ns      │ 0.393 ns      │ 100     │ 204800
+├─ divan_inference        552.8 µs      │ 592.5 µs      │ 555.3 µs      │ 555.5 µs      │ 100     │ 100
+├─ divan_training         827.2 µs      │ 950.8 µs      │ 829.8 µs      │ 832.4 µs      │ 100     │ 100
+╰─ divan_training_verify  826.5 µs      │ 941.2 µs      │ 829.7 µs      │ 830.8 µs      │ 100     │ 100
+
+molecule_A4,4_5
+├─ add                    0.723 ns      │ 0.735 ns      │ 0.724 ns      │ 0.725 ns      │ 100     │ 204800
+├─ divan_inference        760.2 µs      │ 782.9 µs      │ 762.3 µs      │ 762.5 µs      │ 100     │ 100
+├─ divan_training         984.8 µs      │ 1.114 ms      │ 996.3 µs      │ 1.001 ms      │ 100     │ 100
+╰─ divan_training_verify  1.019 ms      │ 1.147 ms      │ 1.032 ms      │ 1.034 ms      │ 100     │ 100
+
+molecule_A4,4_6
+├─ add                    0.779 ns      │ 0.803 ns      │ 0.781 ns      │ 0.782 ns      │ 100     │ 204800
+├─ divan_inference        1.134 ms      │ 1.194 ms      │ 1.137 ms      │ 1.138 ms      │ 100     │ 100
+├─ divan_training         2.338 ms      │ 2.628 ms      │ 2.347 ms      │ 2.352 ms      │ 100     │ 100
+╰─ divan_training_verify  2.355 ms      │ 2.366 ms      │ 2.359 ms      │ 2.359 ms      │ 100     │ 100
+
+molecule_A4,4_7
+├─ add                    0.351 ns      │ 5.521 ns      │ 0.395 ns      │ 0.457 ns      │ 100     │ 204800
+├─ divan_inference        1.807 ms      │ 1.888 ms      │ 1.81 ms       │ 1.812 ms      │ 100     │ 100
+├─ divan_training         4.256 ms      │ 4.279 ms      │ 4.26 ms       │ 4.261 ms      │ 100     │ 100
+╰─ divan_training_verify  4.266 ms      │ 4.291 ms      │ 4.272 ms      │ 4.272 ms      │ 100     │ 100
+
+molecule_A4,4_8
+├─ add                    0.776 ns      │ 0.794 ns      │ 0.779 ns      │ 0.782 ns      │ 100     │ 204800
+├─ divan_inference        2.693 ms      │ 2.725 ms      │ 2.697 ms      │ 2.697 ms      │ 100     │ 100
+├─ divan_training         6.8 ms        │ 6.831 ms      │ 6.804 ms      │ 6.804 ms      │ 100     │ 100
+╰─ divan_training_verify  6.834 ms      │ 6.857 ms      │ 6.837 ms      │ 6.838 ms      │ 100     │ 100
+
+molecule_A4B,4_1_3
+├─ add                    0.747 ns      │ 0.759 ns      │ 0.748 ns      │ 0.748 ns      │ 100     │ 204800
+├─ divan_inference        736.6 µs      │ 761.2 µs      │ 738.9 µs      │ 739.3 µs      │ 100     │ 100
+├─ divan_training         1.567 ms      │ 1.581 ms      │ 1.572 ms      │ 1.572 ms      │ 100     │ 100
+╰─ divan_training_verify  1.574 ms      │ 1.594 ms      │ 1.58 ms       │ 1.58 ms       │ 100     │ 100
+
+molecule_A4B,4_1_4
+├─ add                    0.319 ns      │ 0.326 ns      │ 0.319 ns      │ 0.319 ns      │ 100     │ 204800
+├─ divan_inference        1.394 ms      │ 1.431 ms      │ 1.403 ms      │ 1.404 ms      │ 100     │ 100
+├─ divan_training         3.34 ms       │ 3.364 ms      │ 3.348 ms      │ 3.347 ms      │ 100     │ 100
+╰─ divan_training_verify  3.363 ms      │ 3.387 ms      │ 3.381 ms      │ 3.377 ms      │ 100     │ 100
+
+molecule_A4B,4_1_5
+├─ add                    0.395 ns      │ 1.62 ns       │ 0.396 ns      │ 0.409 ns      │ 100     │ 204800
+├─ divan_inference        3.033 ms      │ 3.14 ms       │ 3.037 ms      │ 3.038 ms      │ 100     │ 100
+├─ divan_training         8.545 ms      │ 10.14 ms      │ 9.894 ms      │ 9.756 ms      │ 100     │ 100
+╰─ divan_training_verify  9.305 ms      │ 10.16 ms      │ 9.899 ms      │ 9.873 ms      │ 100     │ 100
+
+molecule_A4B,4_1_6
+├─ add                    0.379 ns      │ 1.942 ns      │ 0.38 ns       │ 0.397 ns      │ 100     │ 204800
+├─ divan_inference        6.804 ms      │ 6.924 ms      │ 6.806 ms      │ 6.808 ms      │ 100     │ 100
+├─ divan_training         27.95 ms      │ 28.35 ms      │ 28.04 ms      │ 28.11 ms      │ 100     │ 100
+╰─ divan_training_verify  27.63 ms      │ 27.78 ms      │ 27.66 ms      │ 27.66 ms      │ 100     │ 100
+
+molecule_A4B,4_1_7
+├─ add                    0.35 ns       │ 5.289 ns      │ 0.392 ns      │ 0.422 ns      │ 100     │ 204800
+├─ divan_inference        14.62 ms      │ 14.83 ms      │ 14.66 ms      │ 14.66 ms      │ 100     │ 100
+├─ divan_training         56.15 ms      │ 56.39 ms      │ 56.19 ms      │ 56.21 ms      │ 100     │ 100
+╰─ divan_training_verify  56.06 ms      │ 56.38 ms      │ 56.12 ms      │ 56.18 ms      │ 100     │ 100
+
+molecule_A4B,4_1_8
+├─ add                    0.779 ns      │ 0.791 ns      │ 0.78 ns       │ 0.781 ns      │ 100     │ 204800
+├─ divan_inference        32.36 ms      │ 32.56 ms      │ 32.37 ms      │ 32.38 ms      │ 100     │ 100
+├─ divan_training         113.7 ms      │ 114.3 ms      │ 113.8 ms      │ 113.8 ms      │ 100     │ 100
+╰─ divan_training_verify  113.4 ms      │ 113.8 ms      │ 113.6 ms      │ 113.6 ms      │ 100     │ 100
+
+molecule_A5,5_3
+├─ add                    0.349 ns      │ 5.352 ns      │ 0.392 ns      │ 0.442 ns      │ 100     │ 204800
+├─ divan_inference        911.3 µs      │ 1.064 ms      │ 913.8 µs      │ 917 µs        │ 100     │ 100
+├─ divan_training         1.591 ms      │ 1.642 ms      │ 1.608 ms      │ 1.615 ms      │ 100     │ 100
+╰─ divan_training_verify  1.596 ms      │ 1.619 ms      │ 1.605 ms      │ 1.605 ms      │ 100     │ 100
+
+molecule_A5,5_4
+├─ add                    0.352 ns      │ 0.417 ns      │ 0.396 ns      │ 0.391 ns      │ 100     │ 204800
+├─ divan_inference        1.518 ms      │ 1.639 ms      │ 1.528 ms      │ 1.53 ms       │ 100     │ 100
+├─ divan_training         3.907 ms      │ 3.951 ms      │ 3.916 ms      │ 3.924 ms      │ 100     │ 100
+╰─ divan_training_verify  3.939 ms      │ 3.981 ms      │ 3.946 ms      │ 3.952 ms      │ 100     │ 100
+
+molecule_A5,5_5
+├─ add                    0.308 ns      │ 0.417 ns      │ 0.392 ns      │ 0.358 ns      │ 100     │ 204800
+├─ divan_inference        3.204 ms      │ 3.338 ms      │ 3.216 ms      │ 3.229 ms      │ 100     │ 100
+├─ divan_training         18.86 ms      │ 19.16 ms      │ 19.08 ms      │ 19.06 ms      │ 100     │ 100
+╰─ divan_training_verify  18.9 ms       │ 19.08 ms      │ 19.01 ms      │ 19.01 ms      │ 100     │ 100
+
+molecule_A5,5_6
+├─ add                    0.393 ns      │ 0.406 ns      │ 0.394 ns      │ 0.395 ns      │ 100     │ 204800
+├─ divan_inference        7.657 ms      │ 7.776 ms      │ 7.66 ms       │ 7.661 ms      │ 100     │ 100
+├─ divan_training         52.2 ms       │ 52.37 ms      │ 52.26 ms      │ 52.26 ms      │ 100     │ 100
+╰─ divan_training_verify  52.29 ms      │ 52.41 ms      │ 52.32 ms      │ 52.32 ms      │ 100     │ 100
+
+molecule_A5,5_7
+├─ add                    0.349 ns      │ 0.402 ns      │ 0.392 ns      │ 0.382 ns      │ 100     │ 204800
+├─ divan_inference        39.83 ms      │ 39.98 ms      │ 39.86 ms      │ 39.86 ms      │ 100     │ 100
+├─ divan_training         133.7 ms      │ 134.3 ms      │ 134 ms        │ 134 ms        │ 100     │ 100
+╰─ divan_training_verify  132.2 ms      │ 134.8 ms      │ 134.4 ms      │ 134.3 ms      │ 100     │ 100
+
+molecule_A5,5_8
+├─ add                    0.75 ns       │ 0.762 ns      │ 0.751 ns      │ 0.752 ns      │ 100     │ 204800
+├─ divan_inference        78.7 ms       │ 79.1 ms       │ 78.82 ms      │ 78.81 ms      │ 100     │ 100
+├─ divan_training         308.9 ms      │ 310.7 ms      │ 309.4 ms      │ 309.4 ms      │ 100     │ 100
+╰─ divan_training_verify  307 ms        │ 309.2 ms      │ 308.5 ms      │ 308.4 ms      │ 100     │ 100
+
+molecule_ABC,1_1_1_2
+├─ add                    0.633 ns      │ 2.033 ns      │ 0.634 ns      │ 0.648 ns      │ 100     │ 204800
+├─ divan_inference        236.4 µs      │ 258 µs        │ 236.6 µs      │ 237.3 µs      │ 100     │ 100
+├─ divan_training         268.1 µs      │ 272.8 µs      │ 268.9 µs      │ 269.3 µs      │ 100     │ 100
+╰─ divan_training_verify  266.2 µs      │ 272.7 µs      │ 269.2 µs      │ 268.6 µs      │ 100     │ 100
+
+molecule_ABC,1_1_1_3
+├─ add                    0.734 ns      │ 0.789 ns      │ 0.778 ns      │ 0.779 ns      │ 100     │ 409600
+├─ divan_inference        299.9 µs      │ 327 µs        │ 300.2 µs      │ 301.6 µs      │ 100     │ 100
+├─ divan_training         429.7 µs      │ 442 µs        │ 432.5 µs      │ 432.5 µs      │ 100     │ 100
+╰─ divan_training_verify  430.4 µs      │ 437.8 µs      │ 435.3 µs      │ 434.7 µs      │ 100     │ 100
+
+molecule_ABC,1_1_1_4
+├─ add                    0.393 ns      │ 2.732 ns      │ 0.394 ns      │ 0.419 ns      │ 100     │ 204800
+├─ divan_inference        429.9 µs      │ 462.5 µs      │ 431.5 µs      │ 432.4 µs      │ 100     │ 100
+├─ divan_training         657.5 µs      │ 674.9 µs      │ 664.6 µs      │ 664.2 µs      │ 100     │ 100
+╰─ divan_training_verify  653.6 µs      │ 683.7 µs      │ 660.8 µs      │ 660.7 µs      │ 100     │ 100
+
+molecule_ABC,1_1_1_5
+├─ add                    0.749 ns      │ 2.049 ns      │ 0.749 ns      │ 0.764 ns      │ 100     │ 409600
+├─ divan_inference        620 µs        │ 657 µs        │ 621.7 µs      │ 621.7 µs      │ 100     │ 100
+├─ divan_training         961.6 µs      │ 1.084 ms      │ 963.1 µs      │ 964.4 µs      │ 100     │ 100
+╰─ divan_training_verify  959.8 µs      │ 971.3 µs      │ 962.2 µs      │ 962.5 µs      │ 100     │ 100
+
+molecule_ABC,1_1_1_6
+├─ add                    0.394 ns      │ 0.407 ns      │ 0.395 ns      │ 0.397 ns      │ 100     │ 204800
+├─ divan_inference        1.014 ms      │ 1.131 ms      │ 1.016 ms      │ 1.019 ms      │ 100     │ 100
+├─ divan_training         1.744 ms      │ 1.861 ms      │ 1.749 ms      │ 1.75 ms       │ 100     │ 100
+╰─ divan_training_verify  1.751 ms      │ 1.889 ms      │ 1.758 ms      │ 1.76 ms       │ 100     │ 100
+
+molecule_ABC,1_1_1_7
+├─ add                    0.632 ns      │ 0.643 ns      │ 0.633 ns      │ 0.634 ns      │ 100     │ 204800
+├─ divan_inference        1.456 ms      │ 1.491 ms      │ 1.461 ms      │ 1.462 ms      │ 100     │ 100
+├─ divan_training         2.964 ms      │ 3.023 ms      │ 3.011 ms      │ 3.007 ms      │ 100     │ 100
+╰─ divan_training_verify  2.966 ms      │ 3.048 ms      │ 2.989 ms      │ 2.99 ms       │ 100     │ 100
+
+molecule_ABC,1_1_1_8
+├─ add                    0.776 ns      │ 0.778 ns      │ 0.777 ns      │ 0.777 ns      │ 100     │ 204800
+├─ divan_inference        1.959 ms      │ 2.038 ms      │ 1.961 ms      │ 1.963 ms      │ 100     │ 100
+├─ divan_training         4.373 ms      │ 4.397 ms      │ 4.377 ms      │ 4.378 ms      │ 100     │ 100
+╰─ divan_training_verify  4.361 ms      │ 4.386 ms      │ 4.368 ms      │ 4.368 ms      │ 100     │ 100
+
+molecule_ABCD,1_1_1_1_3
+├─ add                    0.751 ns      │ 0.77 ns       │ 0.752 ns      │ 0.753 ns      │ 100     │ 204800
+├─ divan_inference        907.4 µs      │ 988.5 µs      │ 910.9 µs      │ 913.2 µs      │ 100     │ 100
+├─ divan_training         1.279 ms      │ 1.298 ms      │ 1.288 ms      │ 1.288 ms      │ 100     │ 100
+╰─ divan_training_verify  1.27 ms       │ 1.399 ms      │ 1.278 ms      │ 1.279 ms      │ 100     │ 100
+
+molecule_ABCD,1_1_1_1_4
+├─ add                    0.391 ns      │ 0.395 ns      │ 0.392 ns      │ 0.392 ns      │ 100     │ 204800
+├─ divan_inference        1.938 ms      │ 2.022 ms      │ 1.941 ms      │ 1.943 ms      │ 100     │ 100
+├─ divan_training         4.069 ms      │ 4.098 ms      │ 4.077 ms      │ 4.077 ms      │ 100     │ 100
+╰─ divan_training_verify  4.066 ms      │ 4.085 ms      │ 4.07 ms       │ 4.07 ms       │ 100     │ 100
+
+molecule_ABCD,1_1_1_1_5
+├─ add                    0.394 ns      │ 0.408 ns      │ 0.395 ns      │ 0.396 ns      │ 100     │ 204800
+├─ divan_inference        4.416 ms      │ 4.531 ms      │ 4.419 ms      │ 4.421 ms      │ 100     │ 100
+├─ divan_training         10.13 ms      │ 10.18 ms      │ 10.14 ms      │ 10.14 ms      │ 100     │ 100
+╰─ divan_training_verify  10.12 ms      │ 10.19 ms      │ 10.13 ms      │ 10.13 ms      │ 100     │ 100
+
+molecule_ABCD,1_1_1_1_6
+├─ add                    0.338 ns      │ 0.4 ns        │ 0.379 ns      │ 0.368 ns      │ 100     │ 204800
+├─ divan_inference        9.632 ms      │ 9.766 ms      │ 9.638 ms      │ 9.639 ms      │ 100     │ 100
+├─ divan_training         25.94 ms      │ 26.03 ms      │ 25.97 ms      │ 25.97 ms      │ 100     │ 100
+╰─ divan_training_verify  25.97 ms      │ 26.03 ms      │ 25.99 ms      │ 25.99 ms      │ 100     │ 100
+
+molecule_ABCD,1_1_1_1_7
+├─ add                    0.343 ns      │ 1.813 ns      │ 0.386 ns      │ 0.387 ns      │ 100     │ 409600
+├─ divan_inference        21.33 ms      │ 21.45 ms      │ 21.34 ms      │ 21.34 ms      │ 100     │ 100
+├─ divan_training         51.12 ms      │ 51.23 ms      │ 51.13 ms      │ 51.14 ms      │ 100     │ 100
+╰─ divan_training_verify  51.07 ms      │ 51.15 ms      │ 51.09 ms      │ 51.09 ms      │ 100     │ 100
+
+molecule_ABCD,1_1_1_1_8
+├─ add                    0.778 ns      │ 2.922 ns      │ 0.779 ns      │ 0.802 ns      │ 100     │ 204800
+├─ divan_inference        39.01 ms      │ 39.48 ms      │ 39.02 ms      │ 39.03 ms      │ 100     │ 100
+├─ divan_training         88.17 ms      │ 88.31 ms      │ 88.2 ms       │ 88.2 ms       │ 100     │ 100
+╰─ divan_training_verify  89.24 ms      │ 90.85 ms      │ 89.27 ms      │ 89.29 ms      │ 100     │ 100
+
+molecule_ABCDE,1_1_1_1_1_3
+├─ add                    0.394 ns      │ 1.884 ns      │ 0.395 ns      │ 0.411 ns      │ 100     │ 204800
+├─ divan_inference        2.235 ms      │ 2.354 ms      │ 2.238 ms      │ 2.244 ms      │ 100     │ 100
+├─ divan_training         4.576 ms      │ 4.593 ms      │ 4.579 ms      │ 4.58 ms       │ 100     │ 100
+╰─ divan_training_verify  4.567 ms      │ 4.596 ms      │ 4.571 ms      │ 4.572 ms      │ 100     │ 100
+
+molecule_ABCDE,1_1_1_1_1_4
+├─ add                    0.351 ns      │ 0.957 ns      │ 0.395 ns      │ 0.403 ns      │ 100     │ 204800
+├─ divan_inference        8.391 ms      │ 8.551 ms      │ 8.395 ms      │ 8.397 ms      │ 100     │ 100
+├─ divan_training         22.26 ms      │ 22.34 ms      │ 22.28 ms      │ 22.28 ms      │ 100     │ 100
+╰─ divan_training_verify  22.26 ms      │ 22.33 ms      │ 22.28 ms      │ 22.28 ms      │ 100     │ 100
+
+molecule_ABCDE,1_1_1_1_1_5
+├─ add                    0.78 ns       │ 0.793 ns      │ 0.781 ns      │ 0.783 ns      │ 100     │ 204800
+├─ divan_inference        32.38 ms      │ 32.55 ms      │ 32.38 ms      │ 32.39 ms      │ 100     │ 100
+├─ divan_training         68.9 ms       │ 69.01 ms      │ 68.91 ms      │ 68.92 ms      │ 100     │ 100
+╰─ divan_training_verify  69.23 ms      │ 69.33 ms      │ 69.27 ms      │ 69.27 ms      │ 100     │ 100
+
+molecule_ABCDE,1_1_1_1_1_6
+├─ add                    0.719 ns      │ 6.867 ns      │ 0.762 ns      │ 0.829 ns      │ 100     │ 204800
+├─ divan_inference        86.89 ms      │ 87.14 ms      │ 86.93 ms      │ 86.93 ms      │ 100     │ 100
+├─ divan_training         199.4 ms      │ 218.1 ms      │ 210.2 ms      │ 210.4 ms      │ 100     │ 100
+╰─ divan_training_verify  195.4 ms      │ 206.8 ms      │ 200.4 ms      │ 200.9 ms      │ 100     │ 100
+
+molecule_ABCDE,1_1_1_1_1_7
+├─ add                    0.613 ns      │ 0.637 ns      │ 0.628 ns      │ 0.627 ns      │ 100     │ 204800
+├─ divan_inference        193.5 ms      │ 193.8 ms      │ 193.5 ms      │ 193.5 ms      │ 100     │ 100
+├─ divan_training         569.4 ms      │ 572 ms        │ 570.5 ms      │ 570.5 ms      │ 100     │ 100
+╰─ divan_training_verify  569.6 ms      │ 572.2 ms      │ 570.9 ms      │ 570.8 ms      │ 100     │ 100
+
+molecule_ABCDE,1_1_1_1_1_8
+pip                       fastest       │ slowest       │ median        │ mean          │ samples │ iters
+├─ add                    0.777 ns      │ 3.055 ns      │ 0.796 ns      │ 0.818 ns      │ 100     │ 204800
+├─ divan_inference        503.1 ms      │ 505.5 ms      │ 503.4 ms      │ 503.5 ms      │ 100     │ 100
+├─ divan_training         1.588 s       │ 1.592 s       │ 1.589 s       │ 1.589 s       │ 100     │ 100
+╰─ divan_training_verify  1.588 s       │ 1.59 s        │ 1.589 s       │ 1.589 s       │ 100     │ 100
