@@ -6,9 +6,11 @@ import math
 # ----------------------------------------------------------------------------------------
 #   READ MONOMIALS  
 def f_monomial_flag_0(x):
-    if np.sum(x) > 0:
-        j = np.where(x==1)[0]
-        j = j[0]
+    if np.sum(x) == 1:
+        j = np.where(x == 1)[0]
+        j = j[0].tolist()
+    elif np.sum(x) > 0:
+        j = x.tolist()
     else:
         j = -1
     return j
@@ -30,17 +32,6 @@ def init_monos(Lines, f_out_monomials):
         f_out.write('  mono[{}] = r[{}];\n'.format(i+1,j))
     f_out.write('}\n\n')
     f_out.close()
-
-#➜  rust git:(main) ✗ python3 src/generator.py --file data/molecule_A3B2/MOL_3_2_8 --label 3_2_8 --dir src/data/molecule_A3B2 
-#Traceback (most recent call last):
-#  File "/home/manuel/prog/piprx/rust/src/generator.py", line 226, in <module>
-#    main()
-#  File "/home/manuel/prog/piprx/rust/src/generator.py", line 217, in main
-#    create_f_monomials(file_mono,f_label,args.dir)
-#  File "/home/manuel/prog/piprx/rust/src/generator.py", line 78, in create_f_monomials
-#    gen_mono_block(block, i, offset, f_out_monomials)
-#  File "/home/manuel/prog/piprx/rust/src/generator.py", line 40, in gen_mono_block
-#    assert (z[0] == 1)
 
 
 def gen_mono_block(block, i, offset, f_out_monomials):
@@ -68,7 +59,9 @@ def create_f_monomials(file_mono, file_label, out_dir):
     index = 0 
     for l in Lines:
         if l[0] == '0':
-            index += 1
+            z = np.array(l.split(), dtype=np.int32)
+            if np.sum(z) == 1:
+                index += 1
     zeros, ones = (Lines[:index], Lines[index:])
    
     f_out.write('#![allow(unused_variables)]\n')
@@ -79,10 +72,10 @@ def create_f_monomials(file_mono, file_label, out_dir):
     block_size = 50
     blocks = [ones[i:i+block_size] for i in range(0, len(ones), block_size)]
     offset = len(zeros)
-    N_DISTANCES = offset - 1
+    N_DISTANCES = index #offset - 1
     f_out.write('// N_DISTANCES == N_ATOMS * (N_ATOMS - 1) / 2;\n')
     f_out.write('pub const N_DISTANCES: usize = {};\n'.format(N_DISTANCES))
-    N_ATOMS = round(math.sqrt(2*N_DISTANCES + 0.25) + 0.5)
+    N_ATOMS = round(+0.5 + math.sqrt(1 + 4*2*N_DISTANCES)*0.5)
     f_out.write('pub const N_ATOMS: usize = {};\n'.format(N_ATOMS))
     f_out.write('pub const N_XYZ: usize = N_ATOMS * 3;\n\n')
     f_out.close()
