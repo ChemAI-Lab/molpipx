@@ -4,9 +4,7 @@ from jax import jit
 
 from monomials_deg_3 import f_monomials as f_monos
 
-
-# File created from /Users/ravh011/Documents/GitHub/PIPMSA_jax/Data/Methane/PIP_deg_3/MOL_4_1_3.POLY
-
+# File created from ./MOL_4_1_3.POLY
 
 N_POLYS = 30
 

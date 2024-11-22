@@ -1,15 +1,6 @@
 from typing import Any, Callable, Tuple
-
-import jax
-import jax.numpy as jnp
-from jax import jit, lax, vmap
-from jaxtyping import Array, Float, PyTree
-
-import flax
 from flax import linen as nn
-
-from pipx.utils import all_distances, softplus_inverse, morse_variables
-from pipx.pip_flax import PIPlayer
+from molpipx.pip_flax import PIPlayer
 
 
 @nn.jit
@@ -19,7 +10,7 @@ class MLP(nn.Module):
 
     def setup(self):
         self.layers = [nn.Dense(feat)
-                       for feat in self.features]  # [1:]
+                       for feat in self.features]  
         self.last_layer = nn.Dense(1)
 
     @nn.compact
@@ -43,7 +34,7 @@ class PIPNN(nn.Module):
 
     def setup(self):
         self.layers = [nn.Dense(feat)
-                       for feat in self.features]  # [1:]
+                       for feat in self.features]  
         self.last_layer = nn.Dense(1)
         self.pip_layer = PIPlayer(self.f_mono, self.f_poly, self.l)
 

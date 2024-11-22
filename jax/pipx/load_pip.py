@@ -1,19 +1,17 @@
 import re
 import os
-import sys
-from typing import Any, Callable, List, Dict, Tuple
+from typing import Any, List, Dict, Tuple
 
 import argparse
 import importlib.util
-import sys
 from pathlib import Path
 
 import jax
 import jax.numpy as jnp
 
-# from pipjax.pip_generator import msa_file_generator
-from pipx.pip_generator import msa_file_generator
-msa_path = 'pipjax/msa_files'
+
+from molpipx.pip_generator import msa_file_generator
+msa_path = 'molpipx/msa_files'
 
 
 def parse_molecule(molecule: str):
@@ -106,21 +104,14 @@ def list_of_strings(arg):
 
 def main():
     parser = argparse.ArgumentParser(description="run msa files")
-    # parser.add_argument("--mol", type=str, required=True)
     parser.add_argument("--mol-list", type=list_of_strings, required=True)
-    # parser.add_argument("--poly", type=int, required=False)
     parser.add_argument("--poly-list", type=list_of_strings, required=True)
-
     args = parser.parse_args()
-    # molecule = args.mol
+
     mols = args.mol_list
     poly_degrees = args.poly_list
 
-    # print(molecule)
-    # mol, mol_sym = detect_molecule(molecule)
-    # print(molecule, mol_sym)
-    import jax
-    import jax.numpy as jnp
+
     for moli in mols:
         moli_dict, mol_sym = detect_molecule(moli)
         print(moli)
@@ -132,7 +123,6 @@ def main():
         for p in poly_degrees:
             print(f'degree {p}')
             poly_degree = p
-            # msa_path = 'pipjax/msa_files'
             msa_path = os.getcwd()
             msa_path = os.path.join(msa_path, 'msa_files')
             filename = 'MOL_' + mol_sym + f'_{poly_degree}'
@@ -141,8 +131,6 @@ def main():
             print(msa_path)
             print(os.getcwd())
 
-            # parents_path = f'pipjax.msa_files.molecule_{molecule}'
-            # msa_file_generator(filename, msa_path, mol_sym, parents_path)
 
             f_mono, f_poly = get_functions(moli, p)
 
@@ -158,9 +146,3 @@ def main():
 if __name__ == "__main__":
     main()
 
-
-'''
-
-# from pipjax.msa_files.molecule_A2B.monomials_MOL_2_1_3 import f_monomials as f_monos
-
-'''

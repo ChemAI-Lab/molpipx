@@ -2,7 +2,7 @@ import jax
 import jax.numpy as jnp 
 from jax import jit
 
-# File created from /Users/ravh011/Documents/GitHub/PIPMSA_jax/Data/Methane/PIP_deg_3/MOL_4_1_3.MONO 
+# File created from ./MOL_4_1_3.MONO 
 
 # N_DISTANCES == N_ATOMS * (N_ATOMS - 1) / 2;
 N_DISTANCES = 10

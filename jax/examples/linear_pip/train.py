@@ -4,12 +4,12 @@ from ml_collections import config_dict
 import jax
 import jax.numpy as jnp
 
-from pipx import EnergyPIP, PIPlayer as PIP
-from pipx import training, training_w_gradients, get_forces
-from pipx import split_train_and_test_data, split_train_and_test_data_w_forces
-from pipx import flax_params
-from pipx import mse_loss
-from pipx import get_functions, detect_molecule
+from molpipx import EnergyPIP, PIPlayer as PIP
+from molpipx import training, training_w_gradients, get_forces
+from molpipx import split_train_and_test_data, split_train_and_test_data_w_forces
+from molpipx import flax_params
+from molpipx import mse_loss
+from molpipx import get_functions, detect_molecule
 
 from load_data_methane import read_geometry_energy
 
@@ -33,7 +33,7 @@ def train_and_evaluate(config: config_dict.ConfigDict,
     na = get_number_of_atoms(mol_dict)
     f_mono, f_poly = get_functions(molecule_type, poly_degree)
 
-    # load all CH4 data
+    # load all molecule data
     X_all, _, y_all, atoms = read_geometry_energy()
 
     # split training and validation data
@@ -49,7 +49,7 @@ def train_and_evaluate(config: config_dict.ConfigDict,
     params = model_energy.init(key, X_tr[:1])
 
     # training
-    w = training(model_pip, X_tr, y_tr)  # jnp.array
+    w = training(model_pip, X_tr, y_tr) 
     params = flax_params(w, params)  # transform to Pytree
 
     # prediction
@@ -81,7 +81,7 @@ def train_and_evaluate_w_gradients(config: config_dict.ConfigDict,
     na = get_number_of_atoms(mol_dict)
     f_mono, f_poly = get_functions(molecule_type, poly_degree)
 
-    # load all CH4 data
+    # load all molecule data
     X_all, F_all, y_all, atoms = read_geometry_energy()
 
     # split training and validation data
@@ -111,9 +111,10 @@ def train_and_evaluate_w_gradients(config: config_dict.ConfigDict,
 
     loss_energy_tr = mse_loss(y_pred_tr, y_tr)
     loss_energy_val = mse_loss(y_pred_val, y_val)
-
+    
     # loss_force_tr = mse_loss(F_pred_tr, F_tr)
     # loss_force_val = mse_loss(F_pred_val, F_val)
+   
 
     loss_force_tr = jnp.linalg.norm(F_pred_tr - F_tr)
     loss_force_val = jnp.linalg.norm(F_pred_val - F_val)

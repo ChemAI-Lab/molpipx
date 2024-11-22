@@ -1,4 +1,3 @@
-import argparse
 from ml_collections import config_dict
 import numpy as onp
 import pandas as pd
@@ -10,11 +9,11 @@ import optax
 from optax.tree_utils import tree_l2_norm as l2_norm
 from flax import linen as nn
 
-from pipx import split_train_and_test_data_w_forces
-from pipx import LayerPIPAniso, EnergyPIPAniso, get_mask
-from pipx import flax_params, mse_loss
-from pipx import get_f_mask, lambda_random_init
-from pipx import get_functions, detect_molecule, get_pip_grad
+from molpipx import split_train_and_test_data_w_forces
+from molpipx import LayerPIPAniso, EnergyPIPAniso, get_mask
+from molpipx import flax_params, mse_loss
+from molpipx import get_f_mask, lambda_random_init
+from molpipx import get_functions, detect_molecule, get_pip_grad
 
 from load_data_methane import read_geometry_energy
 
@@ -42,7 +41,7 @@ def train_and_evaluate(config: config_dict.ConfigDict,
     na = get_number_of_atoms(mol_dict)
     f_mono, f_poly = get_functions(molecule_type, poly_degree)
 
-    # load all CH4 data
+    # load all molecule data
     X_all, F_all, y_all, atoms = read_geometry_energy()
     atoms = atoms[0]
 
@@ -73,9 +72,7 @@ def train_and_evaluate(config: config_dict.ConfigDict,
     @jax.jit
     def validation_loss(params_pip, data_, params_energy):
         (X_tr, F_tr, y_tr), (X_val, F_val, y_val) = data_
-        # params_pip, params_energy = params_
 
-        # params_pip = flax_params_aniso(l, params_pip)
         @jax.jit
         def inner_loss(params_pip):
             Pip_tr = model_pip.apply(params_pip, X_tr)
@@ -96,7 +93,6 @@ def train_and_evaluate(config: config_dict.ConfigDict,
             return theta
 
         w_opt = inner_loss(params_pip)
-        # print(w_opt)
         params_energy = flax_params(w_opt, params_energy)
         y_val_pred = model_energy.apply(params_energy, X_val)
 
@@ -121,7 +117,7 @@ def train_and_evaluate(config: config_dict.ConfigDict,
             grads[0], optimizer_state, li)
         return optax.apply_updates(li, updates), opt_state, loss, loss_tr, params_e
 
-    l_params = params_pip  # l_init
+    l_params = params_pip  
     l_ = []
     df = pd.DataFrame()
     for epoch in range(1, config.num_epochs + 1):

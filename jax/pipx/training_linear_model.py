@@ -1,10 +1,10 @@
-from typing import Callable
+from typing import Any, Callable
 import jax
 import jax.numpy as jnp
-from jax import lax, jit
-from jaxtyping import Array, Float, PyTree, Key
+from jax import lax
+from jaxtyping import Array, Float
 
-from pipx.utils_gradients import get_pip_grad
+from molpipx.utils_gradients import get_pip_grad
 
 
 def training(model_pip: Callable,

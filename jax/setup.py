@@ -1,11 +1,11 @@
-"""Setup script for PIPJAX"""
+"""Setup script for MOLPIPx"""
 
 import os
 from setuptools import find_packages
 from setuptools import setup
 
 setup(
-    name='pipx',
+    name='molpipx',
     packages=find_packages(),
     version='0.1',
     description='Permutationally Invariant Polynomials in JAX',
@@ -25,8 +25,8 @@ setup(
         'optax>0.1.7',
         'orbax-checkpoint>0.4.4',
         'ml-collections',
-        #'gpjax',
+        'gpjax',
     ],
-    python_requires='>=3.6',
+    python_requires='>=3.10',
     keywords="jax, pip, computational chemistry, pes, potential energy surface, force field",
 )

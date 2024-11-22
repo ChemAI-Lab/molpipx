@@ -10,7 +10,7 @@ from jaxtyping import Array, Float, PyTree
 import flax
 from flax import linen as nn
 
-from pipx.utils import all_distances, softplus_inverse, morse_variables
+from molpipx.utils import all_distances, softplus_inverse, morse_variables
 
 KeyArray = Array
 KeyArrayLike = Array
@@ -24,7 +24,6 @@ def get_mask(atom_types: list) -> Tuple:
             pair = atom_types[i] + atom_types[j]
             pair = ''.join(sorted(pair))
             pairs_.append(pair)
-            # print('%s, '%pair, end='')
             if pair not in unique_pairs_:
                 unique_pairs_.append(pair)
 
@@ -55,7 +54,6 @@ def lambda_random_init(params_pip: Any, key: KeyArray) -> Any:
 
     _, key = jrnd.split(key)
     w_rnd = jrnd.uniform(key, shape=(w_l.shape), minval=0.3, maxval=2.5)
-    # w_rnd = softplus_inverse(w_rnd)
     params_pip['params']['VmapJitPIPAniso_0']['lambda'] = w_rnd
     return params_pip
 
@@ -105,7 +103,6 @@ class PIPAniso(nn.Module):
         morse_ = f_mask(l, d)
         morse = jnp.exp(-1*morse_)
 
-        # mono = f_mono(morse)
         # compute PIP vector, morse is computed inside f_pip
         pip = f_poly(morse)
         return pip

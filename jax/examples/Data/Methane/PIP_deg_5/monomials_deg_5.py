@@ -1,8 +1,7 @@
-import jax
 import jax.numpy as jnp
 from jax import jit
 
-# File created from /Users/ravh011/Documents/GitHub/PIPMSA_jax/Data/Methane/PIP_deg_5/MOL_4_1_5.MONO
+# File created from ./MOL_4_1_5.MONO
 
 # N_DISTANCES == N_ATOMS * (N_ATOMS - 1) / 2;
 N_DISTANCES = 10
@@ -10,7 +9,6 @@ N_ATOMS = 5
 N_XYZ = N_ATOMS * 3
 
 # Total number of monomials = 496
-
 
 @jit
 def f_monomials(r):

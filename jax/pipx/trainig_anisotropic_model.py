@@ -1,15 +1,14 @@
 from typing import Callable, Tuple, List
 import jax
 import jax.numpy as jnp
-from jax import lax, jit
-from jaxtyping import Array, Float, PyTree, Key
+from jaxtyping import Array, Float, PyTree
 
 import flax.linen as nn
 import optax
 
-from pipx.grad_utils import get_pip_grad, softplus_inverse, flax_params, flax_params_aniso
-from pipx.pip_anisotropic_flax import get_mask, LayerPIPAniso, EnergyPIPAniso
-from pipx.utils import mse_loss
+from molpipx.grad_utils import softplus_inverse, flax_params, flax_params_aniso
+from molpipx.pip_anisotropic_flax import get_mask, LayerPIPAniso, EnergyPIPAniso
+from molpipx.utils import mse_loss
 
 def _train_aniso_adam(data:Tuple, atoms:List,
                       f_mono:Callable,f_poly:Callable, 
@@ -59,7 +58,7 @@ def _train_aniso_adam(data:Tuple, atoms:List,
 
         w_opt = inner_loss(Pip_tr, y_tr)
         loss_tr = mse_loss(f_pip(params_pip, X_tr), y_tr)
-        # print(w_opt)
+
         params_energy = flax_params(w_opt, params_energy)
         y_val_pred = f_pip_energy(params_energy, X_val)
             

@@ -1,7 +1,7 @@
-<h1 align='center'>PIPX</h1>
+<h1 align='center'><img src="Images/molpipx_logo.png" alt="MOLPIPx Logo" width="400"></h1>
 <h2 align='center'>Differentiable version of Permutationally Invariant Polynomial (PIP) models in JAX, compatible with Flax and the JAX-ecosystem. </h2>
 
-**PIPx** is a [JAX](https://jax.readthedocs.io/en/latest/)-based library that provides an implementation of PIP models compatible with,
+**MOLPIPx** is a [JAX](https://jax.readthedocs.io/en/latest/)-based library that provides an implementation of PIP models compatible with,
 1. [FLAX](flax.readthedocs.io/): Nueral network library.
 2. GPU friendly.
 3. Fully differentiable.
@@ -16,15 +16,38 @@ The MSA files must be generated before, for more information please see https://
 
 
 ### MSA-JAX files generation ###
+MOLPIPx package includes `msa_file_generator`, which translates monomial and polynomial files from MSA to JAX and RUST for molecules.
+Check out an [example on generating msa files](examples/Data/README.md)
+
+
 ```python
-import jax
-import pipx
+from molpipx import msa_file_generator
 
 head_files = 'MOL_<info>_<deg>'
 path = '<path_to_the_files>'
-label = '<file_label'
-pipx.msa_file_generator()
+label = '<file_label>'
+msa_file_generator(head_files, path, label)
 ```
 
 
 The structure of the library is kept simple, as each molecular system could need individual elements. 
+
+
+## Models ##
+MOLPIPx incorporated PIPs with three main regression models, i.e., linear regression, neural networks and Gaussian processes. This library leverages two main automatic differentiation engines, JAX for
+The Python version and Enzyme-AD for the Rust version improve the simulation of a wide range of chemical systems.
+
+<h1 align='center'><img src="Images/diagram.png" alt="diagram" width="700"></h1>
+
+## Installation ##
+Install MOLPIPx via PyPi:
+
+`pip install molpipx`
+
+## Tutorials ##
+Check out our tutorials to get started with MOLPIPx. These tutorials define inputs for different regression approaches, train machine learning models with or without forces, and make predictions.
+
+1. [Linear regression with permutationally invariant polynomials (Linear PIP)](linear_pip/README.md)
+2. [Anisotropic linear regression with permutationally invariant polynomials (Anisotropic Linear PIP)](aniso_pip/README.md)
+3. [Permutationally Invariant Polynomial Neural Networks (PIP-NN)](pipnn/README.md)
+4. [Permutationally Invariant Polynomial Gaussian Process (PIP-GP)](pipgp/README.md)

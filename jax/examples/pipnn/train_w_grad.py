@@ -1,17 +1,13 @@
 import os
-from absl import logging
-import ml_collections
-import numpy as onp
 import pandas as pd
 
 import jax
 import jax.numpy as jnp
-import jax.random as jrnd
 
-from pipx import PIPNN
-from pipx import mse_loss, mae_loss
-from pipx import get_functions, detect_molecule, split_train_and_test_data_w_forces
-from pipx import get_energy_and_forces
+from molpipx import PIPNN
+from molpipx import mse_loss
+from molpipx import get_functions, detect_molecule, split_train_and_test_data_w_forces
+from molpipx import get_energy_and_forces
 
 from jaxtyping import (
     Array,
@@ -20,8 +16,6 @@ from jaxtyping import (
     install_import_hook,
 )
 
-import flax
-from flax import linen as nn
 from flax.training import train_state, checkpoints
 import chex
 import optax
