@@ -11,7 +11,7 @@ import jax.numpy as jnp
 
 
 from molpipx.pip_generator import msa_file_generator
-msa_path = 'pipx/msa_files'
+msa_path = 'molpipx/msa_files'
 
 
 def parse_molecule(molecule: str):
@@ -104,19 +104,13 @@ def list_of_strings(arg):
 
 def main():
     parser = argparse.ArgumentParser(description="run msa files")
-    # parser.add_argument("--mol", type=str, required=True)
     parser.add_argument("--mol-list", type=list_of_strings, required=True)
-    # parser.add_argument("--poly", type=int, required=False)
     parser.add_argument("--poly-list", type=list_of_strings, required=True)
-
     args = parser.parse_args()
-    # molecule = args.mol
+
     mols = args.mol_list
     poly_degrees = args.poly_list
 
-    # print(molecule)
-    # mol, mol_sym = detect_molecule(molecule)
-    # print(molecule, mol_sym)
 
     for moli in mols:
         moli_dict, mol_sym = detect_molecule(moli)
@@ -152,9 +146,3 @@ def main():
 if __name__ == "__main__":
     main()
 
-
-'''
-
-# from pipjax.msa_files.molecule_A2B.monomials_MOL_2_1_3 import f_monomials as f_monos
-
-'''

@@ -4,9 +4,7 @@ from jax import jit
 
 from molpipx.msa_files.molecule_A4.monomials_MOL_4_8 import f_monomials as f_monos
 
-
-# File created from /gpfs/fs1/home/r/ravh011/ravh011/PIPMSA_jax/pipjax/msa_files/molecule_A4/MOL_4_8.POLY
-
+# File created from ./MOL_4_8.POLY
 
 N_POLYS = 195
 

@@ -1,1 +1,1 @@
-pipx
+molpipx

@@ -80,11 +80,7 @@ def create_f_monomials(file_mono: str, file_label: str):
             elif isinstance(j, list):
                 f_out.write(
                     '    mono_{} = jnp.prod(jnp.power(r,jnp.array({},dtype=jnp.int32))) \n'.format(i, j))
-            # if j > -1:
-            #     #               x.at[idx].set(y)
-            #     f_out.write('    mono_{} = jnp.take(r,{}) \n'.format(i, j))
-            # else:
-            #     f_out.write('    mono_{} = 1. \n'.format(i))
+
 #         FLAG = 1
         elif int(z[0]) == 1:
             a, b = x[0], x[1]
@@ -150,29 +146,30 @@ def create_f_polynomials(file_poly: str, file_label: str, parents_path: str = ''
         z = l.split()
         z = np.array(z, dtype=int)
         x = z[1:]
+
+
 #         FLAG = 2
         if z[0] == 2:
-            # mono.at[107].set(mono[2] * mono[41])
             str_ = '    poly_{} = '.format(i)
             for j, xi in enumerate(x):
                 str_ += 'jnp.take(mono,{})'.format(xi)
                 if j < x.shape[0] - 1:
                     str_ += ' + '
-#             str_ += ')'
+
             f_out.write('{} \n'.format(str_))
-#             print(str_)
+
 
 #         FLAG = 3
         elif z[0] == 3:
             str_ = '    poly_{} = '.format(i)
             for j, xi in enumerate(x):
                 str_ += 'poly_{}'.format(xi)
-#                 str_ += 'jnp.take(poly,{})'.format(xi)
+
                 if j == 0:
                     str_ += ' * '
                 elif j < x.shape[0]-1:
                     str_ += ' - '
-#             str_ += ')'
+
             f_out.write('{} \n'.format(str_))
 
 #     -----------------------
@@ -193,13 +190,6 @@ def create_f_polynomials(file_poly: str, file_label: str, parents_path: str = ''
     f_out.write('\n')
     f_out.close()
     f.close()
-
-# pub const N_MONOS: usize = 209;
-#
-# // N_DISTANCES == N_ATOMS * (N_ATOMS - 1) / 2;
-# pub const N_DISTANCES: usize = 36;
-# pub const N_ATOMS: usize = 9;
-# pub const N_XYZ: usize = N_ATOMS * 3;
 
 
 # ----------------------------------------------------------------------------------------

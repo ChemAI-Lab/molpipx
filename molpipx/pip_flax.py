@@ -2,13 +2,11 @@ from typing import Any, Callable
 
 import jax
 import jax.numpy as jnp
-from jax import jit, lax, vmap
-from jaxtyping import Array, Float, PyTree
 
 import flax
 from flax import linen as nn
 
-from molpipx.utils import all_distances, softplus_inverse, morse_variables
+from molpipx.utils import all_distances, softplus_inverse
 
 
 @nn.jit

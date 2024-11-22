@@ -1,4 +1,3 @@
-import argparse
 from ml_collections import config_dict
 import numpy as onp
 import pandas as pd
@@ -43,7 +42,7 @@ def train_and_evaluate(config: config_dict.ConfigDict,
     na = get_number_of_atoms(mol_dict)
     f_mono, f_poly = get_functions(molecule_type, poly_degree)
 
-    # load all CH4 data
+    # load all molecule data
     X_all, _, y_all, atoms = read_geometry_energy()
     atoms = atoms[0]
 
@@ -105,7 +104,7 @@ def train_and_evaluate(config: config_dict.ConfigDict,
             grads[0], optimizer_state, li)
         return optax.apply_updates(li, updates), opt_state, loss, loss_tr, params_e
 
-    l_params = params_pip  # l_init
+    l_params = params_pip 
     l_ = []
     df = pd.DataFrame()
     for epoch in range(1, config.num_epochs + 1):

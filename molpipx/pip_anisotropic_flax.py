@@ -54,7 +54,6 @@ def lambda_random_init(params_pip: Any, key: KeyArray) -> Any:
 
     _, key = jrnd.split(key)
     w_rnd = jrnd.uniform(key, shape=(w_l.shape), minval=0.3, maxval=2.5)
-    # w_rnd = softplus_inverse(w_rnd)
     params_pip['params']['VmapJitPIPAniso_0']['lambda'] = w_rnd
     return params_pip
 
