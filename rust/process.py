@@ -6,7 +6,7 @@ import subprocess
 # 2) For each folder, unzip the files into the respective data folder 
 
 # Get list of all folders in ../pipx/msa_3_2_files
-folders = os.listdir("../jax/pipx/msa_files")
+folders = os.listdir("../mol_pipx/msa_files")
 assert len(folders) == 15, "I did not find the expected 15 folders in ../pipx/msa_files"
 
 # if the data folder isn't empty, print an info and exit
@@ -18,9 +18,9 @@ if os.listdir("data"):
 
 for folder in folders:
     # Unzip files into the respective data folder
-    cmd = f"unzip -j -qq ../jax/pipx/msa_files/{folder}/*_files.zip -d data/{folder} -x \"*.BAS\" -x \"*.FOC\" -x \"*.MAP\""
+    cmd = f"unzip -j -qq ../mol_pipx/msa_files/{folder}/*_files.zip -d data/{folder} -x \"*.BAS\" -x \"*.FOC\" -x \"*.MAP\""
     print("running: ", cmd)
-    subprocess.run(["unzip", "-j", "-qq", f"../jax/pipx/msa_files/{folder}/*_files.zip", "-d", f"data/{folder}", "-x", "*.BAS", "-x", "*.FOC", "-x", "*.MAP"], stderr=subprocess.DEVNULL)
+    subprocess.run(["unzip", "-j", "-qq", f"../mol_pipx/msa_files/{folder}/*_files.zip", "-d", f"data/{folder}", "-x", "*.BAS", "-x", "*.FOC", "-x", "*.MAP"], stderr=subprocess.DEVNULL)
 
 print("Unzipped all files")
 
