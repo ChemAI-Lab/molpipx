@@ -1,5 +1,3 @@
-import sys
-sys.path.append('/scratch/r/ravh011/asmaj/PIPMSA_jax')
 import jax
 import jax.numpy as jnp
 import optax as ox

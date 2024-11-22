@@ -33,7 +33,7 @@ def train_and_evaluate(config: config_dict.ConfigDict,
     na = get_number_of_atoms(mol_dict)
     f_mono, f_poly = get_functions(molecule_type, poly_degree)
 
-    # load all CH4 data
+    # load all molecule data
     X_all, _, y_all, atoms = read_geometry_energy()
 
     # split training and validation data
@@ -49,7 +49,7 @@ def train_and_evaluate(config: config_dict.ConfigDict,
     params = model_energy.init(key, X_tr[:1])
 
     # training
-    w = training(model_pip, X_tr, y_tr)  # jnp.array
+    w = training(model_pip, X_tr, y_tr) 
     params = flax_params(w, params)  # transform to Pytree
 
     # prediction
@@ -81,7 +81,7 @@ def train_and_evaluate_w_gradients(config: config_dict.ConfigDict,
     na = get_number_of_atoms(mol_dict)
     f_mono, f_poly = get_functions(molecule_type, poly_degree)
 
-    # load all CH4 data
+    # load all molecule data
     X_all, F_all, y_all, atoms = read_geometry_energy()
 
     # split training and validation data
@@ -111,9 +111,10 @@ def train_and_evaluate_w_gradients(config: config_dict.ConfigDict,
 
     loss_energy_tr = mse_loss(y_pred_tr, y_tr)
     loss_energy_val = mse_loss(y_pred_val, y_val)
-
+    
     # loss_force_tr = mse_loss(F_pred_tr, F_tr)
     # loss_force_val = mse_loss(F_pred_val, F_val)
+   
 
     loss_force_tr = jnp.linalg.norm(F_pred_tr - F_tr)
     loss_force_val = jnp.linalg.norm(F_pred_val - F_val)

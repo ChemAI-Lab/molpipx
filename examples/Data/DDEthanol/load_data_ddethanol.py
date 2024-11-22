@@ -1,4 +1,3 @@
-import os
 import re
 import numpy as np
 
@@ -19,7 +18,7 @@ def is_float(s):
     except ValueError:
         return False
   
-def read_geometry_energy(filename:str='/Users/ravh011/Documents/GitHub/PIPMSA_jax/Data/DDEthanol/Train_data_50000.xyz',
+def read_geometry_energy(filename:str='Train_data_50000.xyz',
                          num_atoms:int = 9,
                          energy_normalization:bool = True):    
     

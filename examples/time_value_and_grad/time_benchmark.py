@@ -1,7 +1,6 @@
 import os
 import pandas as pd
 import argparse
-import time
 import timeit
 
 import jax
@@ -48,8 +47,7 @@ def compute_gradients(molecule_type: str, poly_degree: int, batch_size: int):
     def my_function():
         e, f = get_energy_and_forces(
             model_energy.apply, geoms, params)
-        # e = e.block_until_ready()
-        # f = f.block_until_ready()
+
         return {'e': e, 'f': f}
 
     # pre-jitting
@@ -90,14 +88,14 @@ def main():
     parser.add_argument("--bs", type=int, default=1,)
 
     args = parser.parse_args()
-    bs = args.bs  # 1000
+    bs = args.bs 
 
     mols_ = ['A3', 'A2B', 'ABC',
              'A4', 'A3B', 'A2B2', 'A2BC', 'ABCD',
              'A5', 'A4B', 'A3B2', 'A3BC', 'A2B2C', 'A2BCD', 'ABCDE']
-    poly_ = [3, 4, 5, 6, 7, 8]  # , 7
+    poly_ = [3, 4, 5, 6, 7, 8] 
 
-    path = '/u/rvargas/PIPMSA_jax/examples/value_and_grad_test'
+    path = './examples/value_and_grad_test'
     file = f'value_and_gradient_time_jax_jit.csv'
 
     def get_pd_frame():
@@ -110,7 +108,7 @@ def main():
 
     for mi in mols_:
         for p in poly_[:1]:
-            # for p in range(8, 9):
+
             ri = compute_gradients(mi, p, bs)
             print(ri)
 

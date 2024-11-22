@@ -1,7 +1,5 @@
-import jax
-
 import argparse
-from ml_collections import config_flags, config_dict
+from ml_collections import config_dict
 
 
 def get_default_config():
@@ -34,7 +32,7 @@ def parse_args():
     parser.add_argument('--ntst', type=int, default=2000,
                         help='Number of test examples.')
     parser.add_argument('--grad_bool', type=bool, default=False,
-                        help='True to training with Forces.')  # clean later
+                        help='True to training with Forces.')
 
     return parser.parse_args()
 

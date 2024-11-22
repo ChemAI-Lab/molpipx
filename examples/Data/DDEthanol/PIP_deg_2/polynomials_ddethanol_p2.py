@@ -1,17 +1,13 @@
-import jax
 import jax.numpy as jnp
 from jax import jit
 
 from Data.DDEthanol.PIP_deg_2.monomials_ddethanol_p2 import f_monomials as f_monos
 
-
-# File created from /Users/ravh011/Documents/GitHub/PIPMSA_jax/Data/DDEthanol/PIP_deg_2/MOL_1_1_1_2_3_1_2.POLY
-
+# File created from ./MOL_1_1_1_2_3_1_2.POLY
 
 N_POLYS = 208
 
 # Total number of monomials = 208
-
 
 @jit
 def f_polynomials(r):

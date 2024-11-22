@@ -66,7 +66,7 @@ def read_geometry_energy(filename:str,num_atoms:int =4):
     return geometries, energies, atoms
 
 def load_i_data(name:str='min'):
-    _path = '/Users/ravh011/Documents/GitHub/PIPMSA_jax/Data/CH2O/regions_datasets_only_energies'
+    _path = './Data/CH2O/regions_datasets_only_energies'
     file_geoms = get_file_name(name)
     full_file_geoms = os.path.join(_path,file_geoms)
     

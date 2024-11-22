@@ -3,7 +3,6 @@ from typing import Any, Callable
 
 import jax
 import jax.numpy as jnp
-import jax.random as jrnd
 from jax import jit, vmap, jacrev, lax, value_and_grad
 
 from jaxtyping import Array, Float, PyTree

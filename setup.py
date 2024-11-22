@@ -27,6 +27,6 @@ setup(
         'ml-collections',
         'gpjax',
     ],
-    python_requires='>=3.6',
+    python_requires='>=3.10',
     keywords="jax, pip, computational chemistry, pes, potential energy surface, force field",
 )

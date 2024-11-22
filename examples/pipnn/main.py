@@ -1,7 +1,5 @@
-import jax
-
 import argparse
-from ml_collections import config_flags, config_dict
+from ml_collections import config_dict
 
 
 def get_default_config():

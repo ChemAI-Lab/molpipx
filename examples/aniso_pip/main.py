@@ -1,11 +1,5 @@
-# from absl import app
-# from absl import flags
-# from absl import logging
-# from clu import platform
-import jax
-
 import argparse
-from ml_collections import config_flags, config_dict
+from ml_collections import config_dict
 
 
 def get_default_config():
@@ -79,8 +73,6 @@ def main():
     print(config)
     print(workdir)
     print(bool_grad)
-
-    # assert 0
 
     if bool_grad:
         from train_w_grad import train_and_evaluate

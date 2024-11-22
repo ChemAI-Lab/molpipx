@@ -1,12 +1,9 @@
-import jax 
 import jax.numpy as jnp 
 from jax import jit
 
 from monomials_deg_5 import f_monomials as f_monos 
 
-
-# File created from /Users/ravh011/Documents/GitHub/PIPMSA_jax/Data/Methane/PIP_deg_5/MOL_4_1_5.POLY 
-
+# File created from ./MOL_4_1_5.POLY 
 
 N_POLYS = 208
 

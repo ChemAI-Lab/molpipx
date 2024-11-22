@@ -16,6 +16,10 @@ The MSA files must be generated before, for more information please see https://
 
 
 ### MSA-JAX files generation ###
+MOLPIPx package includes `msa_file_generator`, which translates monomial and polynomial files from MSA to JAX and RUST for molecules.
+Check out an [example on generating msa files](examples/Data/README.md)
+
+
 ```python
 from molpipx import msa_file_generator
 

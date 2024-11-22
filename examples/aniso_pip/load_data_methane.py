@@ -1,4 +1,3 @@
-import os
 import re
 import numpy as np
 import jax.numpy as jnp
