@@ -16,7 +16,7 @@ The MSA files must be generated before, for more information please see https://
 
 
 ### MSA-JAX files generation ###
-MOLPIPx package includes `msa_file_generator`, which translates monomial and polynomial files from MSA to JAX and RUST for molecules.
+MOLPIPx package includes `msa_file_generator`, which translates monomial and polynomial files from MSA to JAX and Rust for molecules.
 Check out an [example on generating msa files](examples/Data/README.md)
 
 
@@ -43,6 +43,15 @@ The Python version and Enzyme-AD for the Rust version improve the simulation of 
 Install MOLPIPx via PyPi:
 
 `pip install molpipx`
+
+## Rust Version ##
+The Rust version makes use of [std::autodiff](https://doc.rust-lang.org/nightly/std/autodiff/attr.autodiff.html), an experimental feature of Rust which is currently in the process of upstreaming.
+While upstreaming is in progress, you will need to build our custom fork of Rust which already includes autodiff.
+Instruction for how to do so are available [here](https://enzyme.mit.edu/index.fcgi/rust/installation.html).
+Once upstreaming completed, you will be able to use any nightly Rust version.
+This [tracking issue](https://github.com/rust-lang/rust/issues/124509) shows the progress in upstreaming the remaining autodiff pieces. 
+
+
 
 ## Tutorials ##
 Check out our tutorials to get started with MOLPIPx. These tutorials define inputs for different regression approaches, train machine learning models with or without forces, and make predictions.
