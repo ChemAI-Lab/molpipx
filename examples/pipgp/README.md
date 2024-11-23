@@ -44,9 +44,9 @@ The code will save the training history (loss values) to CSV file: ```his_{kerne
 The main training code is contained in the ```train.py``` file, where for methane the ```PIPGP``` model initialized the following way,
 
 ```python
-from pipx import PIPlayerGP
-from pipx import PIPLayerKernel
-from pipx import get_functions, detect_molecule
+from molpipx import PIPlayerGP
+from molpipx import PIPLayerKernel
+from molpipx import get_functions, detect_molecule
 import gpjax as gpx
 import optax as ox
 
@@ -103,7 +103,7 @@ pred_std = pred_dist.stddev()
 Given the flexibility of JAX, we can compute the force using ```jax.value_and_grad```:
 
 ```python
-from pipx import get_forces_gp
+from molpipx import get_forces_gp
 
 forces, _ = get_forces_gp(gp_model=opt_posterior, train_data=x_tr, x=x_tst['x'])
 ```

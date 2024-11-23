@@ -1,5 +1,5 @@
 from ml_collections import config_dict
-import numpy as onp
+import numpy as np
 import pandas as pd
 
 import jax
@@ -124,11 +124,11 @@ def train_and_evaluate(config: config_dict.ConfigDict,
 
         # save to file
         l_names = ['l_' + str(i)
-                   for i in range(len(onp.array(l0_epoch)))]
+                   for i in range(len(np.array(l0_epoch)))]
         r_epoch = {'epoch': epoch,
                    'tr_loss': loss_tr_i,
                    'val_loss': loss_val_i,
-                   **dict(zip(l_names, onp.array(l0_epoch)))
+                   **dict(zip(l_names, np.array(l0_epoch)))
                    }
         df = pd.concat(
             [df, pd.DataFrame(r_epoch, index=[0])], ignore_index=True)

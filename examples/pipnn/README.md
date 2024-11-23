@@ -54,8 +54,8 @@ The code will save the optimal parameters in the last epoch, combined with a CSV
 The main training code is contained in the ```train.py``` file, where for methane the ```PIPNN``` model initialized the following way,
 
 ```python
-from pipx import PIPNN
-from pipx import get_functions, detect_molecule, 
+from molpipx import PIPNN
+from molpipx import get_functions, detect_molecule, 
 
 molecule_type = 'A4B' # molecular symmetry
 na = 5 #number of atoms
@@ -85,7 +85,7 @@ def f_w_grad(params, geoms): return get_energy_and_forces(
 ``` -->
 
 ```python
-from pipx import get_energy_and_forces
+from molpipx import get_energy_and_forces
 
 y, f = get_energy_and_forces(pipnn.apply, X, params_opt) # energy and forces
 ```

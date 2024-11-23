@@ -14,7 +14,7 @@ For the model to remain permutational invariant, each length-scale parameter mus
 For this, we will use a ```mask``` vector, and ```f_mask``` function,
 
 ```python
-from pipx import get_mask, get_f_mask
+from molpipx import get_mask, get_f_mask
 
 atoms = ['H','H','H','H','C']
 mask, unique_pairs = get_mask(atoms)
