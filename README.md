@@ -1,4 +1,4 @@
-xf<h1 align='center'><img src="Images/molpipx_logo.png" alt="MOLPIPx Logo" width="400"></h1>
+<h1 align='center'><img src="Images/molpipx_logo.png" alt="MOLPIPx Logo" width="400"></h1>
 <h2 align='center'>Differentiable version of Permutationally Invariant Polynomial (PIP) models in JAX and Rust. </h2>
 
 **MOLPIPx** is a [JAX](https://jax.readthedocs.io/en/latest/)-based library that provides an implementation of PIP models compatible with,
