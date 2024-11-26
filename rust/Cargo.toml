@@ -7,13 +7,15 @@ edition = "2021"
 
 [profile.release]
 lto = "fat"
+panic = "abort"
 #codegen-units = 1
 
 [profile.dev]
 lto = "fat"
+panic = "abort"
 #codegen-units = 1
 
-[dependencies]
+[dev-dependencies]
 divan = "0.1.14"
 
 
