@@ -7,6 +7,7 @@ pub const N_POLYS: usize = 291;
 // File created from data/molecule_A2B2/MOL_2_2_6.POLY 
 
 
+#[inline(never)]
 fn f_polynomials0(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[0] = mono[0];
     poly[1] = mono[1];
@@ -60,6 +61,7 @@ fn f_polynomials0(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[49] = poly[1] * poly[27];
 }
 
+#[inline(never)]
 fn f_polynomials1(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[50] = poly[3] * poly[23];
     poly[51] = poly[3] * poly[24];
@@ -113,6 +115,7 @@ fn f_polynomials1(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[99] = poly[1] * poly[42];
 }
 
+#[inline(never)]
 fn f_polynomials2(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[100] = poly[1] * poly[59];
     poly[101] = poly[1] * poly[43];
@@ -166,6 +169,7 @@ fn f_polynomials2(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[149] = poly[3] * poly[71];
 }
 
+#[inline(never)]
 fn f_polynomials3(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[150] = poly[1] * poly[72];
     poly[151] = poly[2] * poly[73] - poly[141] - poly[140] - poly[139];
@@ -219,6 +223,7 @@ fn f_polynomials3(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[199] = poly[1] * poly[126];
 }
 
+#[inline(never)]
 fn f_polynomials4(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[200] = poly[3] * poly[88];
     poly[201] = poly[1] * poly[127];
@@ -272,6 +277,7 @@ fn f_polynomials4(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[249] = poly[3] * poly[117];
 }
 
+#[inline(never)]
 fn f_polynomials5(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[250] = poly[3] * poly[118];
     poly[251] = poly[1] * poly[145];
@@ -315,8 +321,6 @@ fn f_polynomials5(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[289] = poly[2] * poly[151] - poly[277] - poly[276] - poly[275];
     poly[290] = poly[3] * poly[152];
 }
-
-// Total number of monomials = 291 
 
 pub fn f_polynomials(r: &[f64; N_DISTANCES]) -> [f64; N_POLYS] {
 

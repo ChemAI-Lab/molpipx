@@ -7,6 +7,7 @@ pub const N_POLYS: usize = 580;
 // File created from data/molecule_A5/MOL_5_8.POLY 
 
 
+#[inline(never)]
 fn f_polynomials0(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[0] = mono[0];
     poly[1] = mono[1] + mono[2] + mono[3] + mono[4] + mono[5] + mono[6] + mono[7] + mono[8] + mono[9] + mono[10];
@@ -60,6 +61,7 @@ fn f_polynomials0(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[49] = poly[3] * poly[5] - poly[34] - poly[32] - poly[30] - poly[31] - poly[37] - poly[42] - poly[38] - poly[36] - poly[40] - poly[32] - poly[31] - poly[40] - poly[31];
 }
 
+#[inline(never)]
 fn f_polynomials1(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[50] = poly[3] * poly[6] - poly[33] - poly[34] - poly[32] - poly[30] - poly[31] - poly[29] - poly[45] - poly[41] - poly[43] - poly[39] - poly[44] - poly[42] - poly[38] - poly[33] - poly[34] - poly[32] - poly[30] - poly[31] - poly[29] - poly[41] - poly[43] - poly[39] - poly[44] - poly[33] - poly[34] - poly[32] - poly[30] - poly[29] - poly[33] - poly[34] - poly[30] - poly[29] - poly[29];
     poly[51] = poly[3] * poly[7] - poly[33] - poly[34] - poly[31] - poly[45] - poly[33];
@@ -113,6 +115,7 @@ fn f_polynomials1(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[99] = poly[15] * poly[3] - poly[69] - poly[66] - poly[64] - poly[65] - poly[85] - poly[74] - poly[84] - poly[82] - poly[80] - poly[77] - poly[76] - poly[72] - poly[79] - poly[95] - poly[98] - poly[69] - poly[66] - poly[64] - poly[65] - poly[74] - poly[84] - poly[82] - poly[69] - poly[66] - poly[64] - poly[66] - poly[64] - poly[64] - poly[64];
 }
 
+#[inline(never)]
 fn f_polynomials2(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[100] = poly[6] * poly[8] - poly[69] - poly[66] - poly[65] - poly[81] - poly[85] - poly[84] - poly[80] - poly[77] - poly[99] - poly[69] - poly[66] - poly[65] - poly[85] - poly[84];
     poly[101] = poly[7] * poly[8] - poly[67] - poly[66] - poly[85] - poly[67] - poly[67] - poly[67];
@@ -166,6 +169,7 @@ fn f_polynomials2(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[149] = mono[2758] + mono[2759] + mono[2760] + mono[2761] + mono[2762] + mono[2763] + mono[2764] + mono[2765] + mono[2766] + mono[2767] + mono[2768] + mono[2769] + mono[2770] + mono[2771] + mono[2772] + mono[2773] + mono[2774] + mono[2775] + mono[2776] + mono[2777] + mono[2778] + mono[2779] + mono[2780] + mono[2781] + mono[2782] + mono[2783] + mono[2784] + mono[2785] + mono[2786] + mono[2787] + mono[2788] + mono[2789] + mono[2790] + mono[2791] + mono[2792] + mono[2793] + mono[2794] + mono[2795] + mono[2796] + mono[2797] + mono[2798] + mono[2799] + mono[2800] + mono[2801] + mono[2802] + mono[2803] + mono[2804] + mono[2805] + mono[2806] + mono[2807] + mono[2808] + mono[2809] + mono[2810] + mono[2811] + mono[2812] + mono[2813] + mono[2814] + mono[2815] + mono[2816] + mono[2817] + mono[2818] + mono[2819] + mono[2820] + mono[2821] + mono[2822] + mono[2823] + mono[2824] + mono[2825] + mono[2826] + mono[2827] + mono[2828] + mono[2829] + mono[2830] + mono[2831] + mono[2832] + mono[2833] + mono[2834] + mono[2835] + mono[2836] + mono[2837] + mono[2838] + mono[2839] + mono[2840] + mono[2841] + mono[2842] + mono[2843] + mono[2844] + mono[2845] + mono[2846] + mono[2847] + mono[2848] + mono[2849] + mono[2850] + mono[2851] + mono[2852] + mono[2853] + mono[2854] + mono[2855] + mono[2856] + mono[2857] + mono[2858] + mono[2859] + mono[2860] + mono[2861] + mono[2862] + mono[2863] + mono[2864] + mono[2865] + mono[2866] + mono[2867] + mono[2868] + mono[2869] + mono[2870] + mono[2871] + mono[2872] + mono[2873] + mono[2874] + mono[2875] + mono[2876] + mono[2877];
 }
 
+#[inline(never)]
 fn f_polynomials3(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[150] = mono[2878] + mono[2879] + mono[2880] + mono[2881] + mono[2882] + mono[2883] + mono[2884] + mono[2885] + mono[2886] + mono[2887] + mono[2888] + mono[2889] + mono[2890] + mono[2891] + mono[2892] + mono[2893] + mono[2894] + mono[2895] + mono[2896] + mono[2897] + mono[2898] + mono[2899] + mono[2900] + mono[2901] + mono[2902] + mono[2903] + mono[2904] + mono[2905] + mono[2906] + mono[2907] + mono[2908] + mono[2909] + mono[2910] + mono[2911] + mono[2912] + mono[2913] + mono[2914] + mono[2915] + mono[2916] + mono[2917] + mono[2918] + mono[2919] + mono[2920] + mono[2921] + mono[2922] + mono[2923] + mono[2924] + mono[2925] + mono[2926] + mono[2927] + mono[2928] + mono[2929] + mono[2930] + mono[2931] + mono[2932] + mono[2933] + mono[2934] + mono[2935] + mono[2936] + mono[2937] + mono[2938] + mono[2939] + mono[2940] + mono[2941] + mono[2942] + mono[2943] + mono[2944] + mono[2945] + mono[2946] + mono[2947] + mono[2948] + mono[2949] + mono[2950] + mono[2951] + mono[2952] + mono[2953] + mono[2954] + mono[2955] + mono[2956] + mono[2957] + mono[2958] + mono[2959] + mono[2960] + mono[2961] + mono[2962] + mono[2963] + mono[2964] + mono[2965] + mono[2966] + mono[2967] + mono[2968] + mono[2969] + mono[2970] + mono[2971] + mono[2972] + mono[2973] + mono[2974] + mono[2975] + mono[2976] + mono[2977] + mono[2978] + mono[2979] + mono[2980] + mono[2981] + mono[2982] + mono[2983] + mono[2984] + mono[2985] + mono[2986] + mono[2987] + mono[2988] + mono[2989] + mono[2990] + mono[2991] + mono[2992] + mono[2993] + mono[2994] + mono[2995] + mono[2996] + mono[2997];
     poly[151] = mono[2998] + mono[2999] + mono[3000] + mono[3001] + mono[3002] + mono[3003] + mono[3004] + mono[3005] + mono[3006] + mono[3007] + mono[3008] + mono[3009] + mono[3010] + mono[3011] + mono[3012] + mono[3013] + mono[3014] + mono[3015] + mono[3016] + mono[3017] + mono[3018] + mono[3019] + mono[3020] + mono[3021] + mono[3022] + mono[3023] + mono[3024] + mono[3025] + mono[3026] + mono[3027] + mono[3028] + mono[3029] + mono[3030] + mono[3031] + mono[3032] + mono[3033] + mono[3034] + mono[3035] + mono[3036] + mono[3037] + mono[3038] + mono[3039] + mono[3040] + mono[3041] + mono[3042] + mono[3043] + mono[3044] + mono[3045] + mono[3046] + mono[3047] + mono[3048] + mono[3049] + mono[3050] + mono[3051] + mono[3052] + mono[3053] + mono[3054] + mono[3055] + mono[3056] + mono[3057] + mono[3058] + mono[3059] + mono[3060] + mono[3061] + mono[3062] + mono[3063] + mono[3064] + mono[3065] + mono[3066] + mono[3067] + mono[3068] + mono[3069] + mono[3070] + mono[3071] + mono[3072] + mono[3073] + mono[3074] + mono[3075] + mono[3076] + mono[3077] + mono[3078] + mono[3079] + mono[3080] + mono[3081] + mono[3082] + mono[3083] + mono[3084] + mono[3085] + mono[3086] + mono[3087] + mono[3088] + mono[3089] + mono[3090] + mono[3091] + mono[3092] + mono[3093] + mono[3094] + mono[3095] + mono[3096] + mono[3097] + mono[3098] + mono[3099] + mono[3100] + mono[3101] + mono[3102] + mono[3103] + mono[3104] + mono[3105] + mono[3106] + mono[3107] + mono[3108] + mono[3109] + mono[3110] + mono[3111] + mono[3112] + mono[3113] + mono[3114] + mono[3115] + mono[3116] + mono[3117];
@@ -219,6 +223,7 @@ fn f_polynomials3(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[199] = poly[4] * poly[31] - poly[153] - poly[157] - poly[148] - poly[198] - poly[193] - poly[190];
 }
 
+#[inline(never)]
 fn f_polynomials4(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[200] = mono[4948] + mono[4949] + mono[4950] + mono[4951] + mono[4952] + mono[4953] + mono[4954] + mono[4955] + mono[4956] + mono[4957] + mono[4958] + mono[4959] + mono[4960] + mono[4961] + mono[4962] + mono[4963] + mono[4964] + mono[4965] + mono[4966] + mono[4967] + mono[4968] + mono[4969] + mono[4970] + mono[4971] + mono[4972] + mono[4973] + mono[4974] + mono[4975] + mono[4976] + mono[4977] + mono[4978] + mono[4979] + mono[4980] + mono[4981] + mono[4982] + mono[4983] + mono[4984] + mono[4985] + mono[4986] + mono[4987] + mono[4988] + mono[4989] + mono[4990] + mono[4991] + mono[4992] + mono[4993] + mono[4994] + mono[4995] + mono[4996] + mono[4997] + mono[4998] + mono[4999] + mono[5000] + mono[5001] + mono[5002] + mono[5003] + mono[5004] + mono[5005] + mono[5006] + mono[5007] + mono[5008] + mono[5009] + mono[5010] + mono[5011] + mono[5012] + mono[5013] + mono[5014] + mono[5015] + mono[5016] + mono[5017] + mono[5018] + mono[5019] + mono[5020] + mono[5021] + mono[5022] + mono[5023] + mono[5024] + mono[5025] + mono[5026] + mono[5027] + mono[5028] + mono[5029] + mono[5030] + mono[5031] + mono[5032] + mono[5033] + mono[5034] + mono[5035] + mono[5036] + mono[5037] + mono[5038] + mono[5039] + mono[5040] + mono[5041] + mono[5042] + mono[5043] + mono[5044] + mono[5045] + mono[5046] + mono[5047] + mono[5048] + mono[5049] + mono[5050] + mono[5051] + mono[5052] + mono[5053] + mono[5054] + mono[5055] + mono[5056] + mono[5057] + mono[5058] + mono[5059] + mono[5060] + mono[5061] + mono[5062] + mono[5063] + mono[5064] + mono[5065] + mono[5066] + mono[5067];
     poly[201] = mono[5068] + mono[5069] + mono[5070] + mono[5071] + mono[5072] + mono[5073] + mono[5074] + mono[5075] + mono[5076] + mono[5077] + mono[5078] + mono[5079] + mono[5080] + mono[5081] + mono[5082] + mono[5083] + mono[5084] + mono[5085] + mono[5086] + mono[5087] + mono[5088] + mono[5089] + mono[5090] + mono[5091] + mono[5092] + mono[5093] + mono[5094] + mono[5095] + mono[5096] + mono[5097] + mono[5098] + mono[5099] + mono[5100] + mono[5101] + mono[5102] + mono[5103] + mono[5104] + mono[5105] + mono[5106] + mono[5107] + mono[5108] + mono[5109] + mono[5110] + mono[5111] + mono[5112] + mono[5113] + mono[5114] + mono[5115] + mono[5116] + mono[5117] + mono[5118] + mono[5119] + mono[5120] + mono[5121] + mono[5122] + mono[5123] + mono[5124] + mono[5125] + mono[5126] + mono[5127] + mono[5128] + mono[5129] + mono[5130] + mono[5131] + mono[5132] + mono[5133] + mono[5134] + mono[5135] + mono[5136] + mono[5137] + mono[5138] + mono[5139] + mono[5140] + mono[5141] + mono[5142] + mono[5143] + mono[5144] + mono[5145] + mono[5146] + mono[5147] + mono[5148] + mono[5149] + mono[5150] + mono[5151] + mono[5152] + mono[5153] + mono[5154] + mono[5155] + mono[5156] + mono[5157] + mono[5158] + mono[5159] + mono[5160] + mono[5161] + mono[5162] + mono[5163] + mono[5164] + mono[5165] + mono[5166] + mono[5167] + mono[5168] + mono[5169] + mono[5170] + mono[5171] + mono[5172] + mono[5173] + mono[5174] + mono[5175] + mono[5176] + mono[5177] + mono[5178] + mono[5179] + mono[5180] + mono[5181] + mono[5182] + mono[5183] + mono[5184] + mono[5185] + mono[5186] + mono[5187];
@@ -272,6 +277,7 @@ fn f_polynomials4(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[249] = poly[11] * poly[14] - poly[198] - poly[244];
 }
 
+#[inline(never)]
 fn f_polynomials5(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[250] = poly[7] * poly[26] - poly[196] - poly[227] - poly[249] - poly[218];
     poly[251] = poly[4] * poly[42] - poly[188] - poly[175] - poly[173] - poly[167] - poly[174] - poly[162] - poly[240] - poly[221] - poly[237] - poly[175];
@@ -325,6 +331,7 @@ fn f_polynomials5(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[299] = mono[5943] + mono[5944] + mono[5945] + mono[5946] + mono[5947] + mono[5948] + mono[5949] + mono[5950] + mono[5951] + mono[5952] + mono[5953] + mono[5954] + mono[5955] + mono[5956] + mono[5957] + mono[5958] + mono[5959] + mono[5960] + mono[5961] + mono[5962] + mono[5963] + mono[5964] + mono[5965] + mono[5966] + mono[5967] + mono[5968] + mono[5969] + mono[5970] + mono[5971] + mono[5972] + mono[5973] + mono[5974] + mono[5975] + mono[5976] + mono[5977] + mono[5978] + mono[5979] + mono[5980] + mono[5981] + mono[5982] + mono[5983] + mono[5984] + mono[5985] + mono[5986] + mono[5987] + mono[5988] + mono[5989] + mono[5990] + mono[5991] + mono[5992] + mono[5993] + mono[5994] + mono[5995] + mono[5996] + mono[5997] + mono[5998] + mono[5999] + mono[6000] + mono[6001] + mono[6002];
 }
 
+#[inline(never)]
 fn f_polynomials6(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[300] = poly[1] * poly[141] - poly[290] - poly[289] - poly[294] - poly[298] - poly[292] - poly[290] - poly[289] - poly[290] - poly[289] - poly[290] - poly[289];
     poly[301] = poly[1] * poly[142] - poly[290] - poly[296] - poly[297] - poly[290];
@@ -378,6 +385,7 @@ fn f_polynomials6(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[349] = poly[1] * poly[153] - poly[301] - poly[300] - poly[294] - poly[293] - poly[329] - poly[331] - poly[327] - poly[310] - poly[325] - poly[301] - poly[294] - poly[329];
 }
 
+#[inline(never)]
 fn f_polynomials7(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[350] = poly[4] * poly[66] - poly[301] - poly[298] - poly[291] - poly[349] - poly[346] - poly[342];
     poly[351] = poly[4] * poly[67] - poly[297];
@@ -431,6 +439,7 @@ fn f_polynomials7(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[399] = poly[9] * poly[31] - poly[294] - poly[298] - poly[293] - poly[291] - poly[346] - poly[310] - poly[344] - poly[305] - poly[307] - poly[345] - poly[314] - poly[341] - poly[392] - poly[398] - poly[391] - poly[387] - poly[386] - poly[294] - poly[291] - poly[305] - poly[341];
 }
 
+#[inline(never)]
 fn f_polynomials8(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[400] = poly[32] * poly[9] - poly[299] - poly[298] - poly[292] - poly[347] - poly[315] - poly[349] - poly[310] - poly[308] - poly[342] - poly[348] - poly[345] - poly[309] - poly[306] - poly[396] - poly[395] - poly[299] - poly[342];
     poly[401] = poly[9] * poly[33] - poly[296] - poly[297] - poly[351] - poly[312] - poly[347] - poly[350] - poly[346] - poly[313] - poly[311] - poly[308] - poly[297] - poly[312] - poly[297];
@@ -484,6 +493,7 @@ fn f_polynomials8(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[449] = poly[11] * poly[34] - poly[347] - poly[341] - poly[438] - poly[448];
 }
 
+#[inline(never)]
 fn f_polynomials9(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[450] = poly[12] * poly[12] - poly[290] - poly[289] - poly[294] - poly[293] - poly[292] - poly[295] - poly[291] - poly[311] - poly[308] - poly[317] - poly[304] - poly[307] - poly[309] - poly[316] - poly[306] - poly[303] - poly[357] - poly[358] - poly[359] - poly[356] - poly[290] - poly[289] - poly[294] - poly[293] - poly[292] - poly[295] - poly[291] - poly[311] - poly[308] - poly[317] - poly[304] - poly[307] - poly[309] - poly[316] - poly[306] - poly[303] - poly[357] - poly[358] - poly[359] - poly[356] - poly[290] - poly[289] - poly[295] - poly[291] - poly[303] - poly[290] - poly[289] - poly[295] - poly[291] - poly[303] - poly[290] - poly[289] - poly[291] - poly[290] - poly[289] - poly[291] - poly[290] - poly[289] - poly[291] - poly[290] - poly[289] - poly[291] - poly[289] - poly[289] - poly[289] - poly[289];
     poly[451] = poly[13] * poly[13] - poly[294] - poly[312] - poly[317] - poly[294] - poly[312] - poly[317];
@@ -537,6 +547,7 @@ fn f_polynomials9(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[499] = poly[2] * poly[103] - poly[340] - poly[386];
 }
 
+#[inline(never)]
 fn f_polynomials10(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[500] = poly[4] * poly[86] - poly[367] - poly[363] - poly[361] - poly[359] - poly[468];
     poly[501] = poly[1] * poly[220] - poly[396] - poly[390] - poly[392] - poly[394] - poly[387] - poly[388] - poly[460] - poly[466] - poly[458] - poly[392];
@@ -590,6 +601,7 @@ fn f_polynomials10(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[549] = poly[1] * poly[261] - poly[481] - poly[472] - poly[480] - poly[471] - poly[540];
 }
 
+#[inline(never)]
 fn f_polynomials11(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[550] = poly[4] * poly[117] - poly[454] - poly[452];
     poly[551] = poly[4] * poly[118] - poly[454] - poly[455] - poly[453] - poly[455] - poly[455] - poly[455];
@@ -622,8 +634,6 @@ fn f_polynomials11(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[578] = poly[3] * poly[139] - poly[569] - poly[570] - poly[567] - poly[565];
     poly[579] = poly[1] * poly[288] - poly[578] - poly[577];
 }
-
-// Total number of monomials = 580 
 
 pub fn f_polynomials(r: &[f64; N_DISTANCES]) -> [f64; N_POLYS] {
 

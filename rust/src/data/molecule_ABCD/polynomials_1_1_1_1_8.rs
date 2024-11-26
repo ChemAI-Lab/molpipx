@@ -7,6 +7,7 @@ pub const N_POLYS: usize = 3003;
 // File created from data/molecule_ABCD/MOL_1_1_1_1_8.POLY 
 
 
+#[inline(never)]
 fn f_polynomials0(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[0] = mono[0];
     poly[1] = mono[1];
@@ -60,6 +61,7 @@ fn f_polynomials0(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[49] = poly[1] * poly[23];
 }
 
+#[inline(never)]
 fn f_polynomials1(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[50] = poly[1] * poly[8];
     poly[51] = poly[2] * poly[9];
@@ -113,6 +115,7 @@ fn f_polynomials1(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[99] = poly[1] * poly[28];
 }
 
+#[inline(never)]
 fn f_polynomials2(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[100] = poly[1] * poly[51];
     poly[101] = poly[1] * poly[53];
@@ -166,6 +169,7 @@ fn f_polynomials2(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[149] = poly[1] * poly[74];
 }
 
+#[inline(never)]
 fn f_polynomials3(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[150] = poly[1] * poly[75];
     poly[151] = poly[2] * poly[75];
@@ -219,6 +223,7 @@ fn f_polynomials3(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[199] = poly[1] * poly[83];
 }
 
+#[inline(never)]
 fn f_polynomials4(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[200] = poly[2] * poly[83];
     poly[201] = poly[3] * poly[83];
@@ -272,6 +277,7 @@ fn f_polynomials4(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[249] = poly[1] * poly[142];
 }
 
+#[inline(never)]
 fn f_polynomials5(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[250] = poly[1] * poly[94];
     poly[251] = poly[2] * poly[95];
@@ -325,6 +331,7 @@ fn f_polynomials5(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[299] = poly[2] * poly[176];
 }
 
+#[inline(never)]
 fn f_polynomials6(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[300] = poly[1] * poly[111];
     poly[301] = poly[1] * poly[112];
@@ -378,6 +385,7 @@ fn f_polynomials6(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[349] = poly[2] * poly[139];
 }
 
+#[inline(never)]
 fn f_polynomials7(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[350] = poly[3] * poly[140];
     poly[351] = poly[1] * poly[192];
@@ -431,6 +439,7 @@ fn f_polynomials7(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[399] = poly[1] * poly[205];
 }
 
+#[inline(never)]
 fn f_polynomials8(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[400] = poly[1] * poly[162];
     poly[401] = poly[2] * poly[163];
@@ -484,6 +493,7 @@ fn f_polynomials8(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[449] = poly[4] * poly[202];
 }
 
+#[inline(never)]
 fn f_polynomials9(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[450] = poly[5] * poly[203];
     poly[451] = poly[1] * poly[209];
@@ -537,6 +547,7 @@ fn f_polynomials9(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[499] = poly[1] * poly[219];
 }
 
+#[inline(never)]
 fn f_polynomials10(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[500] = poly[1] * poly[294];
     poly[501] = poly[1] * poly[296];
@@ -590,6 +601,7 @@ fn f_polynomials10(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[549] = poly[1] * poly[239];
 }
 
+#[inline(never)]
 fn f_polynomials11(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[550] = poly[1] * poly[240];
     poly[551] = poly[1] * poly[346];
@@ -643,6 +655,7 @@ fn f_polynomials11(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[599] = poly[2] * poly[364];
 }
 
+#[inline(never)]
 fn f_polynomials12(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[600] = poly[1] * poly[365];
     poly[601] = poly[2] * poly[365];
@@ -696,6 +709,7 @@ fn f_polynomials12(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[649] = poly[1] * poly[403];
 }
 
+#[inline(never)]
 fn f_polynomials13(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[650] = poly[1] * poly[281];
     poly[651] = poly[1] * poly[405];
@@ -749,6 +763,7 @@ fn f_polynomials13(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[699] = poly[2] * poly[313];
 }
 
+#[inline(never)]
 fn f_polynomials14(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[700] = poly[3] * poly[314];
     poly[701] = poly[1] * poly[315];
@@ -802,6 +817,7 @@ fn f_polynomials14(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[749] = poly[1] * poly[341];
 }
 
+#[inline(never)]
 fn f_polynomials15(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[750] = poly[2] * poly[342];
     poly[751] = poly[1] * poly[343];
@@ -855,6 +871,7 @@ fn f_polynomials15(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[799] = poly[2] * poly[444];
 }
 
+#[inline(never)]
 fn f_polynomials16(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[800] = poly[3] * poly[444];
     poly[801] = poly[1] * poly[378];
@@ -908,6 +925,7 @@ fn f_polynomials16(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[849] = poly[2] * poly[401];
 }
 
+#[inline(never)]
 fn f_polynomials17(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[850] = poly[1] * poly[402];
     poly[851] = poly[2] * poly[403];
@@ -961,6 +979,7 @@ fn f_polynomials17(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[899] = poly[2] * poly[442];
 }
 
+#[inline(never)]
 fn f_polynomials18(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[900] = poly[3] * poly[443];
     poly[901] = poly[4] * poly[444];
@@ -1014,6 +1033,7 @@ fn f_polynomials18(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[949] = poly[1] * poly[555];
 }
 
+#[inline(never)]
 fn f_polynomials19(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[950] = poly[1] * poly[557];
     poly[951] = poly[1] * poly[471];
@@ -1067,6 +1087,7 @@ fn f_polynomials19(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[999] = poly[1] * poly[489];
 }
 
+#[inline(never)]
 fn f_polynomials20(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[1000] = poly[1] * poly[618];
     poly[1001] = poly[1] * poly[620];
@@ -1120,6 +1141,7 @@ fn f_polynomials20(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[1049] = poly[1] * poly[694];
 }
 
+#[inline(never)]
 fn f_polynomials21(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[1050] = poly[1] * poly[509];
     poly[1051] = poly[1] * poly[510];
@@ -1173,6 +1195,7 @@ fn f_polynomials21(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[1099] = poly[1] * poly[721];
 }
 
+#[inline(never)]
 fn f_polynomials22(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[1100] = poly[2] * poly[721];
     poly[1101] = poly[1] * poly[723];
@@ -1226,6 +1249,7 @@ fn f_polynomials22(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[1149] = poly[1] * poly[760];
 }
 
+#[inline(never)]
 fn f_polynomials23(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[1150] = poly[2] * poly[760];
     poly[1151] = poly[1] * poly[564];
@@ -1279,6 +1303,7 @@ fn f_polynomials23(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[1199] = poly[1] * poly[774];
 }
 
+#[inline(never)]
 fn f_polynomials24(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[1200] = poly[2] * poly[774];
     poly[1201] = poly[3] * poly[774];
@@ -1332,6 +1357,7 @@ fn f_polynomials24(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[1249] = poly[1] * poly[619];
 }
 
+#[inline(never)]
 fn f_polynomials25(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[1250] = poly[2] * poly[620];
     poly[1251] = poly[1] * poly[803];
@@ -1385,6 +1411,7 @@ fn f_polynomials25(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[1299] = poly[2] * poly[641];
 }
 
+#[inline(never)]
 fn f_polynomials26(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[1300] = poly[3] * poly[642];
     poly[1301] = poly[1] * poly[828];
@@ -1438,6 +1465,7 @@ fn f_polynomials26(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[1349] = poly[2] * poly[860];
 }
 
+#[inline(never)]
 fn f_polynomials27(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[1350] = poly[1] * poly[665];
     poly[1351] = poly[1] * poly[666];
@@ -1491,6 +1519,7 @@ fn f_polynomials27(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[1399] = poly[2] * poly[699];
 }
 
+#[inline(never)]
 fn f_polynomials28(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[1400] = poly[3] * poly[700];
     poly[1401] = poly[1] * poly[701];
@@ -1544,6 +1573,7 @@ fn f_polynomials28(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[1449] = poly[1] * poly[884];
 }
 
+#[inline(never)]
 fn f_polynomials29(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[1450] = poly[2] * poly[884];
     poly[1451] = poly[3] * poly[884];
@@ -1597,6 +1627,7 @@ fn f_polynomials29(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[1499] = poly[3] * poly[896];
 }
 
+#[inline(never)]
 fn f_polynomials30(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[1500] = poly[1] * poly[767];
     poly[1501] = poly[2] * poly[768];
@@ -1650,6 +1681,7 @@ fn f_polynomials30(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[1549] = poly[2] * poly[806];
 }
 
+#[inline(never)]
 fn f_polynomials31(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[1550] = poly[3] * poly[807];
     poly[1551] = poly[4] * poly[808];
@@ -1703,6 +1735,7 @@ fn f_polynomials31(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[1599] = poly[1] * poly[911];
 }
 
+#[inline(never)]
 fn f_polynomials32(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[1600] = poly[2] * poly[911];
     poly[1601] = poly[3] * poly[911];
@@ -1756,6 +1789,7 @@ fn f_polynomials32(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[1649] = poly[3] * poly[869];
 }
 
+#[inline(never)]
 fn f_polynomials33(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[1650] = poly[1] * poly[870];
     poly[1651] = poly[2] * poly[871];
@@ -1809,6 +1843,7 @@ fn f_polynomials33(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[1699] = poly[5] * poly[912];
 }
 
+#[inline(never)]
 fn f_polynomials34(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[1700] = poly[1] * poly[913];
     poly[1701] = poly[2] * poly[914];
@@ -1862,6 +1897,7 @@ fn f_polynomials34(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[1749] = poly[1] * poly[1066];
 }
 
+#[inline(never)]
 fn f_polynomials35(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[1750] = poly[1] * poly[938];
     poly[1751] = poly[1] * poly[1068];
@@ -1915,6 +1951,7 @@ fn f_polynomials35(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[1799] = poly[1] * poly[960];
 }
 
+#[inline(never)]
 fn f_polynomials36(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[1800] = poly[1] * poly[1169];
     poly[1801] = poly[1] * poly[1171];
@@ -1968,6 +2005,7 @@ fn f_polynomials36(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[1849] = poly[1] * poly[989];
 }
 
+#[inline(never)]
 fn f_polynomials37(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[1850] = poly[2] * poly[990];
     poly[1851] = poly[1] * poly[1198];
@@ -2021,6 +2059,7 @@ fn f_polynomials37(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[1899] = poly[1] * poly[1009];
 }
 
+#[inline(never)]
 fn f_polynomials38(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[1900] = poly[2] * poly[1010];
     poly[1901] = poly[1] * poly[1258];
@@ -2074,6 +2113,7 @@ fn f_polynomials38(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[1949] = poly[1] * poly[1022];
 }
 
+#[inline(never)]
 fn f_polynomials39(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[1950] = poly[1] * poly[1023];
     poly[1951] = poly[1] * poly[1341];
@@ -2127,6 +2167,7 @@ fn f_polynomials39(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[1999] = poly[1] * poly[1052];
 }
 
+#[inline(never)]
 fn f_polynomials40(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[2000] = poly[1] * poly[1053];
     poly[2001] = poly[1] * poly[1396];
@@ -2180,6 +2221,7 @@ fn f_polynomials40(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[2049] = poly[1] * poly[1085];
 }
 
+#[inline(never)]
 fn f_polynomials41(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[2050] = poly[1] * poly[1419];
     poly[2051] = poly[1] * poly[1421];
@@ -2233,6 +2275,7 @@ fn f_polynomials41(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[2099] = poly[1] * poly[1114];
 }
 
+#[inline(never)]
 fn f_polynomials42(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[2100] = poly[2] * poly[1115];
     poly[2101] = poly[1] * poly[1448];
@@ -2286,6 +2329,7 @@ fn f_polynomials42(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[2149] = poly[2] * poly[1141];
 }
 
+#[inline(never)]
 fn f_polynomials43(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[2150] = poly[1] * poly[1487];
     poly[2151] = poly[2] * poly[1487];
@@ -2339,6 +2383,7 @@ fn f_polynomials43(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[2199] = poly[3] * poly[1174];
 }
 
+#[inline(never)]
 fn f_polynomials44(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[2200] = poly[1] * poly[1175];
     poly[2201] = poly[2] * poly[1176];
@@ -2392,6 +2437,7 @@ fn f_polynomials44(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[2249] = poly[2] * poly[1212];
 }
 
+#[inline(never)]
 fn f_polynomials45(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[2250] = poly[3] * poly[1213];
     poly[2251] = poly[1] * poly[1511];
@@ -2445,6 +2491,7 @@ fn f_polynomials45(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[2299] = poly[1] * poly[1239];
 }
 
+#[inline(never)]
 fn f_polynomials46(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[2300] = poly[2] * poly[1240];
     poly[2301] = poly[1] * poly[1537];
@@ -2498,6 +2545,7 @@ fn f_polynomials46(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[2349] = poly[2] * poly[1272];
 }
 
+#[inline(never)]
 fn f_polynomials47(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[2350] = poly[3] * poly[1273];
     poly[2351] = poly[1] * poly[1551];
@@ -2551,6 +2599,7 @@ fn f_polynomials47(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[2399] = poly[1] * poly[1294];
 }
 
+#[inline(never)]
 fn f_polynomials48(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[2400] = poly[2] * poly[1295];
     poly[2401] = poly[1] * poly[1296];
@@ -2604,6 +2653,7 @@ fn f_polynomials48(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[2449] = poly[2] * poly[1604];
 }
 
+#[inline(never)]
 fn f_polynomials49(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[2450] = poly[1] * poly[1317];
     poly[2451] = poly[2] * poly[1318];
@@ -2657,6 +2707,7 @@ fn f_polynomials49(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[2499] = poly[1] * poly[1340];
 }
 
+#[inline(never)]
 fn f_polynomials50(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[2500] = poly[2] * poly[1341];
     poly[2501] = poly[1] * poly[1342];
@@ -2710,6 +2761,7 @@ fn f_polynomials50(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[2549] = poly[1] * poly[1378];
 }
 
+#[inline(never)]
 fn f_polynomials51(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[2550] = poly[2] * poly[1379];
     poly[2551] = poly[1] * poly[1652];
@@ -2763,6 +2815,7 @@ fn f_polynomials51(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[2599] = poly[1] * poly[1416];
 }
 
+#[inline(never)]
 fn f_polynomials52(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[2600] = poly[2] * poly[1417];
     poly[2601] = poly[1] * poly[1418];
@@ -2816,6 +2869,7 @@ fn f_polynomials52(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[2649] = poly[1] * poly[1454];
 }
 
+#[inline(never)]
 fn f_polynomials53(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[2650] = poly[2] * poly[1455];
     poly[2651] = poly[1] * poly[1456];
@@ -2869,6 +2923,7 @@ fn f_polynomials53(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[2699] = poly[2] * poly[1682];
 }
 
+#[inline(never)]
 fn f_polynomials54(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[2700] = poly[1] * poly[1485];
     poly[2701] = poly[2] * poly[1486];
@@ -2922,6 +2977,7 @@ fn f_polynomials54(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[2749] = poly[1] * poly[1526];
 }
 
+#[inline(never)]
 fn f_polynomials55(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[2750] = poly[2] * poly[1527];
     poly[2751] = poly[1] * poly[1528];
@@ -2975,6 +3031,7 @@ fn f_polynomials55(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[2799] = poly[2] * poly[1566];
 }
 
+#[inline(never)]
 fn f_polynomials56(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[2800] = poly[1] * poly[1567];
     poly[2801] = poly[2] * poly[1568];
@@ -3028,6 +3085,7 @@ fn f_polynomials56(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[2849] = poly[3] * poly[1698];
 }
 
+#[inline(never)]
 fn f_polynomials57(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[2850] = poly[1] * poly[1602];
     poly[2851] = poly[2] * poly[1603];
@@ -3081,6 +3139,7 @@ fn f_polynomials57(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[2899] = poly[1] * poly[1626];
 }
 
+#[inline(never)]
 fn f_polynomials58(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[2900] = poly[2] * poly[1627];
     poly[2901] = poly[1] * poly[1628];
@@ -3134,6 +3193,7 @@ fn f_polynomials58(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[2949] = poly[4] * poly[1671];
 }
 
+#[inline(never)]
 fn f_polynomials59(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[2950] = poly[1] * poly[1672];
     poly[2951] = poly[2] * poly[1673];
@@ -3187,13 +3247,12 @@ fn f_polynomials59(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[2999] = poly[3] * poly[1712];
 }
 
+#[inline(never)]
 fn f_polynomials60(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[3000] = poly[4] * poly[1713];
     poly[3001] = poly[5] * poly[1714];
     poly[3002] = poly[6] * poly[1715];
 }
-
-// Total number of monomials = 3003 
 
 pub fn f_polynomials(r: &[f64; N_DISTANCES]) -> [f64; N_POLYS] {
 

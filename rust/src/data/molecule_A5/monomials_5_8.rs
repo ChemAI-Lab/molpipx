@@ -1,15 +1,33 @@
 #![allow(unused_variables)]
+
+
+
 // File created from data/molecule_A5/MOL_5_8.MONO 
-// Total number of monomials = 10158 
-
 pub const N_MONOS: usize = 10158;
-
 // N_DISTANCES == N_ATOMS * (N_ATOMS - 1) / 2;
 pub const N_DISTANCES: usize = 10;
 pub const N_ATOMS: usize = 5;
 pub const N_XYZ: usize = N_ATOMS * 3;
 
-fn f_monomials0(mono: &mut [f64; N_MONOS]) { 
+// Total number of monomials = 10158 
+
+
+pub fn f_monomials(r: & [f64; N_DISTANCES]) -> [f64; N_MONOS] {
+  assert!(2 * N_DISTANCES == N_ATOMS * (N_ATOMS - 1), "library author error!");
+
+  let mut mono = [0.0; N_MONOS];
+
+  mono[0] = 1.0;
+  mono[1] = r[9];
+  mono[2] = r[8];
+  mono[3] = r[7];
+  mono[4] = r[6];
+  mono[5] = r[5];
+  mono[6] = r[4];
+  mono[7] = r[3];
+  mono[8] = r[2];
+  mono[9] = r[1];
+  mono[10] = r[0];
   mono[11] = mono[3] * mono[4];
   mono[12] = mono[2] * mono[5];
   mono[13] = mono[1] * mono[6];
@@ -60,9 +78,6 @@ fn f_monomials0(mono: &mut [f64; N_MONOS]) {
   mono[58] = mono[3] * mono[15];
   mono[59] = mono[1] * mono[16];
   mono[60] = mono[3] * mono[16];
-}
-
-fn f_monomials1(mono: &mut [f64; N_MONOS]) { 
   mono[61] = mono[5] * mono[16];
   mono[62] = mono[2] * mono[18];
   mono[63] = mono[3] * mono[18];
@@ -113,9 +128,6 @@ fn f_monomials1(mono: &mut [f64; N_MONOS]) {
   mono[108] = mono[3] * mono[19];
   mono[109] = mono[5] * mono[19];
   mono[110] = mono[2] * mono[44];
-}
-
-fn f_monomials2(mono: &mut [f64; N_MONOS]) { 
   mono[111] = mono[3] * mono[44];
   mono[112] = mono[4] * mono[44];
   mono[113] = mono[5] * mono[44];
@@ -166,9 +178,6 @@ fn f_monomials2(mono: &mut [f64; N_MONOS]) {
   mono[158] = mono[2] * mono[35];
   mono[159] = mono[4] * mono[37];
   mono[160] = mono[1] * mono[39];
-}
-
-fn f_monomials3(mono: &mut [f64; N_MONOS]) { 
   mono[161] = mono[1] * mono[40];
   mono[162] = mono[2] * mono[40];
   mono[163] = mono[1] * mono[42];
@@ -219,9 +228,6 @@ fn f_monomials3(mono: &mut [f64; N_MONOS]) {
   mono[208] = mono[2] * mono[126];
   mono[209] = mono[4] * mono[126];
   mono[210] = mono[1] * mono[127];
-}
-
-fn f_monomials4(mono: &mut [f64; N_MONOS]) { 
   mono[211] = mono[4] * mono[127];
   mono[212] = mono[1] * mono[80];
   mono[213] = mono[2] * mono[80];
@@ -272,9 +278,6 @@ fn f_monomials4(mono: &mut [f64; N_MONOS]) {
   mono[258] = mono[3] * mono[153];
   mono[259] = mono[2] * mono[154];
   mono[260] = mono[1] * mono[155];
-}
-
-fn f_monomials5(mono: &mut [f64; N_MONOS]) { 
   mono[261] = mono[1] * mono[56];
   mono[262] = mono[2] * mono[56];
   mono[263] = mono[1] * mono[57];
@@ -325,9 +328,6 @@ fn f_monomials5(mono: &mut [f64; N_MONOS]) {
   mono[308] = mono[1] * mono[139];
   mono[309] = mono[4] * mono[141];
   mono[310] = mono[2] * mono[173];
-}
-
-fn f_monomials6(mono: &mut [f64; N_MONOS]) { 
   mono[311] = mono[3] * mono[173];
   mono[312] = mono[6] * mono[173];
   mono[313] = mono[2] * mono[143];
@@ -378,9 +378,6 @@ fn f_monomials6(mono: &mut [f64; N_MONOS]) {
   mono[358] = mono[2] * mono[171];
   mono[359] = mono[3] * mono[172];
   mono[360] = mono[1] * mono[153];
-}
-
-fn f_monomials7(mono: &mut [f64; N_MONOS]) { 
   mono[361] = mono[2] * mono[153];
   mono[362] = mono[4] * mono[136];
   mono[363] = mono[4] * mono[137];
@@ -431,9 +428,6 @@ fn f_monomials7(mono: &mut [f64; N_MONOS]) {
   mono[408] = mono[2] * mono[81];
   mono[409] = mono[1] * mono[82];
   mono[410] = mono[3] * mono[83];
-}
-
-fn f_monomials8(mono: &mut [f64; N_MONOS]) { 
   mono[411] = mono[2] * mono[84];
   mono[412] = mono[1] * mono[85];
   mono[413] = mono[10] * mono[77];
@@ -484,9 +478,6 @@ fn f_monomials8(mono: &mut [f64; N_MONOS]) {
   mono[458] = mono[2] * mono[300];
   mono[459] = mono[1] * mono[303];
   mono[460] = mono[1] * mono[305];
-}
-
-fn f_monomials9(mono: &mut [f64; N_MONOS]) { 
   mono[461] = mono[1] * mono[220];
   mono[462] = mono[1] * mono[221];
   mono[463] = mono[1] * mono[246];
@@ -537,9 +528,6 @@ fn f_monomials9(mono: &mut [f64; N_MONOS]) {
   mono[508] = mono[3] * mono[205];
   mono[509] = mono[1] * mono[256];
   mono[510] = mono[2] * mono[256];
-}
-
-fn f_monomials10(mono: &mut [f64; N_MONOS]) { 
   mono[511] = mono[1] * mono[209];
   mono[512] = mono[3] * mono[209];
   mono[513] = mono[2] * mono[211];
@@ -590,9 +578,6 @@ fn f_monomials10(mono: &mut [f64; N_MONOS]) {
   mono[558] = mono[1] * mono[278];
   mono[559] = mono[3] * mono[278];
   mono[560] = mono[1] * mono[188];
-}
-
-fn f_monomials11(mono: &mut [f64; N_MONOS]) { 
   mono[561] = mono[1] * mono[189];
   mono[562] = mono[1] * mono[282];
   mono[563] = mono[1] * mono[284];
@@ -643,9 +628,6 @@ fn f_monomials11(mono: &mut [f64; N_MONOS]) {
   mono[608] = mono[1] * mono[236];
   mono[609] = mono[1] * mono[327];
   mono[610] = mono[1] * mono[329];
-}
-
-fn f_monomials12(mono: &mut [f64; N_MONOS]) { 
   mono[611] = mono[1] * mono[331];
   mono[612] = mono[1] * mono[332];
   mono[613] = mono[2] * mono[332];
@@ -696,9 +678,6 @@ fn f_monomials12(mono: &mut [f64; N_MONOS]) {
   mono[658] = mono[1] * mono[365];
   mono[659] = mono[4] * mono[367];
   mono[660] = mono[2] * mono[372];
-}
-
-fn f_monomials13(mono: &mut [f64; N_MONOS]) { 
   mono[661] = mono[4] * mono[374];
   mono[662] = mono[1] * mono[385];
   mono[663] = mono[2] * mono[385];
@@ -749,9 +728,6 @@ fn f_monomials13(mono: &mut [f64; N_MONOS]) {
   mono[708] = mono[1] * mono[397];
   mono[709] = mono[1] * mono[398];
   mono[710] = mono[3] * mono[398];
-}
-
-fn f_monomials14(mono: &mut [f64; N_MONOS]) { 
   mono[711] = mono[5] * mono[397];
   mono[712] = mono[7] * mono[397];
   mono[713] = mono[7] * mono[398];
@@ -802,9 +778,6 @@ fn f_monomials14(mono: &mut [f64; N_MONOS]) {
   mono[758] = mono[2] * mono[220];
   mono[759] = mono[3] * mono[221];
   mono[760] = mono[5] * mono[220];
-}
-
-fn f_monomials15(mono: &mut [f64; N_MONOS]) { 
   mono[761] = mono[1] * mono[222];
   mono[762] = mono[3] * mono[223];
   mono[763] = mono[6] * mono[222];
@@ -855,9 +828,6 @@ fn f_monomials15(mono: &mut [f64; N_MONOS]) {
   mono[808] = mono[1] * mono[393];
   mono[809] = mono[2] * mono[273];
   mono[810] = mono[4] * mono[274];
-}
-
-fn f_monomials16(mono: &mut [f64; N_MONOS]) { 
   mono[811] = mono[3] * mono[394];
   mono[812] = mono[5] * mono[394];
   mono[813] = mono[7] * mono[280];
@@ -908,9 +878,6 @@ fn f_monomials16(mono: &mut [f64; N_MONOS]) {
   mono[858] = mono[4] * mono[261];
   mono[859] = mono[4] * mono[262];
   mono[860] = mono[2] * mono[263];
-}
-
-fn f_monomials17(mono: &mut [f64; N_MONOS]) { 
   mono[861] = mono[3] * mono[264];
   mono[862] = mono[2] * mono[265];
   mono[863] = mono[5] * mono[264];
@@ -961,9 +928,6 @@ fn f_monomials17(mono: &mut [f64; N_MONOS]) {
   mono[908] = mono[6] * mono[285];
   mono[909] = mono[6] * mono[286];
   mono[910] = mono[1] * mono[290];
-}
-
-fn f_monomials18(mono: &mut [f64; N_MONOS]) { 
   mono[911] = mono[4] * mono[290];
   mono[912] = mono[3] * mono[291];
   mono[913] = mono[6] * mono[291];
@@ -1014,9 +978,6 @@ fn f_monomials18(mono: &mut [f64; N_MONOS]) {
   mono[958] = mono[7] * mono[316];
   mono[959] = mono[7] * mono[317];
   mono[960] = mono[8] * mono[319];
-}
-
-fn f_monomials19(mono: &mut [f64; N_MONOS]) { 
   mono[961] = mono[8] * mono[320];
   mono[962] = mono[9] * mono[315];
   mono[963] = mono[9] * mono[317];
@@ -1067,9 +1028,6 @@ fn f_monomials19(mono: &mut [f64; N_MONOS]) {
   mono[1008] = mono[1] * mono[456];
   mono[1009] = mono[3] * mono[456];
   mono[1010] = mono[1] * mono[457];
-}
-
-fn f_monomials20(mono: &mut [f64; N_MONOS]) { 
   mono[1011] = mono[2] * mono[457];
   mono[1012] = mono[1] * mono[422];
   mono[1013] = mono[2] * mono[524];
@@ -1120,9 +1078,6 @@ fn f_monomials20(mono: &mut [f64; N_MONOS]) {
   mono[1058] = mono[1] * mono[567];
   mono[1059] = mono[1] * mono[504];
   mono[1060] = mono[2] * mono[448];
-}
-
-fn f_monomials21(mono: &mut [f64; N_MONOS]) { 
   mono[1061] = mono[1] * mono[510];
   mono[1062] = mono[3] * mono[454];
   mono[1063] = mono[1] * mono[515];
@@ -1173,9 +1128,6 @@ fn f_monomials21(mono: &mut [f64; N_MONOS]) {
   mono[1108] = mono[1] * mono[613];
   mono[1109] = mono[1] * mono[622];
   mono[1110] = mono[1] * mono[629];
-}
-
-fn f_monomials22(mono: &mut [f64; N_MONOS]) { 
   mono[1111] = mono[2] * mono[634];
   mono[1112] = mono[3] * mono[637];
   mono[1113] = mono[1] * mono[497];
@@ -1226,9 +1178,6 @@ fn f_monomials22(mono: &mut [f64; N_MONOS]) {
   mono[1158] = mono[2] * mono[657];
   mono[1159] = mono[1] * mono[586];
   mono[1160] = mono[1] * mono[626];
-}
-
-fn f_monomials23(mono: &mut [f64; N_MONOS]) { 
   mono[1161] = mono[1] * mono[659];
   mono[1162] = mono[3] * mono[659];
   mono[1163] = mono[1] * mono[590];
@@ -1279,9 +1228,6 @@ fn f_monomials23(mono: &mut [f64; N_MONOS]) {
   mono[1208] = mono[3] * mono[736];
   mono[1209] = mono[3] * mono[825];
   mono[1210] = mono[2] * mono[826];
-}
-
-fn f_monomials24(mono: &mut [f64; N_MONOS]) { 
   mono[1211] = mono[1] * mono[827];
   mono[1212] = mono[2] * mono[739];
   mono[1213] = mono[1] * mono[742];
@@ -1332,9 +1278,6 @@ fn f_monomials24(mono: &mut [f64; N_MONOS]) {
   mono[1258] = mono[3] * mono[695];
   mono[1259] = mono[2] * mono[812];
   mono[1260] = mono[2] * mono[696];
-}
-
-fn f_monomials25(mono: &mut [f64; N_MONOS]) { 
   mono[1261] = mono[2] * mono[435];
   mono[1262] = mono[4] * mono[437];
   mono[1263] = mono[4] * mono[699];
@@ -1385,9 +1328,6 @@ fn f_monomials25(mono: &mut [f64; N_MONOS]) {
   mono[1308] = mono[2] * mono[458];
   mono[1309] = mono[2] * mono[835];
   mono[1310] = mono[1] * mono[459];
-}
-
-fn f_monomials26(mono: &mut [f64; N_MONOS]) { 
   mono[1311] = mono[1] * mono[837];
   mono[1312] = mono[1] * mono[460];
   mono[1313] = mono[1] * mono[839];
@@ -1438,9 +1378,6 @@ fn f_monomials26(mono: &mut [f64; N_MONOS]) {
   mono[1358] = mono[6] * mono[855];
   mono[1359] = mono[6] * mono[793];
   mono[1360] = mono[4] * mono[794];
-}
-
-fn f_monomials27(mono: &mut [f64; N_MONOS]) { 
   mono[1361] = mono[4] * mono[856];
   mono[1362] = mono[6] * mono[856];
   mono[1363] = mono[6] * mono[795];
@@ -1491,9 +1428,6 @@ fn f_monomials27(mono: &mut [f64; N_MONOS]) {
   mono[1408] = mono[5] * mono[534];
   mono[1409] = mono[1] * mono[535];
   mono[1410] = mono[5] * mono[774];
-}
-
-fn f_monomials28(mono: &mut [f64; N_MONOS]) { 
   mono[1411] = mono[5] * mono[775];
   mono[1412] = mono[1] * mono[536];
   mono[1413] = mono[1] * mono[537];
@@ -1544,9 +1478,6 @@ fn f_monomials28(mono: &mut [f64; N_MONOS]) {
   mono[1458] = mono[2] * mono[685];
   mono[1459] = mono[1] * mono[687];
   mono[1460] = mono[1] * mono[689];
-}
-
-fn f_monomials29(mono: &mut [f64; N_MONOS]) { 
   mono[1461] = mono[2] * mono[697];
   mono[1462] = mono[2] * mono[436];
   mono[1463] = mono[3] * mono[437];
@@ -1597,9 +1528,6 @@ fn f_monomials29(mono: &mut [f64; N_MONOS]) {
   mono[1508] = mono[3] * mono[959];
   mono[1509] = mono[2] * mono[961];
   mono[1510] = mono[1] * mono[963];
-}
-
-fn f_monomials30(mono: &mut [f64; N_MONOS]) { 
   mono[1511] = mono[1] * mono[965];
   mono[1512] = mono[2] * mono[967];
   mono[1513] = mono[1] * mono[969];
@@ -1650,9 +1578,6 @@ fn f_monomials30(mono: &mut [f64; N_MONOS]) {
   mono[1558] = mono[1] * mono[571];
   mono[1559] = mono[3] * mono[737];
   mono[1560] = mono[1] * mono[825];
-}
-
-fn f_monomials31(mono: &mut [f64; N_MONOS]) { 
   mono[1561] = mono[2] * mono[825];
   mono[1562] = mono[1] * mono[826];
   mono[1563] = mono[3] * mono[826];
@@ -1703,9 +1628,6 @@ fn f_monomials31(mono: &mut [f64; N_MONOS]) {
   mono[1608] = mono[1] * mono[598];
   mono[1609] = mono[4] * mono[847];
   mono[1610] = mono[3] * mono[600];
-}
-
-fn f_monomials32(mono: &mut [f64; N_MONOS]) { 
   mono[1611] = mono[5] * mono[601];
   mono[1612] = mono[6] * mono[958];
   mono[1613] = mono[6] * mono[959];
@@ -1756,9 +1678,6 @@ fn f_monomials32(mono: &mut [f64; N_MONOS]) {
   mono[1658] = mono[1] * mono[509];
   mono[1659] = mono[2] * mono[510];
   mono[1660] = mono[5] * mono[512];
-}
-
-fn f_monomials33(mono: &mut [f64; N_MONOS]) { 
   mono[1661] = mono[6] * mono[514];
   mono[1662] = mono[7] * mono[515];
   mono[1663] = mono[8] * mono[511];
@@ -1809,9 +1728,6 @@ fn f_monomials33(mono: &mut [f64; N_MONOS]) {
   mono[1708] = mono[4] * mono[886];
   mono[1709] = mono[2] * mono[887];
   mono[1710] = mono[1] * mono[494];
-}
-
-fn f_monomials34(mono: &mut [f64; N_MONOS]) { 
   mono[1711] = mono[1] * mono[495];
   mono[1712] = mono[1] * mono[496];
   mono[1713] = mono[2] * mono[497];
@@ -1862,9 +1778,6 @@ fn f_monomials34(mono: &mut [f64; N_MONOS]) {
   mono[1758] = mono[1] * mono[518];
   mono[1759] = mono[2] * mono[518];
   mono[1760] = mono[1] * mono[519];
-}
-
-fn f_monomials35(mono: &mut [f64; N_MONOS]) { 
   mono[1761] = mono[2] * mono[933];
   mono[1762] = mono[1] * mono[936];
   mono[1763] = mono[1] * mono[937];
@@ -1915,9 +1828,6 @@ fn f_monomials35(mono: &mut [f64; N_MONOS]) {
   mono[1808] = mono[8] * mono[966];
   mono[1809] = mono[8] * mono[971];
   mono[1810] = mono[4] * mono[973];
-}
-
-fn f_monomials36(mono: &mut [f64; N_MONOS]) { 
   mono[1811] = mono[5] * mono[972];
   mono[1812] = mono[9] * mono[968];
   mono[1813] = mono[9] * mono[970];
@@ -1968,9 +1878,6 @@ fn f_monomials36(mono: &mut [f64; N_MONOS]) {
   mono[1858] = mono[7] * mono[568];
   mono[1859] = mono[7] * mono[569];
   mono[1860] = mono[1] * mono[572];
-}
-
-fn f_monomials37(mono: &mut [f64; N_MONOS]) { 
   mono[1861] = mono[2] * mono[573];
   mono[1862] = mono[1] * mono[574];
   mono[1863] = mono[3] * mono[575];
@@ -2021,9 +1928,6 @@ fn f_monomials37(mono: &mut [f64; N_MONOS]) {
   mono[1908] = mono[6] * mono[600];
   mono[1909] = mono[6] * mono[601];
   mono[1910] = mono[2] * mono[958];
-}
-
-fn f_monomials38(mono: &mut [f64; N_MONOS]) { 
   mono[1911] = mono[4] * mono[959];
   mono[1912] = mono[3] * mono[602];
   mono[1913] = mono[3] * mono[603];
@@ -2074,9 +1978,6 @@ fn f_monomials38(mono: &mut [f64; N_MONOS]) {
   mono[1958] = mono[6] * mono[609];
   mono[1959] = mono[6] * mono[610];
   mono[1960] = mono[6] * mono[611];
-}
-
-fn f_monomials39(mono: &mut [f64; N_MONOS]) { 
   mono[1961] = mono[6] * mono[612];
   mono[1962] = mono[2] * mono[614];
   mono[1963] = mono[3] * mono[614];
@@ -2127,9 +2028,6 @@ fn f_monomials39(mono: &mut [f64; N_MONOS]) {
   mono[2008] = mono[1] * mono[627];
   mono[2009] = mono[4] * mono[627];
   mono[2010] = mono[1] * mono[628];
-}
-
-fn f_monomials40(mono: &mut [f64; N_MONOS]) { 
   mono[2011] = mono[4] * mono[629];
   mono[2012] = mono[5] * mono[628];
   mono[2013] = mono[5] * mono[629];
@@ -2180,9 +2078,6 @@ fn f_monomials40(mono: &mut [f64; N_MONOS]) {
   mono[2058] = mono[3] * mono[685];
   mono[2059] = mono[5] * mono[684];
   mono[2060] = mono[3] * mono[687];
-}
-
-fn f_monomials41(mono: &mut [f64; N_MONOS]) { 
   mono[2061] = mono[5] * mono[689];
   mono[2062] = mono[6] * mono[686];
   mono[2063] = mono[6] * mono[688];
@@ -2233,9 +2128,6 @@ fn f_monomials41(mono: &mut [f64; N_MONOS]) {
   mono[2108] = mono[2] * mono[788];
   mono[2109] = mono[2] * mono[789];
   mono[2110] = mono[1] * mono[790];
-}
-
-fn f_monomials42(mono: &mut [f64; N_MONOS]) { 
   mono[2111] = mono[1] * mono[791];
   mono[2112] = mono[3] * mono[792];
   mono[2113] = mono[3] * mono[793];
@@ -2286,9 +2178,6 @@ fn f_monomials42(mono: &mut [f64; N_MONOS]) {
   mono[2158] = mono[6] * mono[837];
   mono[2159] = mono[6] * mono[839];
   mono[2160] = mono[7] * mono[841];
-}
-
-fn f_monomials43(mono: &mut [f64; N_MONOS]) { 
   mono[2161] = mono[8] * mono[842];
   mono[2162] = mono[7] * mono[845];
   mono[2163] = mono[8] * mono[848];
@@ -2339,9 +2228,6 @@ fn f_monomials43(mono: &mut [f64; N_MONOS]) {
   mono[2208] = mono[4] * mono[818];
   mono[2209] = mono[5] * mono[819];
   mono[2210] = mono[1] * mono[820];
-}
-
-fn f_monomials44(mono: &mut [f64; N_MONOS]) { 
   mono[2211] = mono[1] * mono[821];
   mono[2212] = mono[4] * mono[822];
   mono[2213] = mono[5] * mono[823];
@@ -2392,9 +2278,6 @@ fn f_monomials44(mono: &mut [f64; N_MONOS]) {
   mono[2258] = mono[6] * mono[868];
   mono[2259] = mono[6] * mono[869];
   mono[2260] = mono[7] * mono[870];
-}
-
-fn f_monomials45(mono: &mut [f64; N_MONOS]) { 
   mono[2261] = mono[7] * mono[871];
   mono[2262] = mono[7] * mono[872];
   mono[2263] = mono[7] * mono[873];
@@ -2445,9 +2328,6 @@ fn f_monomials45(mono: &mut [f64; N_MONOS]) {
   mono[2308] = mono[7] * mono[918];
   mono[2309] = mono[7] * mono[919];
   mono[2310] = mono[8] * mono[920];
-}
-
-fn f_monomials46(mono: &mut [f64; N_MONOS]) { 
   mono[2311] = mono[8] * mono[921];
   mono[2312] = mono[9] * mono[922];
   mono[2313] = mono[9] * mono[923];
@@ -2498,9 +2378,6 @@ fn f_monomials46(mono: &mut [f64; N_MONOS]) {
   mono[2358] = mono[10] * mono[968];
   mono[2359] = mono[10] * mono[969];
   mono[2360] = mono[10] * mono[970];
-}
-
-fn f_monomials47(mono: &mut [f64; N_MONOS]) { 
   mono[2361] = mono[10] * mono[971];
   mono[2362] = mono[10] * mono[972];
   mono[2363] = mono[10] * mono[973];
@@ -2551,9 +2428,6 @@ fn f_monomials47(mono: &mut [f64; N_MONOS]) {
   mono[2408] = mono[1] * mono[1062];
   mono[2409] = mono[2] * mono[1062];
   mono[2410] = mono[1] * mono[1006];
-}
-
-fn f_monomials48(mono: &mut [f64; N_MONOS]) { 
   mono[2411] = mono[1] * mono[1007];
   mono[2412] = mono[1] * mono[1070];
   mono[2413] = mono[2] * mono[1009];
@@ -2604,9 +2478,6 @@ fn f_monomials48(mono: &mut [f64; N_MONOS]) {
   mono[2458] = mono[1] * mono[1050];
   mono[2459] = mono[1] * mono[1053];
   mono[2460] = mono[1] * mono[1140];
-}
-
-fn f_monomials49(mono: &mut [f64; N_MONOS]) { 
   mono[2461] = mono[1] * mono[1064];
   mono[2462] = mono[1] * mono[1066];
   mono[2463] = mono[1] * mono[1151];
@@ -2657,9 +2528,6 @@ fn f_monomials49(mono: &mut [f64; N_MONOS]) {
   mono[2508] = mono[3] * mono[1216];
   mono[2509] = mono[1] * mono[1303];
   mono[2510] = mono[2] * mono[1217];
-}
-
-fn f_monomials50(mono: &mut [f64; N_MONOS]) { 
   mono[2511] = mono[1] * mono[1307];
   mono[2512] = mono[2] * mono[1220];
   mono[2513] = mono[1] * mono[1221];
@@ -2710,9 +2578,6 @@ fn f_monomials50(mono: &mut [f64; N_MONOS]) {
   mono[2558] = mono[1] * mono[1395];
   mono[2559] = mono[1] * mono[1397];
   mono[2560] = mono[1] * mono[1219];
-}
-
-fn f_monomials51(mono: &mut [f64; N_MONOS]) { 
   mono[2561] = mono[3] * mono[1120];
   mono[2562] = mono[3] * mono[1446];
   mono[2563] = mono[1] * mono[1224];
@@ -2763,9 +2628,6 @@ fn f_monomials51(mono: &mut [f64; N_MONOS]) {
   mono[2608] = mono[2] * mono[1082];
   mono[2609] = mono[3] * mono[1083];
   mono[2610] = mono[1] * mono[1596];
-}
-
-fn f_monomials52(mono: &mut [f64; N_MONOS]) { 
   mono[2611] = mono[1] * mono[1597];
   mono[2612] = mono[3] * mono[1599];
   mono[2613] = mono[2] * mono[1601];
@@ -2816,9 +2678,6 @@ fn f_monomials52(mono: &mut [f64; N_MONOS]) {
   mono[2658] = mono[3] * mono[1657];
   mono[2659] = mono[1] * mono[1285];
   mono[2660] = mono[2] * mono[1000];
-}
-
-fn f_monomials53(mono: &mut [f64; N_MONOS]) { 
   mono[2661] = mono[2] * mono[1001];
   mono[2662] = mono[2] * mono[1660];
   mono[2663] = mono[1] * mono[1002];
@@ -2869,9 +2728,6 @@ fn f_monomials53(mono: &mut [f64; N_MONOS]) {
   mono[2708] = mono[3] * mono[1596];
   mono[2709] = mono[2] * mono[1597];
   mono[2710] = mono[2] * mono[1598];
-}
-
-fn f_monomials54(mono: &mut [f64; N_MONOS]) { 
   mono[2711] = mono[2] * mono[1599];
   mono[2712] = mono[3] * mono[1332];
   mono[2713] = mono[1] * mono[1333];
@@ -2922,9 +2778,6 @@ fn f_monomials54(mono: &mut [f64; N_MONOS]) {
   mono[2758] = mono[3] * mono[1714];
   mono[2759] = mono[2] * mono[992];
   mono[2760] = mono[3] * mono[993];
-}
-
-fn f_monomials55(mono: &mut [f64; N_MONOS]) { 
   mono[2761] = mono[2] * mono[1717];
   mono[2762] = mono[3] * mono[1374];
   mono[2763] = mono[2] * mono[1375];
@@ -2975,9 +2828,6 @@ fn f_monomials55(mono: &mut [f64; N_MONOS]) {
   mono[2808] = mono[1] * mono[1014];
   mono[2809] = mono[1] * mono[1491];
   mono[2810] = mono[1] * mono[1402];
-}
-
-fn f_monomials56(mono: &mut [f64; N_MONOS]) { 
   mono[2811] = mono[2] * mono[1402];
   mono[2812] = mono[2] * mono[1770];
   mono[2813] = mono[1] * mono[1771];
@@ -3028,9 +2878,6 @@ fn f_monomials56(mono: &mut [f64; N_MONOS]) {
   mono[2858] = mono[2] * mono[1798];
   mono[2859] = mono[2] * mono[1919];
   mono[2860] = mono[1] * mono[1920];
-}
-
-fn f_monomials57(mono: &mut [f64; N_MONOS]) { 
   mono[2861] = mono[1] * mono[1921];
   mono[2862] = mono[1] * mono[1802];
   mono[2863] = mono[1] * mono[1923];
@@ -3081,9 +2928,6 @@ fn f_monomials57(mono: &mut [f64; N_MONOS]) {
   mono[2908] = mono[1] * mono[1068];
   mono[2909] = mono[1] * mono[1069];
   mono[2910] = mono[2] * mono[1292];
-}
-
-fn f_monomials58(mono: &mut [f64; N_MONOS]) { 
   mono[2911] = mono[3] * mono[1293];
   mono[2912] = mono[2] * mono[1294];
   mono[2913] = mono[3] * mono[1295];
@@ -3134,9 +2978,6 @@ fn f_monomials58(mono: &mut [f64; N_MONOS]) {
   mono[2958] = mono[3] * mono[2027];
   mono[2959] = mono[2] * mono[1097];
   mono[2960] = mono[3] * mono[1098];
-}
-
-fn f_monomials59(mono: &mut [f64; N_MONOS]) { 
   mono[2961] = mono[3] * mono[1611];
   mono[2962] = mono[1] * mono[2028];
   mono[2963] = mono[1] * mono[2029];
@@ -3187,9 +3028,6 @@ fn f_monomials59(mono: &mut [f64; N_MONOS]) {
   mono[3008] = mono[1] * mono[1840];
   mono[3009] = mono[1] * mono[1841];
   mono[3010] = mono[1] * mono[1260];
-}
-
-fn f_monomials60(mono: &mut [f64; N_MONOS]) { 
   mono[3011] = mono[1] * mono[1261];
   mono[3012] = mono[1] * mono[1262];
   mono[3013] = mono[1] * mono[1263];
@@ -3240,9 +3078,6 @@ fn f_monomials60(mono: &mut [f64; N_MONOS]) {
   mono[3058] = mono[1] * mono[1589];
   mono[3059] = mono[1] * mono[1161];
   mono[3060] = mono[3] * mono[1162];
-}
-
-fn f_monomials61(mono: &mut [f64; N_MONOS]) { 
   mono[3061] = mono[1] * mono[2007];
   mono[3062] = mono[1] * mono[1598];
   mono[3063] = mono[4] * mono[1599];
@@ -3293,9 +3128,6 @@ fn f_monomials61(mono: &mut [f64; N_MONOS]) {
   mono[3108] = mono[1] * mono[1928];
   mono[3109] = mono[1] * mono[2049];
   mono[3110] = mono[1] * mono[1930];
-}
-
-fn f_monomials62(mono: &mut [f64; N_MONOS]) { 
   mono[3111] = mono[1] * mono[1931];
   mono[3112] = mono[2] * mono[1932];
   mono[3113] = mono[2] * mono[2053];
@@ -3346,9 +3178,6 @@ fn f_monomials62(mono: &mut [f64; N_MONOS]) {
   mono[3158] = mono[1] * mono[1664];
   mono[3159] = mono[3] * mono[1664];
   mono[3160] = mono[5] * mono[1870];
-}
-
-fn f_monomials63(mono: &mut [f64; N_MONOS]) { 
   mono[3161] = mono[5] * mono[1871];
   mono[3162] = mono[2] * mono[1667];
   mono[3163] = mono[3] * mono[1667];
@@ -3399,9 +3228,6 @@ fn f_monomials63(mono: &mut [f64; N_MONOS]) {
   mono[3208] = mono[2] * mono[2032];
   mono[3209] = mono[3] * mono[1915];
   mono[3210] = mono[1] * mono[2034];
-}
-
-fn f_monomials64(mono: &mut [f64; N_MONOS]) { 
   mono[3211] = mono[1] * mono[2035];
   mono[3212] = mono[3] * mono[1917];
   mono[3213] = mono[2] * mono[2037];
@@ -3452,9 +3278,6 @@ fn f_monomials64(mono: &mut [f64; N_MONOS]) {
   mono[3258] = mono[1] * mono[1750];
   mono[3259] = mono[1] * mono[1871];
   mono[3260] = mono[2] * mono[1756];
-}
-
-fn f_monomials65(mono: &mut [f64; N_MONOS]) { 
   mono[3261] = mono[2] * mono[1877];
   mono[3262] = mono[1] * mono[1072];
   mono[3263] = mono[1] * mono[1883];
@@ -3505,9 +3328,6 @@ fn f_monomials65(mono: &mut [f64; N_MONOS]) {
   mono[3308] = mono[1] * mono[1553];
   mono[3309] = mono[1] * mono[1143];
   mono[3310] = mono[2] * mono[1473];
-}
-
-fn f_monomials66(mono: &mut [f64; N_MONOS]) { 
   mono[3311] = mono[2] * mono[1475];
   mono[3312] = mono[1] * mono[1557];
   mono[3313] = mono[1] * mono[1147];
@@ -3558,9 +3378,6 @@ fn f_monomials66(mono: &mut [f64; N_MONOS]) {
   mono[3358] = mono[2] * mono[1128];
   mono[3359] = mono[2] * mono[1820];
   mono[3360] = mono[1] * mono[1129];
-}
-
-fn f_monomials67(mono: &mut [f64; N_MONOS]) { 
   mono[3361] = mono[1] * mono[1824];
   mono[3362] = mono[1] * mono[1130];
   mono[3363] = mono[1] * mono[1826];
@@ -3611,9 +3428,6 @@ fn f_monomials67(mono: &mut [f64; N_MONOS]) {
   mono[3408] = mono[5] * mono[1152];
   mono[3409] = mono[4] * mono[1887];
   mono[3410] = mono[5] * mono[1888];
-}
-
-fn f_monomials68(mono: &mut [f64; N_MONOS]) { 
   mono[3411] = mono[4] * mono[1889];
   mono[3412] = mono[1] * mono[1155];
   mono[3413] = mono[1] * mono[2000];
@@ -3664,9 +3478,6 @@ fn f_monomials68(mono: &mut [f64; N_MONOS]) {
   mono[3458] = mono[2] * mono[1920];
   mono[3459] = mono[2] * mono[2041];
   mono[3460] = mono[8] * mono[1922];
-}
-
-fn f_monomials69(mono: &mut [f64; N_MONOS]) { 
   mono[3461] = mono[7] * mono[1924];
   mono[3462] = mono[8] * mono[2042];
   mono[3463] = mono[7] * mono[2044];
@@ -3717,9 +3528,6 @@ fn f_monomials69(mono: &mut [f64; N_MONOS]) {
   mono[3508] = mono[3] * mono[1403];
   mono[3509] = mono[3] * mono[1404];
   mono[3510] = mono[3] * mono[1222];
-}
-
-fn f_monomials70(mono: &mut [f64; N_MONOS]) { 
   mono[3511] = mono[3] * mono[1407];
   mono[3512] = mono[2] * mono[1408];
   mono[3513] = mono[1] * mono[1229];
@@ -3770,9 +3578,6 @@ fn f_monomials70(mono: &mut [f64; N_MONOS]) {
   mono[3558] = mono[4] * mono[1268];
   mono[3559] = mono[2] * mono[1269];
   mono[3560] = mono[3] * mono[2074];
-}
-
-fn f_monomials71(mono: &mut [f64; N_MONOS]) { 
   mono[3561] = mono[5] * mono[2075];
   mono[3562] = mono[1] * mono[2076];
   mono[3563] = mono[3] * mono[1280];
@@ -3823,9 +3628,6 @@ fn f_monomials71(mono: &mut [f64; N_MONOS]) {
   mono[3608] = mono[1] * mono[1325];
   mono[3609] = mono[1] * mono[1499];
   mono[3610] = mono[3] * mono[1500];
-}
-
-fn f_monomials72(mono: &mut [f64; N_MONOS]) { 
   mono[3611] = mono[6] * mono[1500];
   mono[3612] = mono[1] * mono[2100];
   mono[3613] = mono[2] * mono[1333];
@@ -3876,9 +3678,6 @@ fn f_monomials72(mono: &mut [f64; N_MONOS]) {
   mono[3658] = mono[1] * mono[2058];
   mono[3659] = mono[1] * mono[2059];
   mono[3660] = mono[2] * mono[2060];
-}
-
-fn f_monomials73(mono: &mut [f64; N_MONOS]) { 
   mono[3661] = mono[4] * mono[2061];
   mono[3662] = mono[2] * mono[2062];
   mono[3663] = mono[4] * mono[2063];
@@ -3929,9 +3728,6 @@ fn f_monomials73(mono: &mut [f64; N_MONOS]) {
   mono[3708] = mono[1] * mono[1628];
   mono[3709] = mono[3] * mono[1629];
   mono[3710] = mono[1] * mono[1630];
-}
-
-fn f_monomials74(mono: &mut [f64; N_MONOS]) { 
   mono[3711] = mono[2] * mono[1631];
   mono[3712] = mono[2] * mono[1632];
   mono[3713] = mono[3] * mono[1633];
@@ -3982,9 +3778,6 @@ fn f_monomials74(mono: &mut [f64; N_MONOS]) {
   mono[3758] = mono[4] * mono[1682];
   mono[3759] = mono[6] * mono[1687];
   mono[3760] = mono[6] * mono[1688];
-}
-
-fn f_monomials75(mono: &mut [f64; N_MONOS]) { 
   mono[3761] = mono[1] * mono[1689];
   mono[3762] = mono[4] * mono[1420];
   mono[3763] = mono[5] * mono[1421];
@@ -4035,9 +3828,6 @@ fn f_monomials75(mono: &mut [f64; N_MONOS]) {
   mono[3808] = mono[3] * mono[1204];
   mono[3809] = mono[6] * mono[1204];
   mono[3810] = mono[3] * mono[1205];
-}
-
-fn f_monomials76(mono: &mut [f64; N_MONOS]) { 
   mono[3811] = mono[3] * mono[1206];
   mono[3812] = mono[3] * mono[1207];
   mono[3813] = mono[3] * mono[1208];
@@ -4088,9 +3878,6 @@ fn f_monomials76(mono: &mut [f64; N_MONOS]) {
   mono[3858] = mono[1] * mono[1792];
   mono[3859] = mono[1] * mono[1793];
   mono[3860] = mono[1] * mono[1794];
-}
-
-fn f_monomials77(mono: &mut [f64; N_MONOS]) { 
   mono[3861] = mono[1] * mono[1795];
   mono[3862] = mono[3] * mono[1796];
   mono[3863] = mono[5] * mono[1797];
@@ -4141,9 +3928,6 @@ fn f_monomials77(mono: &mut [f64; N_MONOS]) {
   mono[3908] = mono[6] * mono[2136];
   mono[3909] = mono[6] * mono[2137];
   mono[3910] = mono[1] * mono[1200];
-}
-
-fn f_monomials78(mono: &mut [f64; N_MONOS]) { 
   mono[3911] = mono[3] * mono[1201];
   mono[3912] = mono[4] * mono[1202];
   mono[3913] = mono[5] * mono[1656];
@@ -4194,9 +3978,6 @@ fn f_monomials78(mono: &mut [f64; N_MONOS]) {
   mono[3958] = mono[2] * mono[1248];
   mono[3959] = mono[3] * mono[2121];
   mono[3960] = mono[1] * mono[1250];
-}
-
-fn f_monomials79(mono: &mut [f64; N_MONOS]) { 
   mono[3961] = mono[1] * mono[1251];
   mono[3962] = mono[3] * mono[2123];
   mono[3963] = mono[2] * mono[1253];
@@ -4247,9 +4028,6 @@ fn f_monomials79(mono: &mut [f64; N_MONOS]) {
   mono[4008] = mono[6] * mono[2149];
   mono[4009] = mono[4] * mono[2150];
   mono[4010] = mono[2] * mono[1304];
-}
-
-fn f_monomials80(mono: &mut [f64; N_MONOS]) { 
   mono[4011] = mono[6] * mono[1307];
   mono[4012] = mono[4] * mono[2151];
   mono[4013] = mono[5] * mono[2151];
@@ -4300,9 +4078,6 @@ fn f_monomials80(mono: &mut [f64; N_MONOS]) {
   mono[4058] = mono[1] * mono[2170];
   mono[4059] = mono[2] * mono[2170];
   mono[4060] = mono[4] * mono[1360];
-}
-
-fn f_monomials81(mono: &mut [f64; N_MONOS]) { 
   mono[4061] = mono[6] * mono[1363];
   mono[4062] = mono[2] * mono[2171];
   mono[4063] = mono[3] * mono[2171];
@@ -4353,9 +4128,6 @@ fn f_monomials81(mono: &mut [f64; N_MONOS]) {
   mono[4108] = mono[4] * mono[1443];
   mono[4109] = mono[4] * mono[1444];
   mono[4110] = mono[4] * mono[2157];
-}
-
-fn f_monomials82(mono: &mut [f64; N_MONOS]) { 
   mono[4111] = mono[5] * mono[1445];
   mono[4112] = mono[4] * mono[2159];
   mono[4113] = mono[5] * mono[2158];
@@ -4406,9 +4178,6 @@ fn f_monomials82(mono: &mut [f64; N_MONOS]) {
   mono[4158] = mono[1] * mono[1469];
   mono[4159] = mono[5] * mono[1469];
   mono[4160] = mono[8] * mono[1463];
-}
-
-fn f_monomials83(mono: &mut [f64; N_MONOS]) { 
   mono[4161] = mono[8] * mono[1464];
   mono[4162] = mono[1] * mono[1470];
   mono[4163] = mono[1] * mono[1471];
@@ -4459,9 +4228,6 @@ fn f_monomials83(mono: &mut [f64; N_MONOS]) {
   mono[4208] = mono[1] * mono[1494];
   mono[4209] = mono[1] * mono[1495];
   mono[4210] = mono[4] * mono[1494];
-}
-
-fn f_monomials84(mono: &mut [f64; N_MONOS]) { 
   mono[4211] = mono[3] * mono[1496];
   mono[4212] = mono[3] * mono[1497];
   mono[4213] = mono[6] * mono[1497];
@@ -4512,9 +4278,6 @@ fn f_monomials84(mono: &mut [f64; N_MONOS]) {
   mono[4258] = mono[11] * mono[862];
   mono[4259] = mono[11] * mono[866];
   mono[4260] = mono[12] * mono[864];
-}
-
-fn f_monomials85(mono: &mut [f64; N_MONOS]) { 
   mono[4261] = mono[11] * mono[881];
   mono[4262] = mono[11] * mono[882];
   mono[4263] = mono[12] * mono[884];
@@ -4565,9 +4328,6 @@ fn f_monomials85(mono: &mut [f64; N_MONOS]) {
   mono[4308] = mono[18] * mono[968];
   mono[4309] = mono[19] * mono[969];
   mono[4310] = mono[16] * mono[972];
-}
-
-fn f_monomials86(mono: &mut [f64; N_MONOS]) { 
   mono[4311] = mono[19] * mono[973];
   mono[4312] = mono[21] * mono[966];
   mono[4313] = mono[22] * mono[967];
@@ -4618,9 +4378,6 @@ fn f_monomials86(mono: &mut [f64; N_MONOS]) {
   mono[4358] = mono[2] * mono[1564];
   mono[4359] = mono[3] * mono[1565];
   mono[4360] = mono[5] * mono[1868];
-}
-
-fn f_monomials87(mono: &mut [f64; N_MONOS]) { 
   mono[4361] = mono[1] * mono[1869];
   mono[4362] = mono[7] * mono[1569];
   mono[4363] = mono[7] * mono[1871];
@@ -4671,9 +4428,6 @@ fn f_monomials87(mono: &mut [f64; N_MONOS]) {
   mono[4408] = mono[3] * mono[1920];
   mono[4409] = mono[2] * mono[1921];
   mono[4410] = mono[7] * mono[1623];
-}
-
-fn f_monomials88(mono: &mut [f64; N_MONOS]) { 
   mono[4411] = mono[7] * mono[1923];
   mono[4412] = mono[8] * mono[1625];
   mono[4413] = mono[8] * mono[1925];
@@ -4724,9 +4478,6 @@ fn f_monomials88(mono: &mut [f64; N_MONOS]) {
   mono[4458] = mono[1] * mono[1538];
   mono[4459] = mono[1] * mono[1539];
   mono[4460] = mono[1] * mono[1540];
-}
-
-fn f_monomials89(mono: &mut [f64; N_MONOS]) { 
   mono[4461] = mono[1] * mono[1541];
   mono[4462] = mono[1] * mono[2134];
   mono[4463] = mono[3] * mono[1543];
@@ -4777,9 +4528,6 @@ fn f_monomials89(mono: &mut [f64; N_MONOS]) {
   mono[4508] = mono[5] * mono[1588];
   mono[4509] = mono[5] * mono[1589];
   mono[4510] = mono[5] * mono[1590];
-}
-
-fn f_monomials90(mono: &mut [f64; N_MONOS]) { 
   mono[4511] = mono[5] * mono[1591];
   mono[4512] = mono[1] * mono[2160];
   mono[4513] = mono[4] * mono[2160];
@@ -4830,9 +4578,6 @@ fn f_monomials90(mono: &mut [f64; N_MONOS]) {
   mono[4558] = mono[1] * mono[2178];
   mono[4559] = mono[2] * mono[2178];
   mono[4560] = mono[3] * mono[2196];
-}
-
-fn f_monomials91(mono: &mut [f64; N_MONOS]) { 
   mono[4561] = mono[2] * mono[2179];
   mono[4562] = mono[3] * mono[2179];
   mono[4563] = mono[4] * mono[2179];
@@ -4883,9 +4628,6 @@ fn f_monomials91(mono: &mut [f64; N_MONOS]) {
   mono[4608] = mono[3] * mono[2240];
   mono[4609] = mono[2] * mono[1239];
   mono[4610] = mono[1] * mono[1240];
-}
-
-fn f_monomials92(mono: &mut [f64; N_MONOS]) { 
   mono[4611] = mono[1] * mono[2241];
   mono[4612] = mono[3] * mono[2242];
   mono[4613] = mono[2] * mono[2243];
@@ -4936,9 +4678,6 @@ fn f_monomials92(mono: &mut [f64; N_MONOS]) {
   mono[4658] = mono[5] * mono[1288];
   mono[4659] = mono[6] * mono[1289];
   mono[4660] = mono[4] * mono[1290];
-}
-
-fn f_monomials93(mono: &mut [f64; N_MONOS]) { 
   mono[4661] = mono[4] * mono[2216];
   mono[4662] = mono[4] * mono[1292];
   mono[4663] = mono[5] * mono[1293];
@@ -4989,9 +4728,6 @@ fn f_monomials93(mono: &mut [f64; N_MONOS]) {
   mono[4708] = mono[3] * mono[1338];
   mono[4709] = mono[5] * mono[1339];
   mono[4710] = mono[1] * mono[1340];
-}
-
-fn f_monomials94(mono: &mut [f64; N_MONOS]) { 
   mono[4711] = mono[1] * mono[2236];
   mono[4712] = mono[1] * mono[1342];
   mono[4713] = mono[3] * mono[1343];
@@ -5042,9 +4778,6 @@ fn f_monomials94(mono: &mut [f64; N_MONOS]) {
   mono[4758] = mono[1] * mono[1448];
   mono[4759] = mono[2] * mono[1449];
   mono[4760] = mono[3] * mono[1450];
-}
-
-fn f_monomials95(mono: &mut [f64; N_MONOS]) { 
   mono[4761] = mono[4] * mono[1451];
   mono[4762] = mono[5] * mono[1452];
   mono[4763] = mono[6] * mono[1453];
@@ -5095,9 +4828,6 @@ fn f_monomials95(mono: &mut [f64; N_MONOS]) {
   mono[4808] = mono[3] * mono[2338];
   mono[4809] = mono[1] * mono[2339];
   mono[4810] = mono[3] * mono[2341];
-}
-
-fn f_monomials96(mono: &mut [f64; N_MONOS]) { 
   mono[4811] = mono[2] * mono[2343];
   mono[4812] = mono[1] * mono[1502];
   mono[4813] = mono[3] * mono[1503];
@@ -5148,9 +4878,6 @@ fn f_monomials96(mono: &mut [f64; N_MONOS]) {
   mono[4858] = mono[1] * mono[1548];
   mono[4859] = mono[1] * mono[1549];
   mono[4860] = mono[3] * mono[2296];
-}
-
-fn f_monomials97(mono: &mut [f64; N_MONOS]) { 
   mono[4861] = mono[2] * mono[2297];
   mono[4862] = mono[3] * mono[1552];
   mono[4863] = mono[4] * mono[1553];
@@ -5201,9 +4928,6 @@ fn f_monomials97(mono: &mut [f64; N_MONOS]) {
   mono[4908] = mono[5] * mono[2340];
   mono[4909] = mono[5] * mono[2341];
   mono[4910] = mono[4] * mono[2342];
-}
-
-fn f_monomials98(mono: &mut [f64; N_MONOS]) { 
   mono[4911] = mono[4] * mono[2343];
   mono[4912] = mono[3] * mono[1602];
   mono[4913] = mono[4] * mono[1603];
@@ -5254,9 +4978,6 @@ fn f_monomials98(mono: &mut [f64; N_MONOS]) {
   mono[4958] = mono[4] * mono[2258];
   mono[4959] = mono[2] * mono[2259];
   mono[4960] = mono[2] * mono[1830];
-}
-
-fn f_monomials99(mono: &mut [f64; N_MONOS]) { 
   mono[4961] = mono[2] * mono[2267];
   mono[4962] = mono[4] * mono[1832];
   mono[4963] = mono[4] * mono[2270];
@@ -5307,9 +5028,6 @@ fn f_monomials99(mono: &mut [f64; N_MONOS]) {
   mono[5008] = mono[1] * mono[1878];
   mono[5009] = mono[1] * mono[1879];
   mono[5010] = mono[1] * mono[2324];
-}
-
-fn f_monomials100(mono: &mut [f64; N_MONOS]) { 
   mono[5011] = mono[1] * mono[2325];
   mono[5012] = mono[2] * mono[1882];
   mono[5013] = mono[2] * mono[1883];
@@ -5360,9 +5078,6 @@ fn f_monomials100(mono: &mut [f64; N_MONOS]) {
   mono[5058] = mono[8] * mono[2357];
   mono[5059] = mono[8] * mono[2360];
   mono[5060] = mono[4] * mono[2362];
-}
-
-fn f_monomials101(mono: &mut [f64; N_MONOS]) { 
   mono[5061] = mono[5] * mono[2363];
   mono[5062] = mono[9] * mono[2359];
   mono[5063] = mono[9] * mono[2361];
@@ -5413,9 +5128,6 @@ fn f_monomials101(mono: &mut [f64; N_MONOS]) {
   mono[5108] = mono[5] * mono[1978];
   mono[5109] = mono[6] * mono[1979];
   mono[5110] = mono[1] * mono[1980];
-}
-
-fn f_monomials102(mono: &mut [f64; N_MONOS]) { 
   mono[5111] = mono[2] * mono[1981];
   mono[5112] = mono[1] * mono[1982];
   mono[5113] = mono[2] * mono[1983];
@@ -5466,9 +5178,6 @@ fn f_monomials102(mono: &mut [f64; N_MONOS]) {
   mono[5158] = mono[6] * mono[2028];
   mono[5159] = mono[6] * mono[2029];
   mono[5160] = mono[7] * mono[2030];
-}
-
-fn f_monomials103(mono: &mut [f64; N_MONOS]) { 
   mono[5161] = mono[7] * mono[2031];
   mono[5162] = mono[3] * mono[2032];
   mono[5163] = mono[5] * mono[2033];
@@ -5519,9 +5228,6 @@ fn f_monomials103(mono: &mut [f64; N_MONOS]) {
   mono[5208] = mono[1] * mono[2268];
   mono[5209] = mono[5] * mono[2269];
   mono[5210] = mono[1] * mono[2270];
-}
-
-fn f_monomials104(mono: &mut [f64; N_MONOS]) { 
   mono[5211] = mono[3] * mono[2271];
   mono[5212] = mono[3] * mono[2272];
   mono[5213] = mono[3] * mono[2273];
@@ -5572,9 +5278,6 @@ fn f_monomials104(mono: &mut [f64; N_MONOS]) {
   mono[5258] = mono[7] * mono[2318];
   mono[5259] = mono[8] * mono[2319];
   mono[5260] = mono[4] * mono[2320];
-}
-
-fn f_monomials105(mono: &mut [f64; N_MONOS]) { 
   mono[5261] = mono[4] * mono[2321];
   mono[5262] = mono[5] * mono[2322];
   mono[5263] = mono[5] * mono[2323];
@@ -5625,9 +5328,6 @@ fn f_monomials105(mono: &mut [f64; N_MONOS]) {
   mono[5308] = mono[1] * mono[2375];
   mono[5309] = mono[1] * mono[2376];
   mono[5310] = mono[2] * mono[2376];
-}
-
-fn f_monomials106(mono: &mut [f64; N_MONOS]) { 
   mono[5311] = mono[1] * mono[2382];
   mono[5312] = mono[1] * mono[2384];
   mono[5313] = mono[2] * mono[2429];
@@ -5678,9 +5378,6 @@ fn f_monomials106(mono: &mut [f64; N_MONOS]) {
   mono[5358] = mono[1] * mono[2502];
   mono[5359] = mono[4] * mono[2376];
   mono[5360] = mono[1] * mono[2503];
-}
-
-fn f_monomials107(mono: &mut [f64; N_MONOS]) { 
   mono[5361] = mono[4] * mono[2503];
   mono[5362] = mono[1] * mono[2672];
   mono[5363] = mono[1] * mono[2673];
@@ -5731,9 +5428,6 @@ fn f_monomials107(mono: &mut [f64; N_MONOS]) {
   mono[5408] = mono[1] * mono[2749];
   mono[5409] = mono[2] * mono[2751];
   mono[5410] = mono[2] * mono[2753];
-}
-
-fn f_monomials108(mono: &mut [f64; N_MONOS]) { 
   mono[5411] = mono[1] * mono[2755];
   mono[5412] = mono[1] * mono[2757];
   mono[5413] = mono[1] * mono[2762];
@@ -5784,9 +5478,6 @@ fn f_monomials108(mono: &mut [f64; N_MONOS]) {
   mono[5458] = mono[2] * mono[2423];
   mono[5459] = mono[1] * mono[2518];
   mono[5460] = mono[1] * mono[2519];
-}
-
-fn f_monomials109(mono: &mut [f64; N_MONOS]) { 
   mono[5461] = mono[2] * mono[2428];
   mono[5462] = mono[3] * mono[2429];
   mono[5463] = mono[1] * mono[2944];
@@ -5837,9 +5528,6 @@ fn f_monomials109(mono: &mut [f64; N_MONOS]) {
   mono[5508] = mono[2] * mono[3093];
   mono[5509] = mono[1] * mono[3094];
   mono[5510] = mono[1] * mono[3095];
-}
-
-fn f_monomials110(mono: &mut [f64; N_MONOS]) { 
   mono[5511] = mono[1] * mono[3096];
   mono[5512] = mono[1] * mono[3097];
   mono[5513] = mono[2] * mono[2978];
@@ -5890,9 +5578,6 @@ fn f_monomials110(mono: &mut [f64; N_MONOS]) {
   mono[5558] = mono[1] * mono[2675];
   mono[5559] = mono[4] * mono[2794];
   mono[5560] = mono[4] * mono[2795];
-}
-
-fn f_monomials111(mono: &mut [f64; N_MONOS]) { 
   mono[5561] = mono[3] * mono[2678];
   mono[5562] = mono[1] * mono[2679];
   mono[5563] = mono[5] * mono[2798];
@@ -5943,9 +5628,6 @@ fn f_monomials111(mono: &mut [f64; N_MONOS]) {
   mono[5608] = mono[1] * mono[2959];
   mono[5609] = mono[1] * mono[2960];
   mono[5610] = mono[1] * mono[2961];
-}
-
-fn f_monomials112(mono: &mut [f64; N_MONOS]) { 
   mono[5611] = mono[1] * mono[3202];
   mono[5612] = mono[1] * mono[3203];
   mono[5613] = mono[1] * mono[2850];
@@ -5996,9 +5678,6 @@ fn f_monomials112(mono: &mut [f64; N_MONOS]) {
   mono[5658] = mono[1] * mono[2403];
   mono[5659] = mono[2] * mono[2655];
   mono[5660] = mono[1] * mono[3143];
-}
-
-fn f_monomials113(mono: &mut [f64; N_MONOS]) { 
   mono[5661] = mono[1] * mono[2661];
   mono[5662] = mono[1] * mono[2407];
   mono[5663] = mono[2] * mono[3146];
@@ -6049,9 +5728,6 @@ fn f_monomials113(mono: &mut [f64; N_MONOS]) {
   mono[5708] = mono[1] * mono[3229];
   mono[5709] = mono[1] * mono[3231];
   mono[5710] = mono[2] * mono[3233];
-}
-
-fn f_monomials114(mono: &mut [f64; N_MONOS]) { 
   mono[5711] = mono[1] * mono[3235];
   mono[5712] = mono[2] * mono[3237];
   mono[5713] = mono[2] * mono[2765];
@@ -6102,9 +5778,6 @@ fn f_monomials114(mono: &mut [f64; N_MONOS]) {
   mono[5758] = mono[1] * mono[3039];
   mono[5759] = mono[1] * mono[3260];
   mono[5760] = mono[1] * mono[3261];
-}
-
-fn f_monomials115(mono: &mut [f64; N_MONOS]) { 
   mono[5761] = mono[1] * mono[2464];
   mono[5762] = mono[1] * mono[3049];
   mono[5763] = mono[1] * mono[3051];
@@ -6155,9 +5828,6 @@ fn f_monomials115(mono: &mut [f64; N_MONOS]) {
   mono[5808] = mono[1] * mono[3321];
   mono[5809] = mono[1] * mono[2608];
   mono[5810] = mono[1] * mono[2609];
-}
-
-fn f_monomials116(mono: &mut [f64; N_MONOS]) { 
   mono[5811] = mono[1] * mono[3332];
   mono[5812] = mono[1] * mono[2468];
   mono[5813] = mono[2] * mono[2620];
@@ -6208,9 +5878,6 @@ fn f_monomials116(mono: &mut [f64; N_MONOS]) {
   mono[5858] = mono[2] * mono[2923];
   mono[5859] = mono[1] * mono[2686];
   mono[5860] = mono[1] * mono[2417];
-}
-
-fn f_monomials117(mono: &mut [f64; N_MONOS]) { 
   mono[5861] = mono[3] * mono[3324];
   mono[5862] = mono[3] * mono[3325];
   mono[5863] = mono[1] * mono[2814];
@@ -6261,9 +5928,6 @@ fn f_monomials117(mono: &mut [f64; N_MONOS]) {
   mono[5908] = mono[2] * mono[3443];
   mono[5909] = mono[1] * mono[3444];
   mono[5910] = mono[1] * mono[3445];
-}
-
-fn f_monomials118(mono: &mut [f64; N_MONOS]) { 
   mono[5911] = mono[2] * mono[3343];
   mono[5912] = mono[3] * mono[3449];
   mono[5913] = mono[1] * mono[3344];
@@ -6314,9 +5978,6 @@ fn f_monomials118(mono: &mut [f64; N_MONOS]) {
   mono[5958] = mono[1] * mono[3037];
   mono[5959] = mono[1] * mono[3403];
   mono[5960] = mono[1] * mono[3405];
-}
-
-fn f_monomials119(mono: &mut [f64; N_MONOS]) { 
   mono[5961] = mono[1] * mono[2481];
   mono[5962] = mono[1] * mono[3054];
   mono[5963] = mono[1] * mono[3324];
@@ -6367,9 +6028,6 @@ fn f_monomials119(mono: &mut [f64; N_MONOS]) {
   mono[6008] = mono[1] * mono[3507];
   mono[6009] = mono[3] * mono[2562];
   mono[6010] = mono[2] * mono[2565];
-}
-
-fn f_monomials120(mono: &mut [f64; N_MONOS]) { 
   mono[6011] = mono[3] * mono[2569];
   mono[6012] = mono[2] * mono[2571];
   mono[6013] = mono[1] * mono[2573];
@@ -6420,9 +6078,6 @@ fn f_monomials120(mono: &mut [f64; N_MONOS]) {
   mono[6058] = mono[1] * mono[3700];
   mono[6059] = mono[1] * mono[3701];
   mono[6060] = mono[4] * mono[2740];
-}
-
-fn f_monomials121(mono: &mut [f64; N_MONOS]) { 
   mono[6061] = mono[5] * mono[2741];
   mono[6062] = mono[1] * mono[2742];
   mono[6063] = mono[3] * mono[3703];
@@ -6473,9 +6128,6 @@ fn f_monomials121(mono: &mut [f64; N_MONOS]) {
   mono[6108] = mono[2] * mono[3578];
   mono[6109] = mono[1] * mono[3819];
   mono[6110] = mono[3] * mono[3580];
-}
-
-fn f_monomials122(mono: &mut [f64; N_MONOS]) { 
   mono[6111] = mono[1] * mono[3581];
   mono[6112] = mono[3] * mono[3829];
   mono[6113] = mono[3] * mono[3503];
@@ -6526,9 +6178,6 @@ fn f_monomials122(mono: &mut [f64; N_MONOS]) {
   mono[6158] = mono[1] * mono[3521];
   mono[6159] = mono[2] * mono[2855];
   mono[6160] = mono[1] * mono[2856];
-}
-
-fn f_monomials123(mono: &mut [f64; N_MONOS]) { 
   mono[6161] = mono[1] * mono[2857];
   mono[6162] = mono[2] * mono[3864];
   mono[6163] = mono[2] * mono[2859];
@@ -6579,9 +6228,6 @@ fn f_monomials123(mono: &mut [f64; N_MONOS]) {
   mono[6208] = mono[2] * mono[3729];
   mono[6209] = mono[3] * mono[3561];
   mono[6210] = mono[3] * mono[2770];
-}
-
-fn f_monomials124(mono: &mut [f64; N_MONOS]) { 
   mono[6211] = mono[3] * mono[2655];
   mono[6212] = mono[1] * mono[2777];
   mono[6213] = mono[1] * mono[2657];
@@ -6632,9 +6278,6 @@ fn f_monomials124(mono: &mut [f64; N_MONOS]) {
   mono[6258] = mono[3] * mono[3754];
   mono[6259] = mono[1] * mono[3610];
   mono[6260] = mono[5] * mono[2711];
-}
-
-fn f_monomials125(mono: &mut [f64; N_MONOS]) { 
   mono[6261] = mono[4] * mono[3611];
   mono[6262] = mono[2] * mono[2712];
   mono[6263] = mono[3] * mono[3756];
@@ -6685,9 +6328,6 @@ fn f_monomials125(mono: &mut [f64; N_MONOS]) {
   mono[6308] = mono[3] * mono[2872];
   mono[6309] = mono[2] * mono[2873];
   mono[6310] = mono[1] * mono[2874];
-}
-
-fn f_monomials126(mono: &mut [f64; N_MONOS]) { 
   mono[6311] = mono[1] * mono[3776];
   mono[6312] = mono[2] * mono[2755];
   mono[6313] = mono[3] * mono[2875];
@@ -6738,9 +6378,6 @@ fn f_monomials126(mono: &mut [f64; N_MONOS]) {
   mono[6358] = mono[1] * mono[3830];
   mono[6359] = mono[2] * mono[3591];
   mono[6360] = mono[1] * mono[3832];
-}
-
-fn f_monomials127(mono: &mut [f64; N_MONOS]) { 
   mono[6361] = mono[3] * mono[3595];
   mono[6362] = mono[1] * mono[3836];
   mono[6363] = mono[1] * mono[3596];
@@ -6791,9 +6428,6 @@ fn f_monomials127(mono: &mut [f64; N_MONOS]) {
   mono[6408] = mono[2] * mono[3703];
   mono[6409] = mono[1] * mono[2983];
   mono[6410] = mono[1] * mono[2631];
-}
-
-fn f_monomials128(mono: &mut [f64; N_MONOS]) { 
   mono[6411] = mono[1] * mono[3705];
   mono[6412] = mono[3] * mono[3705];
   mono[6413] = mono[1] * mono[2985];
@@ -6844,9 +6478,6 @@ fn f_monomials128(mono: &mut [f64; N_MONOS]) {
   mono[6458] = mono[1] * mono[2510];
   mono[6459] = mono[5] * mono[2511];
   mono[6460] = mono[6] * mono[3836];
-}
-
-fn f_monomials129(mono: &mut [f64; N_MONOS]) { 
   mono[6461] = mono[6] * mono[3837];
   mono[6462] = mono[2] * mono[3840];
   mono[6463] = mono[1] * mono[3841];
@@ -6897,9 +6528,6 @@ fn f_monomials129(mono: &mut [f64; N_MONOS]) {
   mono[6508] = mono[1] * mono[2888];
   mono[6509] = mono[1] * mono[2889];
   mono[6510] = mono[2] * mono[3724];
-}
-
-fn f_monomials130(mono: &mut [f64; N_MONOS]) { 
   mono[6511] = mono[4] * mono[3725];
   mono[6512] = mono[2] * mono[2892];
   mono[6513] = mono[4] * mono[2893];
@@ -6950,9 +6578,6 @@ fn f_monomials130(mono: &mut [f64; N_MONOS]) {
   mono[6558] = mono[5] * mono[2947];
   mono[6559] = mono[6] * mono[3189];
   mono[6560] = mono[1] * mono[3756];
-}
-
-fn f_monomials131(mono: &mut [f64; N_MONOS]) { 
   mono[6561] = mono[3] * mono[3757];
   mono[6562] = mono[2] * mono[3190];
   mono[6563] = mono[1] * mono[3758];
@@ -7003,9 +6628,6 @@ fn f_monomials131(mono: &mut [f64; N_MONOS]) {
   mono[6608] = mono[2] * mono[3231];
   mono[6609] = mono[2] * mono[2995];
   mono[6610] = mono[2] * mono[3232];
-}
-
-fn f_monomials132(mono: &mut [f64; N_MONOS]) { 
   mono[6611] = mono[3] * mono[3233];
   mono[6612] = mono[3] * mono[2996];
   mono[6613] = mono[1] * mono[3234];
@@ -7056,9 +6678,6 @@ fn f_monomials132(mono: &mut [f64; N_MONOS]) {
   mono[6658] = mono[4] * mono[3287];
   mono[6659] = mono[6] * mono[2629];
   mono[6660] = mono[4] * mono[2630];
-}
-
-fn f_monomials133(mono: &mut [f64; N_MONOS]) { 
   mono[6661] = mono[1] * mono[3288];
   mono[6662] = mono[5] * mono[3289];
   mono[6663] = mono[5] * mono[2631];
@@ -7109,9 +6728,6 @@ fn f_monomials133(mono: &mut [f64; N_MONOS]) {
   mono[6708] = mono[1] * mono[3676];
   mono[6709] = mono[2] * mono[3677];
   mono[6710] = mono[2] * mono[3037];
-}
-
-fn f_monomials134(mono: &mut [f64; N_MONOS]) { 
   mono[6711] = mono[3] * mono[3579];
   mono[6712] = mono[1] * mono[3678];
   mono[6713] = mono[3] * mono[3679];
@@ -7162,9 +6778,6 @@ fn f_monomials134(mono: &mut [f64; N_MONOS]) {
   mono[6758] = mono[2] * mono[3347];
   mono[6759] = mono[4] * mono[3348];
   mono[6760] = mono[6] * mono[3347];
-}
-
-fn f_monomials135(mono: &mut [f64; N_MONOS]) { 
   mono[6761] = mono[6] * mono[3348];
   mono[6762] = mono[4] * mono[3101];
   mono[6763] = mono[5] * mono[3100];
@@ -7215,9 +6828,6 @@ fn f_monomials135(mono: &mut [f64; N_MONOS]) {
   mono[6808] = mono[5] * mono[3908];
   mono[6809] = mono[4] * mono[3909];
   mono[6810] = mono[3] * mono[2494];
-}
-
-fn f_monomials136(mono: &mut [f64; N_MONOS]) { 
   mono[6811] = mono[3] * mono[3912];
   mono[6812] = mono[1] * mono[2495];
   mono[6813] = mono[1] * mono[3913];
@@ -7268,9 +6878,6 @@ fn f_monomials136(mono: &mut [f64; N_MONOS]) {
   mono[6858] = mono[2] * mono[2522];
   mono[6859] = mono[3] * mono[2523];
   mono[6860] = mono[3] * mono[2708];
-}
-
-fn f_monomials137(mono: &mut [f64; N_MONOS]) { 
   mono[6861] = mono[2] * mono[2709];
   mono[6862] = mono[2] * mono[2710];
   mono[6863] = mono[2] * mono[2711];
@@ -7321,9 +6928,6 @@ fn f_monomials137(mono: &mut [f64; N_MONOS]) {
   mono[6908] = mono[3] * mono[4068];
   mono[6909] = mono[2] * mono[4069];
   mono[6910] = mono[1] * mono[3954];
-}
-
-fn f_monomials138(mono: &mut [f64; N_MONOS]) { 
   mono[6911] = mono[2] * mono[4071];
   mono[6912] = mono[1] * mono[3955];
   mono[6913] = mono[2] * mono[3955];
@@ -7374,9 +6978,6 @@ fn f_monomials138(mono: &mut [f64; N_MONOS]) {
   mono[6958] = mono[3] * mono[2553];
   mono[6959] = mono[3] * mono[3913];
   mono[6960] = mono[2] * mono[2554];
-}
-
-fn f_monomials139(mono: &mut [f64; N_MONOS]) { 
   mono[6961] = mono[1] * mono[2555];
   mono[6962] = mono[1] * mono[3916];
   mono[6963] = mono[2] * mono[2556];
@@ -7427,9 +7028,6 @@ fn f_monomials139(mono: &mut [f64; N_MONOS]) {
   mono[7008] = mono[1] * mono[3958];
   mono[7009] = mono[1] * mono[3959];
   mono[7010] = mono[1] * mono[3000];
-}
-
-fn f_monomials140(mono: &mut [f64; N_MONOS]) { 
   mono[7011] = mono[1] * mono[3001];
   mono[7012] = mono[2] * mono[3962];
   mono[7013] = mono[2] * mono[3003];
@@ -7480,9 +7078,6 @@ fn f_monomials140(mono: &mut [f64; N_MONOS]) {
   mono[7058] = mono[1] * mono[3408];
   mono[7059] = mono[2] * mono[4111];
   mono[7060] = mono[1] * mono[4112];
-}
-
-fn f_monomials141(mono: &mut [f64; N_MONOS]) { 
   mono[7061] = mono[1] * mono[4113];
   mono[7062] = mono[1] * mono[3052];
   mono[7063] = mono[1] * mono[3414];
@@ -7533,9 +7128,6 @@ fn f_monomials141(mono: &mut [f64; N_MONOS]) {
   mono[7108] = mono[4] * mono[3110];
   mono[7109] = mono[5] * mono[3111];
   mono[7110] = mono[4] * mono[4130];
-}
-
-fn f_monomials142(mono: &mut [f64; N_MONOS]) { 
   mono[7111] = mono[5] * mono[4065];
   mono[7112] = mono[1] * mono[4131];
   mono[7113] = mono[3] * mono[4131];
@@ -7586,9 +7178,6 @@ fn f_monomials142(mono: &mut [f64; N_MONOS]) {
   mono[7158] = mono[7] * mono[4212];
   mono[7159] = mono[7] * mono[4213];
   mono[7160] = mono[7] * mono[4296];
-}
-
-fn f_monomials143(mono: &mut [f64; N_MONOS]) { 
   mono[7161] = mono[4] * mono[4217];
   mono[7162] = mono[4] * mono[4298];
   mono[7163] = mono[2] * mono[4219];
@@ -7639,9 +7228,6 @@ fn f_monomials143(mono: &mut [f64; N_MONOS]) {
   mono[7208] = mono[1] * mono[4372];
   mono[7209] = mono[5] * mono[4373];
   mono[7210] = mono[1] * mono[4375];
-}
-
-fn f_monomials144(mono: &mut [f64; N_MONOS]) { 
   mono[7211] = mono[1] * mono[4377];
   mono[7212] = mono[1] * mono[3047];
   mono[7213] = mono[1] * mono[3050];
@@ -7692,9 +7278,6 @@ fn f_monomials144(mono: &mut [f64; N_MONOS]) {
   mono[7258] = mono[1] * mono[2583];
   mono[7259] = mono[1] * mono[3906];
   mono[7260] = mono[1] * mono[2584];
-}
-
-fn f_monomials145(mono: &mut [f64; N_MONOS]) { 
   mono[7261] = mono[2] * mono[4342];
   mono[7262] = mono[1] * mono[3907];
   mono[7263] = mono[2] * mono[4465];
@@ -7745,9 +7328,6 @@ fn f_monomials145(mono: &mut [f64; N_MONOS]) {
   mono[7308] = mono[1] * mono[4390];
   mono[7309] = mono[1] * mono[4391];
   mono[7310] = mono[1] * mono[3936];
-}
-
-fn f_monomials146(mono: &mut [f64; N_MONOS]) { 
   mono[7311] = mono[2] * mono[3188];
   mono[7312] = mono[1] * mono[3937];
   mono[7313] = mono[3] * mono[3192];
@@ -7798,9 +7378,6 @@ fn f_monomials146(mono: &mut [f64; N_MONOS]) {
   mono[7358] = mono[1] * mono[4430];
   mono[7359] = mono[3] * mono[4549];
   mono[7360] = mono[3] * mono[4550];
-}
-
-fn f_monomials147(mono: &mut [f64; N_MONOS]) { 
   mono[7361] = mono[3] * mono[4551];
   mono[7362] = mono[1] * mono[4432];
   mono[7363] = mono[2] * mono[4553];
@@ -7851,9 +7428,6 @@ fn f_monomials147(mono: &mut [f64; N_MONOS]) {
   mono[7408] = mono[2] * mono[2682];
   mono[7409] = mono[2] * mono[4011];
   mono[7410] = mono[3] * mono[4012];
-}
-
-fn f_monomials148(mono: &mut [f64; N_MONOS]) { 
   mono[7411] = mono[2] * mono[4013];
   mono[7412] = mono[1] * mono[4286];
   mono[7413] = mono[3] * mono[4286];
@@ -7904,9 +7478,6 @@ fn f_monomials148(mono: &mut [f64; N_MONOS]) {
   mono[7458] = mono[3] * mono[4528];
   mono[7459] = mono[1] * mono[4529];
   mono[7460] = mono[3] * mono[4053];
-}
-
-fn f_monomials149(mono: &mut [f64; N_MONOS]) { 
   mono[7461] = mono[1] * mono[4531];
   mono[7462] = mono[2] * mono[4532];
   mono[7463] = mono[1] * mono[4533];
@@ -7957,9 +7528,6 @@ fn f_monomials149(mono: &mut [f64; N_MONOS]) {
   mono[7508] = mono[1] * mono[4470];
   mono[7509] = mono[1] * mono[4471];
   mono[7510] = mono[1] * mono[2900];
-}
-
-fn f_monomials150(mono: &mut [f64; N_MONOS]) { 
   mono[7511] = mono[2] * mono[3993];
   mono[7512] = mono[1] * mono[2902];
   mono[7513] = mono[2] * mono[2903];
@@ -8010,9 +7578,6 @@ fn f_monomials150(mono: &mut [f64; N_MONOS]) {
   mono[7558] = mono[2] * mono[2954];
   mono[7559] = mono[2] * mono[3199];
   mono[7560] = mono[2] * mono[2962];
-}
-
-fn f_monomials151(mono: &mut [f64; N_MONOS]) { 
   mono[7561] = mono[4] * mono[2963];
   mono[7562] = mono[4] * mono[3202];
   mono[7563] = mono[2] * mono[3203];
@@ -8063,9 +7628,6 @@ fn f_monomials151(mono: &mut [f64; N_MONOS]) {
   mono[7608] = mono[2] * mono[2758];
   mono[7609] = mono[4] * mono[2759];
   mono[7610] = mono[3] * mono[2761];
-}
-
-fn f_monomials152(mono: &mut [f64; N_MONOS]) { 
   mono[7611] = mono[5] * mono[2760];
   mono[7612] = mono[2] * mono[2762];
   mono[7613] = mono[3] * mono[2763];
@@ -8116,9 +7678,6 @@ fn f_monomials152(mono: &mut [f64; N_MONOS]) {
   mono[7658] = mono[2] * mono[2808];
   mono[7659] = mono[1] * mono[4202];
   mono[7660] = mono[5] * mono[2810];
-}
-
-fn f_monomials153(mono: &mut [f64; N_MONOS]) { 
   mono[7661] = mono[5] * mono[4203];
   mono[7662] = mono[3] * mono[4204];
   mono[7663] = mono[3] * mono[4205];
@@ -8169,9 +7728,6 @@ fn f_monomials153(mono: &mut [f64; N_MONOS]) {
   mono[7708] = mono[7] * mono[4242];
   mono[7709] = mono[8] * mono[4240];
   mono[7710] = mono[4] * mono[4244];
-}
-
-fn f_monomials154(mono: &mut [f64; N_MONOS]) { 
   mono[7711] = mono[4] * mono[4245];
   mono[7712] = mono[5] * mono[4246];
   mono[7713] = mono[5] * mono[4247];
@@ -8222,9 +7778,6 @@ fn f_monomials154(mono: &mut [f64; N_MONOS]) {
   mono[7758] = mono[1] * mono[3256];
   mono[7759] = mono[1] * mono[3156];
   mono[7760] = mono[2] * mono[3257];
-}
-
-fn f_monomials155(mono: &mut [f64; N_MONOS]) { 
   mono[7761] = mono[2] * mono[3157];
   mono[7762] = mono[1] * mono[3258];
   mono[7763] = mono[1] * mono[3160];
@@ -8275,9 +7828,6 @@ fn f_monomials155(mono: &mut [f64; N_MONOS]) {
   mono[7808] = mono[3] * mono[3214];
   mono[7809] = mono[3] * mono[3286];
   mono[7810] = mono[5] * mono[3215];
-}
-
-fn f_monomials156(mono: &mut [f64; N_MONOS]) { 
   mono[7811] = mono[5] * mono[3287];
   mono[7812] = mono[2] * mono[3218];
   mono[7813] = mono[2] * mono[3288];
@@ -8328,9 +7878,6 @@ fn f_monomials156(mono: &mut [f64; N_MONOS]) {
   mono[7858] = mono[2] * mono[4088];
   mono[7859] = mono[3] * mono[4455];
   mono[7860] = mono[1] * mono[3010];
-}
-
-fn f_monomials157(mono: &mut [f64; N_MONOS]) { 
   mono[7861] = mono[1] * mono[3011];
   mono[7862] = mono[1] * mono[3012];
   mono[7863] = mono[1] * mono[3013];
@@ -8381,9 +7928,6 @@ fn f_monomials157(mono: &mut [f64; N_MONOS]) {
   mono[7908] = mono[1] * mono[4509];
   mono[7909] = mono[4] * mono[4510];
   mono[7910] = mono[5] * mono[3060];
-}
-
-fn f_monomials158(mono: &mut [f64; N_MONOS]) { 
   mono[7911] = mono[3] * mono[4511];
   mono[7912] = mono[1] * mono[4115];
   mono[7913] = mono[3] * mono[4115];
@@ -8434,9 +7978,6 @@ fn f_monomials158(mono: &mut [f64; N_MONOS]) {
   mono[7958] = mono[6] * mono[4133];
   mono[7959] = mono[6] * mono[4134];
   mono[7960] = mono[4] * mono[4135];
-}
-
-fn f_monomials159(mono: &mut [f64; N_MONOS]) { 
   mono[7961] = mono[5] * mono[4135];
   mono[7962] = mono[5] * mono[4552];
   mono[7963] = mono[5] * mono[4553];
@@ -8487,9 +8028,6 @@ fn f_monomials159(mono: &mut [f64; N_MONOS]) {
   mono[8008] = mono[2] * mono[3321];
   mono[8009] = mono[2] * mono[4367];
   mono[8010] = mono[2] * mono[4188];
-}
-
-fn f_monomials160(mono: &mut [f64; N_MONOS]) { 
   mono[8011] = mono[2] * mono[4369];
   mono[8012] = mono[2] * mono[4190];
   mono[8013] = mono[2] * mono[4191];
@@ -8540,9 +8078,6 @@ fn f_monomials160(mono: &mut [f64; N_MONOS]) {
   mono[8058] = mono[7] * mono[3351];
   mono[8059] = mono[7] * mono[3465];
   mono[8060] = mono[7] * mono[4232];
-}
-
-fn f_monomials161(mono: &mut [f64; N_MONOS]) { 
   mono[8061] = mono[7] * mono[4233];
   mono[8062] = mono[7] * mono[4412];
   mono[8063] = mono[7] * mono[4413];
@@ -8593,9 +8128,6 @@ fn f_monomials161(mono: &mut [f64; N_MONOS]) {
   mono[8108] = mono[2] * mono[3319];
   mono[8109] = mono[2] * mono[4489];
   mono[8110] = mono[2] * mono[4491];
-}
-
-fn f_monomials162(mono: &mut [f64; N_MONOS]) { 
   mono[8111] = mono[2] * mono[4493];
   mono[8112] = mono[1] * mono[4504];
   mono[8113] = mono[2] * mono[4506];
@@ -8646,9 +8178,6 @@ fn f_monomials162(mono: &mut [f64; N_MONOS]) {
   mono[8158] = mono[2] * mono[4577];
   mono[8159] = mono[1] * mono[4578];
   mono[8160] = mono[3] * mono[4660];
-}
-
-fn f_monomials163(mono: &mut [f64; N_MONOS]) { 
   mono[8161] = mono[2] * mono[4661];
   mono[8162] = mono[3] * mono[4662];
   mono[8163] = mono[2] * mono[4663];
@@ -8699,9 +8228,6 @@ fn f_monomials163(mono: &mut [f64; N_MONOS]) {
   mono[8208] = mono[2] * mono[4563];
   mono[8209] = mono[3] * mono[4564];
   mono[8210] = mono[1] * mono[4565];
-}
-
-fn f_monomials164(mono: &mut [f64; N_MONOS]) { 
   mono[8211] = mono[1] * mono[4569];
   mono[8212] = mono[1] * mono[4572];
   mono[8213] = mono[3] * mono[4573];
@@ -8752,9 +8278,6 @@ fn f_monomials164(mono: &mut [f64; N_MONOS]) {
   mono[8258] = mono[1] * mono[4794];
   mono[8259] = mono[1] * mono[4884];
   mono[8260] = mono[1] * mono[4885];
-}
-
-fn f_monomials165(mono: &mut [f64; N_MONOS]) { 
   mono[8261] = mono[1] * mono[4797];
   mono[8262] = mono[1] * mono[4590];
   mono[8263] = mono[2] * mono[4591];
@@ -8805,9 +8328,6 @@ fn f_monomials165(mono: &mut [f64; N_MONOS]) {
   mono[8308] = mono[5] * mono[4640];
   mono[8309] = mono[3] * mono[4641];
   mono[8310] = mono[3] * mono[2650];
-}
-
-fn f_monomials166(mono: &mut [f64; N_MONOS]) { 
   mono[8311] = mono[3] * mono[2651];
   mono[8312] = mono[4] * mono[2652];
   mono[8313] = mono[1] * mono[2653];
@@ -8858,9 +8378,6 @@ fn f_monomials166(mono: &mut [f64; N_MONOS]) {
   mono[8358] = mono[2] * mono[4899];
   mono[8359] = mono[1] * mono[2699];
   mono[8360] = mono[2] * mono[4694];
-}
-
-fn f_monomials167(mono: &mut [f64; N_MONOS]) { 
   mono[8361] = mono[1] * mono[2701];
   mono[8362] = mono[2] * mono[4695];
   mono[8363] = mono[2] * mono[4901];
@@ -8911,9 +8428,6 @@ fn f_monomials167(mono: &mut [f64; N_MONOS]) {
   mono[8408] = mono[6] * mono[4730];
   mono[8409] = mono[4] * mono[4733];
   mono[8410] = mono[6] * mono[4942];
-}
-
-fn f_monomials168(mono: &mut [f64; N_MONOS]) { 
   mono[8411] = mono[6] * mono[4943];
   mono[8412] = mono[5] * mono[4734];
   mono[8413] = mono[4] * mono[4736];
@@ -8964,9 +8478,6 @@ fn f_monomials168(mono: &mut [f64; N_MONOS]) {
   mono[8458] = mono[1] * mono[4793];
   mono[8459] = mono[3] * mono[4793];
   mono[8460] = mono[5] * mono[5002];
-}
-
-fn f_monomials169(mono: &mut [f64; N_MONOS]) { 
   mono[8461] = mono[5] * mono[5003];
   mono[8462] = mono[4] * mono[5004];
   mono[8463] = mono[4] * mono[5005];
@@ -9017,9 +8528,6 @@ fn f_monomials169(mono: &mut [f64; N_MONOS]) {
   mono[8508] = mono[1] * mono[5038];
   mono[8509] = mono[1] * mono[5039];
   mono[8510] = mono[2] * mono[4818];
-}
-
-fn f_monomials170(mono: &mut [f64; N_MONOS]) { 
   mono[8511] = mono[3] * mono[5041];
   mono[8512] = mono[3] * mono[2852];
   mono[8513] = mono[3] * mono[2853];
@@ -9070,9 +8578,6 @@ fn f_monomials170(mono: &mut [f64; N_MONOS]) {
   mono[8558] = mono[1] * mono[4860];
   mono[8559] = mono[1] * mono[4861];
   mono[8560] = mono[2] * mono[4652];
-}
-
-fn f_monomials171(mono: &mut [f64; N_MONOS]) { 
   mono[8561] = mono[2] * mono[4655];
   mono[8562] = mono[3] * mono[2902];
   mono[8563] = mono[3] * mono[2903];
@@ -9123,9 +8628,6 @@ fn f_monomials171(mono: &mut [f64; N_MONOS]) {
   mono[8608] = mono[2] * mono[5146];
   mono[8609] = mono[2] * mono[5147];
   mono[8610] = mono[2] * mono[5149];
-}
-
-fn f_monomials172(mono: &mut [f64; N_MONOS]) { 
   mono[8611] = mono[1] * mono[4911];
   mono[8612] = mono[1] * mono[2952];
   mono[8613] = mono[1] * mono[4917];
@@ -9176,9 +8678,6 @@ fn f_monomials172(mono: &mut [f64; N_MONOS]) {
   mono[8658] = mono[1] * mono[4618];
   mono[8659] = mono[1] * mono[4619];
   mono[8660] = mono[1] * mono[4830];
-}
-
-fn f_monomials173(mono: &mut [f64; N_MONOS]) { 
   mono[8661] = mono[1] * mono[4831];
   mono[8662] = mono[1] * mono[4958];
   mono[8663] = mono[1] * mono[4959];
@@ -9229,9 +8728,6 @@ fn f_monomials173(mono: &mut [f64; N_MONOS]) {
   mono[8708] = mono[1] * mono[3048];
   mono[8709] = mono[2] * mono[3049];
   mono[8710] = mono[1] * mono[4755];
-}
-
-fn f_monomials174(mono: &mut [f64; N_MONOS]) { 
   mono[8711] = mono[2] * mono[4755];
   mono[8712] = mono[1] * mono[4895];
   mono[8713] = mono[1] * mono[3053];
@@ -9282,9 +8778,6 @@ fn f_monomials174(mono: &mut [f64; N_MONOS]) {
   mono[8758] = mono[2] * mono[5168];
   mono[8759] = mono[4] * mono[5169];
   mono[8760] = mono[2] * mono[4764];
-}
-
-fn f_monomials175(mono: &mut [f64; N_MONOS]) { 
   mono[8761] = mono[3] * mono[4764];
   mono[8762] = mono[1] * mono[5172];
   mono[8763] = mono[4] * mono[5053];
@@ -9335,9 +8828,6 @@ fn f_monomials175(mono: &mut [f64; N_MONOS]) {
   mono[8808] = mono[4] * mono[3328];
   mono[8809] = mono[4] * mono[4901];
   mono[8810] = mono[1] * mono[4904];
-}
-
-fn f_monomials176(mono: &mut [f64; N_MONOS]) { 
   mono[8811] = mono[1] * mono[4905];
   mono[8812] = mono[4] * mono[4907];
   mono[8813] = mono[2] * mono[4912];
@@ -9388,9 +8878,6 @@ fn f_monomials176(mono: &mut [f64; N_MONOS]) {
   mono[8858] = mono[3] * mono[3378];
   mono[8859] = mono[2] * mono[3379];
   mono[8860] = mono[2] * mono[3380];
-}
-
-fn f_monomials177(mono: &mut [f64; N_MONOS]) { 
   mono[8861] = mono[2] * mono[4982];
   mono[8862] = mono[3] * mono[4986];
   mono[8863] = mono[2] * mono[4987];
@@ -9441,9 +8928,6 @@ fn f_monomials177(mono: &mut [f64; N_MONOS]) {
   mono[8908] = mono[1] * mono[5030];
   mono[8909] = mono[1] * mono[5147];
   mono[8910] = mono[2] * mono[3430];
-}
-
-fn f_monomials178(mono: &mut [f64; N_MONOS]) { 
   mono[8911] = mono[2] * mono[5152];
   mono[8912] = mono[4] * mono[3432];
   mono[8913] = mono[4] * mono[5153];
@@ -9494,9 +8978,6 @@ fn f_monomials178(mono: &mut [f64; N_MONOS]) {
   mono[8958] = mono[3] * mono[3539];
   mono[8959] = mono[3] * mono[3542];
   mono[8960] = mono[5] * mono[3543];
-}
-
-fn f_monomials179(mono: &mut [f64; N_MONOS]) { 
   mono[8961] = mono[4] * mono[3548];
   mono[8962] = mono[2] * mono[3549];
   mono[8963] = mono[2] * mono[3553];
@@ -9547,9 +9028,6 @@ fn f_monomials179(mono: &mut [f64; N_MONOS]) {
   mono[9008] = mono[6] * mono[3646];
   mono[9009] = mono[2] * mono[3649];
   mono[9010] = mono[8] * mono[3644];
-}
-
-fn f_monomials180(mono: &mut [f64; N_MONOS]) { 
   mono[9011] = mono[8] * mono[3647];
   mono[9012] = mono[4] * mono[3651];
   mono[9013] = mono[5] * mono[3653];
@@ -9600,9 +9078,6 @@ fn f_monomials180(mono: &mut [f64; N_MONOS]) {
   mono[9058] = mono[3] * mono[3764];
   mono[9059] = mono[2] * mono[3765];
   mono[9060] = mono[3] * mono[3946];
-}
-
-fn f_monomials181(mono: &mut [f64; N_MONOS]) { 
   mono[9061] = mono[2] * mono[3947];
   mono[9062] = mono[1] * mono[3948];
   mono[9063] = mono[1] * mono[3530];
@@ -9653,9 +9128,6 @@ fn f_monomials181(mono: &mut [f64; N_MONOS]) {
   mono[9108] = mono[1] * mono[3570];
   mono[9109] = mono[1] * mono[4177];
   mono[9110] = mono[1] * mono[3996];
-}
-
-fn f_monomials182(mono: &mut [f64; N_MONOS]) { 
   mono[9111] = mono[2] * mono[3997];
   mono[9112] = mono[1] * mono[3576];
   mono[9113] = mono[4] * mono[4001];
@@ -9706,9 +9178,6 @@ fn f_monomials182(mono: &mut [f64; N_MONOS]) {
   mono[9158] = mono[1] * mono[4230];
   mono[9159] = mono[3] * mono[4231];
   mono[9160] = mono[1] * mono[4232];
-}
-
-fn f_monomials183(mono: &mut [f64; N_MONOS]) { 
   mono[9161] = mono[2] * mono[4233];
   mono[9162] = mono[2] * mono[4234];
   mono[9163] = mono[3] * mono[4235];
@@ -9759,9 +9228,6 @@ fn f_monomials183(mono: &mut [f64; N_MONOS]) {
   mono[9208] = mono[2] * mono[4463];
   mono[9209] = mono[4] * mono[4465];
   mono[9210] = mono[3] * mono[3670];
-}
-
-fn f_monomials184(mono: &mut [f64; N_MONOS]) { 
   mono[9211] = mono[5] * mono[3671];
   mono[9212] = mono[2] * mono[3672];
   mono[9213] = mono[1] * mono[4475];
@@ -9812,9 +9278,6 @@ fn f_monomials184(mono: &mut [f64; N_MONOS]) {
   mono[9258] = mono[2] * mono[4318];
   mono[9259] = mono[4] * mono[4319];
   mono[9260] = mono[1] * mono[4320];
-}
-
-fn f_monomials185(mono: &mut [f64; N_MONOS]) { 
   mono[9261] = mono[4] * mono[4321];
   mono[9262] = mono[1] * mono[4322];
   mono[9263] = mono[2] * mono[4323];
@@ -9865,9 +9328,6 @@ fn f_monomials185(mono: &mut [f64; N_MONOS]) {
   mono[9308] = mono[9] * mono[4355];
   mono[9309] = mono[9] * mono[4357];
   mono[9310] = mono[1] * mono[4374];
-}
-
-fn f_monomials186(mono: &mut [f64; N_MONOS]) { 
   mono[9311] = mono[3] * mono[4375];
   mono[9312] = mono[8] * mono[4372];
   mono[9313] = mono[9] * mono[4360];
@@ -9918,9 +9378,6 @@ fn f_monomials186(mono: &mut [f64; N_MONOS]) {
   mono[9358] = mono[10] * mono[4393];
   mono[9359] = mono[8] * mono[4423];
   mono[9360] = mono[1] * mono[4426];
-}
-
-fn f_monomials187(mono: &mut [f64; N_MONOS]) { 
   mono[9361] = mono[4] * mono[4427];
   mono[9362] = mono[10] * mono[4398];
   mono[9363] = mono[10] * mono[4400];
@@ -9971,9 +9428,6 @@ fn f_monomials187(mono: &mut [f64; N_MONOS]) {
   mono[9408] = mono[3] * mono[3508];
   mono[9409] = mono[3] * mono[3509];
   mono[9410] = mono[3] * mono[4592];
-}
-
-fn f_monomials188(mono: &mut [f64; N_MONOS]) { 
   mono[9411] = mono[3] * mono[3511];
   mono[9412] = mono[2] * mono[3512];
   mono[9413] = mono[1] * mono[4599];
@@ -10024,9 +9478,6 @@ fn f_monomials188(mono: &mut [f64; N_MONOS]) {
   mono[9458] = mono[4] * mono[4638];
   mono[9459] = mono[2] * mono[4639];
   mono[9460] = mono[6] * mono[4640];
-}
-
-fn f_monomials189(mono: &mut [f64; N_MONOS]) { 
   mono[9461] = mono[6] * mono[4641];
   mono[9462] = mono[3] * mono[3562];
   mono[9463] = mono[3] * mono[4650];
@@ -10077,9 +9528,6 @@ fn f_monomials189(mono: &mut [f64; N_MONOS]) {
   mono[9508] = mono[1] * mono[3609];
   mono[9509] = mono[1] * mono[4695];
   mono[9510] = mono[3] * mono[3610];
-}
-
-fn f_monomials190(mono: &mut [f64; N_MONOS]) { 
   mono[9511] = mono[6] * mono[3611];
   mono[9512] = mono[2] * mono[3616];
   mono[9513] = mono[6] * mono[3617];
@@ -10130,9 +9578,6 @@ fn f_monomials190(mono: &mut [f64; N_MONOS]) {
   mono[9558] = mono[3] * mono[4768];
   mono[9559] = mono[5] * mono[4768];
   mono[9560] = mono[3] * mono[4769];
-}
-
-fn f_monomials191(mono: &mut [f64; N_MONOS]) { 
   mono[9561] = mono[5] * mono[4770];
   mono[9562] = mono[6] * mono[4769];
   mono[9563] = mono[6] * mono[4770];
@@ -10183,9 +9628,6 @@ fn f_monomials191(mono: &mut [f64; N_MONOS]) {
   mono[9608] = mono[1] * mono[3594];
   mono[9609] = mono[4] * mono[3595];
   mono[9610] = mono[4] * mono[4794];
-}
-
-fn f_monomials192(mono: &mut [f64; N_MONOS]) { 
   mono[9611] = mono[5] * mono[4794];
   mono[9612] = mono[1] * mono[4795];
   mono[9613] = mono[4] * mono[4795];
@@ -10236,9 +9678,6 @@ fn f_monomials192(mono: &mut [f64; N_MONOS]) {
   mono[9658] = mono[2] * mono[3644];
   mono[9659] = mono[3] * mono[3645];
   mono[9660] = mono[1] * mono[3646];
-}
-
-fn f_monomials193(mono: &mut [f64; N_MONOS]) { 
   mono[9661] = mono[2] * mono[3647];
   mono[9662] = mono[1] * mono[3650];
   mono[9663] = mono[3] * mono[3651];
@@ -10289,9 +9728,6 @@ fn f_monomials193(mono: &mut [f64; N_MONOS]) {
   mono[9708] = mono[1] * mono[3673];
   mono[9709] = mono[1] * mono[4865];
   mono[9710] = mono[2] * mono[3674];
-}
-
-fn f_monomials194(mono: &mut [f64; N_MONOS]) { 
   mono[9711] = mono[2] * mono[4867];
   mono[9712] = mono[1] * mono[3675];
   mono[9713] = mono[1] * mono[4869];
@@ -10342,9 +9778,6 @@ fn f_monomials194(mono: &mut [f64; N_MONOS]) {
   mono[9758] = mono[3] * mono[3698];
   mono[9759] = mono[5] * mono[3699];
   mono[9760] = mono[3] * mono[4922];
-}
-
-fn f_monomials195(mono: &mut [f64; N_MONOS]) { 
   mono[9761] = mono[5] * mono[4923];
   mono[9762] = mono[2] * mono[3700];
   mono[9763] = mono[4] * mono[3701];
@@ -10395,9 +9828,6 @@ fn f_monomials195(mono: &mut [f64; N_MONOS]) {
   mono[9808] = mono[5] * mono[4568];
   mono[9809] = mono[7] * mono[4569];
   mono[9810] = mono[1] * mono[4570];
-}
-
-fn f_monomials196(mono: &mut [f64; N_MONOS]) { 
   mono[9811] = mono[3] * mono[4571];
   mono[9812] = mono[4] * mono[4572];
   mono[9813] = mono[5] * mono[3913];
@@ -10448,9 +9878,6 @@ fn f_monomials196(mono: &mut [f64; N_MONOS]) {
   mono[9858] = mono[2] * mono[4768];
   mono[9859] = mono[3] * mono[5203];
   mono[9860] = mono[1] * mono[4769];
-}
-
-fn f_monomials197(mono: &mut [f64; N_MONOS]) { 
   mono[9861] = mono[3] * mono[5205];
   mono[9862] = mono[1] * mono[4770];
   mono[9863] = mono[2] * mono[4770];
@@ -10501,9 +9928,6 @@ fn f_monomials197(mono: &mut [f64; N_MONOS]) {
   mono[9908] = mono[5] * mono[5250];
   mono[9909] = mono[4] * mono[5251];
   mono[9910] = mono[2] * mono[4794];
-}
-
-fn f_monomials198(mono: &mut [f64; N_MONOS]) { 
   mono[9911] = mono[3] * mono[4794];
   mono[9912] = mono[3] * mono[4795];
   mono[9913] = mono[2] * mono[4796];
@@ -10554,9 +9978,6 @@ fn f_monomials198(mono: &mut [f64; N_MONOS]) {
   mono[9958] = mono[3] * mono[5288];
   mono[9959] = mono[2] * mono[5289];
   mono[9960] = mono[3] * mono[5290];
-}
-
-fn f_monomials199(mono: &mut [f64; N_MONOS]) { 
   mono[9961] = mono[2] * mono[5291];
   mono[9962] = mono[3] * mono[5292];
   mono[9963] = mono[2] * mono[5293];
@@ -10607,9 +10028,6 @@ fn f_monomials199(mono: &mut [f64; N_MONOS]) {
   mono[10008] = mono[1] * mono[4980];
   mono[10009] = mono[4] * mono[4350];
   mono[10010] = mono[1] * mono[4984];
-}
-
-fn f_monomials200(mono: &mut [f64; N_MONOS]) { 
   mono[10011] = mono[4] * mono[4985];
   mono[10012] = mono[4] * mono[4988];
   mono[10013] = mono[1] * mono[4989];
@@ -10660,9 +10078,6 @@ fn f_monomials200(mono: &mut [f64; N_MONOS]) {
   mono[10058] = mono[1] * mono[5036];
   mono[10059] = mono[4] * mono[4399];
   mono[10060] = mono[3] * mono[5038];
-}
-
-fn f_monomials201(mono: &mut [f64; N_MONOS]) { 
   mono[10061] = mono[5] * mono[5039];
   mono[10062] = mono[1] * mono[5042];
   mono[10063] = mono[2] * mono[5043];
@@ -10713,9 +10128,6 @@ fn f_monomials201(mono: &mut [f64; N_MONOS]) {
   mono[10108] = mono[18] * mono[2068];
   mono[10109] = mono[17] * mono[2069];
   mono[10110] = mono[18] * mono[2070];
-}
-
-fn f_monomials202(mono: &mut [f64; N_MONOS]) { 
   mono[10111] = mono[17] * mono[2071];
   mono[10112] = mono[19] * mono[2072];
   mono[10113] = mono[19] * mono[2073];
@@ -10763,234 +10175,7 @@ fn f_monomials202(mono: &mut [f64; N_MONOS]) {
   mono[10155] = mono[24] * mono[2115];
   mono[10156] = mono[23] * mono[2116];
   mono[10157] = mono[23] * mono[2117];
-}
-
-fn f_init_monomials(mono: &mut [f64; N_MONOS], r: & [f64; N_DISTANCES]) { 
-  assert!(2 * N_DISTANCES == N_ATOMS * (N_ATOMS - 1), "library author error!");
-  mono[0] = 1.0;
-  mono[1] = r[9];
-  mono[2] = r[8];
-  mono[3] = r[7];
-  mono[4] = r[6];
-  mono[5] = r[5];
-  mono[6] = r[4];
-  mono[7] = r[3];
-  mono[8] = r[2];
-  mono[9] = r[1];
-  mono[10] = r[0];
-}
-
-pub fn f_monomials(r: &[f64; N_DISTANCES]) -> [f64; N_MONOS] {
-
-  let mut mono = [0.0; N_MONOS];
-
-  f_init_monomials(&mut mono, r);
-
-  f_monomials0(&mut mono);
-  f_monomials1(&mut mono);
-  f_monomials2(&mut mono);
-  f_monomials3(&mut mono);
-  f_monomials4(&mut mono);
-  f_monomials5(&mut mono);
-  f_monomials6(&mut mono);
-  f_monomials7(&mut mono);
-  f_monomials8(&mut mono);
-  f_monomials9(&mut mono);
-  f_monomials10(&mut mono);
-  f_monomials11(&mut mono);
-  f_monomials12(&mut mono);
-  f_monomials13(&mut mono);
-  f_monomials14(&mut mono);
-  f_monomials15(&mut mono);
-  f_monomials16(&mut mono);
-  f_monomials17(&mut mono);
-  f_monomials18(&mut mono);
-  f_monomials19(&mut mono);
-  f_monomials20(&mut mono);
-  f_monomials21(&mut mono);
-  f_monomials22(&mut mono);
-  f_monomials23(&mut mono);
-  f_monomials24(&mut mono);
-  f_monomials25(&mut mono);
-  f_monomials26(&mut mono);
-  f_monomials27(&mut mono);
-  f_monomials28(&mut mono);
-  f_monomials29(&mut mono);
-  f_monomials30(&mut mono);
-  f_monomials31(&mut mono);
-  f_monomials32(&mut mono);
-  f_monomials33(&mut mono);
-  f_monomials34(&mut mono);
-  f_monomials35(&mut mono);
-  f_monomials36(&mut mono);
-  f_monomials37(&mut mono);
-  f_monomials38(&mut mono);
-  f_monomials39(&mut mono);
-  f_monomials40(&mut mono);
-  f_monomials41(&mut mono);
-  f_monomials42(&mut mono);
-  f_monomials43(&mut mono);
-  f_monomials44(&mut mono);
-  f_monomials45(&mut mono);
-  f_monomials46(&mut mono);
-  f_monomials47(&mut mono);
-  f_monomials48(&mut mono);
-  f_monomials49(&mut mono);
-  f_monomials50(&mut mono);
-  f_monomials51(&mut mono);
-  f_monomials52(&mut mono);
-  f_monomials53(&mut mono);
-  f_monomials54(&mut mono);
-  f_monomials55(&mut mono);
-  f_monomials56(&mut mono);
-  f_monomials57(&mut mono);
-  f_monomials58(&mut mono);
-  f_monomials59(&mut mono);
-  f_monomials60(&mut mono);
-  f_monomials61(&mut mono);
-  f_monomials62(&mut mono);
-  f_monomials63(&mut mono);
-  f_monomials64(&mut mono);
-  f_monomials65(&mut mono);
-  f_monomials66(&mut mono);
-  f_monomials67(&mut mono);
-  f_monomials68(&mut mono);
-  f_monomials69(&mut mono);
-  f_monomials70(&mut mono);
-  f_monomials71(&mut mono);
-  f_monomials72(&mut mono);
-  f_monomials73(&mut mono);
-  f_monomials74(&mut mono);
-  f_monomials75(&mut mono);
-  f_monomials76(&mut mono);
-  f_monomials77(&mut mono);
-  f_monomials78(&mut mono);
-  f_monomials79(&mut mono);
-  f_monomials80(&mut mono);
-  f_monomials81(&mut mono);
-  f_monomials82(&mut mono);
-  f_monomials83(&mut mono);
-  f_monomials84(&mut mono);
-  f_monomials85(&mut mono);
-  f_monomials86(&mut mono);
-  f_monomials87(&mut mono);
-  f_monomials88(&mut mono);
-  f_monomials89(&mut mono);
-  f_monomials90(&mut mono);
-  f_monomials91(&mut mono);
-  f_monomials92(&mut mono);
-  f_monomials93(&mut mono);
-  f_monomials94(&mut mono);
-  f_monomials95(&mut mono);
-  f_monomials96(&mut mono);
-  f_monomials97(&mut mono);
-  f_monomials98(&mut mono);
-  f_monomials99(&mut mono);
-  f_monomials100(&mut mono);
-  f_monomials101(&mut mono);
-  f_monomials102(&mut mono);
-  f_monomials103(&mut mono);
-  f_monomials104(&mut mono);
-  f_monomials105(&mut mono);
-  f_monomials106(&mut mono);
-  f_monomials107(&mut mono);
-  f_monomials108(&mut mono);
-  f_monomials109(&mut mono);
-  f_monomials110(&mut mono);
-  f_monomials111(&mut mono);
-  f_monomials112(&mut mono);
-  f_monomials113(&mut mono);
-  f_monomials114(&mut mono);
-  f_monomials115(&mut mono);
-  f_monomials116(&mut mono);
-  f_monomials117(&mut mono);
-  f_monomials118(&mut mono);
-  f_monomials119(&mut mono);
-  f_monomials120(&mut mono);
-  f_monomials121(&mut mono);
-  f_monomials122(&mut mono);
-  f_monomials123(&mut mono);
-  f_monomials124(&mut mono);
-  f_monomials125(&mut mono);
-  f_monomials126(&mut mono);
-  f_monomials127(&mut mono);
-  f_monomials128(&mut mono);
-  f_monomials129(&mut mono);
-  f_monomials130(&mut mono);
-  f_monomials131(&mut mono);
-  f_monomials132(&mut mono);
-  f_monomials133(&mut mono);
-  f_monomials134(&mut mono);
-  f_monomials135(&mut mono);
-  f_monomials136(&mut mono);
-  f_monomials137(&mut mono);
-  f_monomials138(&mut mono);
-  f_monomials139(&mut mono);
-  f_monomials140(&mut mono);
-  f_monomials141(&mut mono);
-  f_monomials142(&mut mono);
-  f_monomials143(&mut mono);
-  f_monomials144(&mut mono);
-  f_monomials145(&mut mono);
-  f_monomials146(&mut mono);
-  f_monomials147(&mut mono);
-  f_monomials148(&mut mono);
-  f_monomials149(&mut mono);
-  f_monomials150(&mut mono);
-  f_monomials151(&mut mono);
-  f_monomials152(&mut mono);
-  f_monomials153(&mut mono);
-  f_monomials154(&mut mono);
-  f_monomials155(&mut mono);
-  f_monomials156(&mut mono);
-  f_monomials157(&mut mono);
-  f_monomials158(&mut mono);
-  f_monomials159(&mut mono);
-  f_monomials160(&mut mono);
-  f_monomials161(&mut mono);
-  f_monomials162(&mut mono);
-  f_monomials163(&mut mono);
-  f_monomials164(&mut mono);
-  f_monomials165(&mut mono);
-  f_monomials166(&mut mono);
-  f_monomials167(&mut mono);
-  f_monomials168(&mut mono);
-  f_monomials169(&mut mono);
-  f_monomials170(&mut mono);
-  f_monomials171(&mut mono);
-  f_monomials172(&mut mono);
-  f_monomials173(&mut mono);
-  f_monomials174(&mut mono);
-  f_monomials175(&mut mono);
-  f_monomials176(&mut mono);
-  f_monomials177(&mut mono);
-  f_monomials178(&mut mono);
-  f_monomials179(&mut mono);
-  f_monomials180(&mut mono);
-  f_monomials181(&mut mono);
-  f_monomials182(&mut mono);
-  f_monomials183(&mut mono);
-  f_monomials184(&mut mono);
-  f_monomials185(&mut mono);
-  f_monomials186(&mut mono);
-  f_monomials187(&mut mono);
-  f_monomials188(&mut mono);
-  f_monomials189(&mut mono);
-  f_monomials190(&mut mono);
-  f_monomials191(&mut mono);
-  f_monomials192(&mut mono);
-  f_monomials193(&mut mono);
-  f_monomials194(&mut mono);
-  f_monomials195(&mut mono);
-  f_monomials196(&mut mono);
-  f_monomials197(&mut mono);
-  f_monomials198(&mut mono);
-  f_monomials199(&mut mono);
-  f_monomials200(&mut mono);
-  f_monomials201(&mut mono);
-  f_monomials202(&mut mono);
-
-  return mono; 
+  return mono;
 }
 
 

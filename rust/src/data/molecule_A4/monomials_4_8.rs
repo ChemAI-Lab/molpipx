@@ -1,15 +1,29 @@
 #![allow(unused_variables)]
+
+
+
 // File created from data/molecule_A4/MOL_4_8.MONO 
-// Total number of monomials = 112 
-
 pub const N_MONOS: usize = 112;
-
 // N_DISTANCES == N_ATOMS * (N_ATOMS - 1) / 2;
 pub const N_DISTANCES: usize = 6;
 pub const N_ATOMS: usize = 4;
 pub const N_XYZ: usize = N_ATOMS * 3;
 
-fn f_monomials0(mono: &mut [f64; N_MONOS]) { 
+// Total number of monomials = 112 
+
+
+pub fn f_monomials(r: & [f64; N_DISTANCES]) -> [f64; N_MONOS] {
+  assert!(2 * N_DISTANCES == N_ATOMS * (N_ATOMS - 1), "library author error!");
+
+  let mut mono = [0.0; N_MONOS];
+
+  mono[0] = 1.0;
+  mono[1] = r[5];
+  mono[2] = r[4];
+  mono[3] = r[3];
+  mono[4] = r[2];
+  mono[5] = r[1];
+  mono[6] = r[0];
   mono[7] = mono[3] * mono[4];
   mono[8] = mono[2] * mono[5];
   mono[9] = mono[1] * mono[6];
@@ -60,9 +74,6 @@ fn f_monomials0(mono: &mut [f64; N_MONOS]) {
   mono[54] = mono[1] * mono[41];
   mono[55] = mono[2] * mono[41];
   mono[56] = mono[3] * mono[41];
-}
-
-fn f_monomials1(mono: &mut [f64; N_MONOS]) { 
   mono[57] = mono[1] * mono[42];
   mono[58] = mono[1] * mono[51];
   mono[59] = mono[1] * mono[53];
@@ -113,38 +124,12 @@ fn f_monomials1(mono: &mut [f64; N_MONOS]) {
   mono[104] = mono[4] * mono[80];
   mono[105] = mono[5] * mono[81];
   mono[106] = mono[5] * mono[82];
-}
-
-fn f_monomials2(mono: &mut [f64; N_MONOS]) { 
   mono[107] = mono[5] * mono[83];
   mono[108] = mono[6] * mono[84];
   mono[109] = mono[6] * mono[85];
   mono[110] = mono[6] * mono[86];
   mono[111] = mono[6] * mono[87];
-}
-
-fn f_init_monomials(mono: &mut [f64; N_MONOS], r: & [f64; N_DISTANCES]) { 
-  assert!(2 * N_DISTANCES == N_ATOMS * (N_ATOMS - 1), "library author error!");
-  mono[0] = 1.0;
-  mono[1] = r[5];
-  mono[2] = r[4];
-  mono[3] = r[3];
-  mono[4] = r[2];
-  mono[5] = r[1];
-  mono[6] = r[0];
-}
-
-pub fn f_monomials(r: &[f64; N_DISTANCES]) -> [f64; N_MONOS] {
-
-  let mut mono = [0.0; N_MONOS];
-
-  f_init_monomials(&mut mono, r);
-
-  f_monomials0(&mut mono);
-  f_monomials1(&mut mono);
-  f_monomials2(&mut mono);
-
-  return mono; 
+  return mono;
 }
 
 

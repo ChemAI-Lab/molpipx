@@ -7,6 +7,7 @@ pub const N_POLYS: usize = 41;
 // File created from data/molecule_A3/MOL_3_8.POLY 
 
 
+#[inline(never)]
 fn f_polynomials0(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[0] = mono[0];
     poly[1] = mono[1] + mono[2] + mono[3];
@@ -50,8 +51,6 @@ fn f_polynomials0(poly: &mut [f64; N_POLYS],mono: &[f64; N_MONOS]) {
     poly[39] = poly[2] * poly[22] - poly[35];
     poly[40] = poly[1] * poly[30] - poly[39];
 }
-
-// Total number of monomials = 41 
 
 pub fn f_polynomials(r: &[f64; N_DISTANCES]) -> [f64; N_POLYS] {
 

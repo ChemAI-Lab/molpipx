@@ -1,1 +1,12 @@
-pub mod monomials_3_8;pub mod polynomials_3_8;
+pub mod monomials_3_5;
+pub mod polynomials_3_7;
+pub mod polynomials_3_5;
+pub mod polynomials_3_8;
+pub mod polynomials_3_3;
+pub mod monomials_3_7;
+pub mod polynomials_3_6;
+pub mod monomials_3_3;
+pub mod monomials_3_4;
+pub mod monomials_3_8;
+pub mod monomials_3_6;
+pub mod polynomials_3_4;

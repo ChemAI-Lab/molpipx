@@ -1,15 +1,33 @@
 #![allow(unused_variables)]
+
+
+
 // File created from data/molecule_A4B/MOL_4_1_4.MONO 
-// Total number of monomials = 262 
-
 pub const N_MONOS: usize = 262;
-
 // N_DISTANCES == N_ATOMS * (N_ATOMS - 1) / 2;
 pub const N_DISTANCES: usize = 10;
 pub const N_ATOMS: usize = 5;
 pub const N_XYZ: usize = N_ATOMS * 3;
 
-fn f_monomials0(mono: &mut [f64; N_MONOS]) { 
+// Total number of monomials = 262 
+
+
+pub fn f_monomials(r: & [f64; N_DISTANCES]) -> [f64; N_MONOS] {
+  assert!(2 * N_DISTANCES == N_ATOMS * (N_ATOMS - 1), "library author error!");
+
+  let mut mono = [0.0; N_MONOS];
+
+  mono[0] = 1.0;
+  mono[1] = r[9];
+  mono[2] = r[8];
+  mono[3] = r[6];
+  mono[4] = r[3];
+  mono[5] = r[7];
+  mono[6] = r[5];
+  mono[7] = r[4];
+  mono[8] = r[2];
+  mono[9] = r[1];
+  mono[10] = r[0];
   mono[11] = mono[1] * mono[2];
   mono[12] = mono[1] * mono[3];
   mono[13] = mono[2] * mono[3];
@@ -60,9 +78,6 @@ fn f_monomials0(mono: &mut [f64; N_MONOS]) {
   mono[58] = mono[2] * mono[19];
   mono[59] = mono[3] * mono[19];
   mono[60] = mono[1] * mono[20];
-}
-
-fn f_monomials1(mono: &mut [f64; N_MONOS]) { 
   mono[61] = mono[2] * mono[20];
   mono[62] = mono[1] * mono[21];
   mono[63] = mono[3] * mono[21];
@@ -113,9 +128,6 @@ fn f_monomials1(mono: &mut [f64; N_MONOS]) {
   mono[108] = mono[4] * mono[40];
   mono[109] = mono[4] * mono[41];
   mono[110] = mono[1] * mono[42];
-}
-
-fn f_monomials2(mono: &mut [f64; N_MONOS]) { 
   mono[111] = mono[3] * mono[42];
   mono[112] = mono[2] * mono[43];
   mono[113] = mono[3] * mono[43];
@@ -166,9 +178,6 @@ fn f_monomials2(mono: &mut [f64; N_MONOS]) {
   mono[158] = mono[5] * mono[77];
   mono[159] = mono[2] * mono[78];
   mono[160] = mono[3] * mono[78];
-}
-
-fn f_monomials3(mono: &mut [f64; N_MONOS]) { 
   mono[161] = mono[1] * mono[79];
   mono[162] = mono[3] * mono[79];
   mono[163] = mono[1] * mono[80];
@@ -219,9 +228,6 @@ fn f_monomials3(mono: &mut [f64; N_MONOS]) {
   mono[208] = mono[1] * mono[121];
   mono[209] = mono[4] * mono[120];
   mono[210] = mono[4] * mono[121];
-}
-
-fn f_monomials4(mono: &mut [f64; N_MONOS]) { 
   mono[211] = mono[2] * mono[122];
   mono[212] = mono[3] * mono[122];
   mono[213] = mono[1] * mono[123];
@@ -272,41 +278,8 @@ fn f_monomials4(mono: &mut [f64; N_MONOS]) {
   mono[258] = mono[6] * mono[129];
   mono[259] = mono[5] * mono[133];
   mono[260] = mono[6] * mono[133];
-}
-
-fn f_monomials5(mono: &mut [f64; N_MONOS]) { 
   mono[261] = mono[7] * mono[133];
-}
-
-fn f_init_monomials(mono: &mut [f64; N_MONOS], r: & [f64; N_DISTANCES]) { 
-  assert!(2 * N_DISTANCES == N_ATOMS * (N_ATOMS - 1), "library author error!");
-  mono[0] = 1.0;
-  mono[1] = r[9];
-  mono[2] = r[8];
-  mono[3] = r[6];
-  mono[4] = r[3];
-  mono[5] = r[7];
-  mono[6] = r[5];
-  mono[7] = r[4];
-  mono[8] = r[2];
-  mono[9] = r[1];
-  mono[10] = r[0];
-}
-
-pub fn f_monomials(r: &[f64; N_DISTANCES]) -> [f64; N_MONOS] {
-
-  let mut mono = [0.0; N_MONOS];
-
-  f_init_monomials(&mut mono, r);
-
-  f_monomials0(&mut mono);
-  f_monomials1(&mut mono);
-  f_monomials2(&mut mono);
-  f_monomials3(&mut mono);
-  f_monomials4(&mut mono);
-  f_monomials5(&mut mono);
-
-  return mono; 
+  return mono;
 }
 
 
