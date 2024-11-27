@@ -1,5 +1,9 @@
 <h1 align='center'><img src="Images/molpipx_logo.png" alt="MOLPIPx Logo" width="400"></h1>
-<h2 align='center'>Differentiable version of Permutationally Invariant Polynomial (PIP) models in JAX and Rust. </h2>
+<h2 align='center'>Differentiable version of Permutationally Invariant Polynomial (PIP) models in JAX and Rust. 
+
+[![arXiv](https://img.shields.io/badge/arXiv-1234.56789-b31b1b.svg)](https://arxiv.org/abs/2411.17011)
+
+</h2>
 
 **MOLPIPx** is a [JAX](https://jax.readthedocs.io/en/latest/)-based library that provides an implementation of PIP models compatible with,
 1. [FLAX](flax.readthedocs.io/): Neural network library.
@@ -60,3 +64,17 @@ Check out our tutorials to get started with MOLPIPx. These tutorials define inpu
 2. [Anisotropic linear regression with permutationally invariant polynomials (Anisotropic Linear PIP)](aniso_pip/README.md)
 3. [Permutationally Invariant Polynomial Neural Networks (PIP-NN)](pipnn/README.md)
 4. [Permutationally Invariant Polynomial Gaussian Process (PIP-GP)](pipgp/README.md)
+
+## Bibtex
+
+```latex
+@misc{drehwald2024molpipxendtoenddifferentiablepackage,
+      title={MOLPIPx: an end-to-end differentiable package for permutationally invariant polynomials in Python and Rust}, 
+      author={Manuel S. Drehwald and Asma Jamali and Rodrigo A. Vargas-Hernández},
+      year={2024},
+      eprint={2411.17011},
+      archivePrefix={arXiv},
+      primaryClass={physics.chem-ph},
+      url={https://arxiv.org/abs/2411.17011}, 
+}
+```
