@@ -68,7 +68,7 @@ Check out our tutorials to get started with MOLPIPx. These tutorials define inpu
 ## Bibtex
 
 ```latex
-@misc{drehwald2024molpipxendtoenddifferentiablepackage,
+@misc{molpipx2024,
       title={MOLPIPx: an end-to-end differentiable package for permutationally invariant polynomials in Python and Rust}, 
       author={Manuel S. Drehwald and Asma Jamali and Rodrigo A. Vargas-Hernández},
       year={2024},
