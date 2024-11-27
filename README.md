@@ -1,4 +1,4 @@
-<h1 align='center'><img src="Images/molpipx_logo.png" alt="MOLPIPx Logo" width="400"></h1>
+<h1 align='center'><img src="https://github.com/ChemAI-Lab/molpipx/blob/main/Images/molpipx_logo.png" alt="MOLPIPx Logo" width="400"></h1>
 <h2 align='center'>Differentiable version of Permutationally Invariant Polynomial (PIP) models in JAX and Rust. 
 
 [![arXiv](https://img.shields.io/badge/arXiv-1234.56789-b31b1b.svg)](https://arxiv.org/abs/2411.17011)
@@ -21,7 +21,7 @@ The MSA files must be generated before, for more information please see https://
 
 ### MSA-JAX files generation ###
 MOLPIPx package includes `msa_file_generator`, which translates monomial and polynomial files from MSA to JAX and Rust for molecules.
-Check out an [example on generating msa files](examples/Data/README.md)
+Check out an [example on generating msa files](https://github.com/ChemAI-Lab/molpipx/tree/main/examples/Data/README.md)
 
 
 ```python
@@ -41,7 +41,7 @@ The structure of the library is kept simple, as each molecular system could need
 MOLPIPx incorporated PIPs with three main regression models, i.e., linear regression, neural networks and Gaussian processes. This library leverages two main automatic differentiation engines, JAX for
 The Python version and Enzyme-AD for the Rust version improve the simulation of a wide range of chemical systems.
 
-<h1 align='center'><img src="Images/diagram.png" alt="diagram" width="700"></h1>
+<h1 align='center'><img src="https://github.com/ChemAI-Lab/molpipx/blob/main/Images/diagram.png" alt="diagram" width="700"></h1>
 
 ## Installation ##
 Install MOLPIPx via PyPi:
@@ -60,10 +60,10 @@ This [tracking issue](https://github.com/rust-lang/rust/issues/124509) shows the
 ## Tutorials ##
 Check out our tutorials to get started with MOLPIPx. These tutorials define inputs for different regression approaches, train machine learning models with or without forces, and make predictions.
 
-1. [Linear regression with permutationally invariant polynomials (Linear PIP)](linear_pip/README.md)
-2. [Anisotropic linear regression with permutationally invariant polynomials (Anisotropic Linear PIP)](aniso_pip/README.md)
-3. [Permutationally Invariant Polynomial Neural Networks (PIP-NN)](pipnn/README.md)
-4. [Permutationally Invariant Polynomial Gaussian Process (PIP-GP)](pipgp/README.md)
+1. [Linear regression with permutationally invariant polynomials (Linear PIP)](https://github.com/ChemAI-Lab/molpipx/tree/main/examples/linear_pip/README.md)
+2. [Anisotropic linear regression with permutationally invariant polynomials (Anisotropic Linear PIP)](https://github.com/ChemAI-Lab/molpipx/tree/main/examples/aniso_pip/README.md)
+3. [Permutationally Invariant Polynomial Neural Networks (PIP-NN)](https://github.com/ChemAI-Lab/molpipx/tree/main/examples/pipnn/README.md)
+4. [Permutationally Invariant Polynomial Gaussian Process (PIP-GP)](https://github.com/ChemAI-Lab/molpipx/tree/main/examples/pipgp/README.md)
 
 ## Bibtex
 
