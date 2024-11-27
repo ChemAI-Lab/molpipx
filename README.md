@@ -43,10 +43,6 @@ The Python version and Enzyme-AD for the Rust version improve the simulation of 
 
 <h1 align='center'><img src="https://github.com/ChemAI-Lab/molpipx/blob/main/Images/diagram.png" alt="diagram" width="700"></h1>
 
-## Installation ##
-Install MOLPIPx via PyPi:
-
-`pip install molpipx`
 
 ## Rust Version ##
 The Rust version makes use of [std::autodiff](https://doc.rust-lang.org/nightly/std/autodiff/attr.autodiff.html), an experimental feature of Rust which is currently in the process of upstreaming.
@@ -64,6 +60,12 @@ Check out our tutorials to get started with MOLPIPx. These tutorials define inpu
 2. [Anisotropic linear regression with permutationally invariant polynomials (Anisotropic Linear PIP)](https://github.com/ChemAI-Lab/molpipx/tree/main/examples/aniso_pip/README.md)
 3. [Permutationally Invariant Polynomial Neural Networks (PIP-NN)](https://github.com/ChemAI-Lab/molpipx/tree/main/examples/pipnn/README.md)
 4. [Permutationally Invariant Polynomial Gaussian Process (PIP-GP)](https://github.com/ChemAI-Lab/molpipx/tree/main/examples/pipgp/README.md)
+
+## Installation ##
+Install MOLPIPx via PyPi:
+
+`pip install molpipx`
+
 
 ## Bibtex
 
