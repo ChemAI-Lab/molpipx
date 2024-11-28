@@ -18,6 +18,14 @@ The MSA files must be generated before, for more information please see https://
 **MSA References:**
 * Xie, Z.; Bowman, J.M. Permutationally Invariant Polynomial Basis for Molecular Energy Surface Fitting via Monomial Symmetrization. J. Chem. Theory Comput. 2010, 6, 26-34.
 
+## Installation ##
+Install MOLPIPx using:
+
+ ```bash 
+git clone https://github.com/ChemAI-Lab/molpipx.git
+cd molpipx
+pip install .
+```
 
 ### MSA-JAX files generation ###
 MOLPIPx package includes `msa_file_generator`, which translates monomial and polynomial files from MSA to JAX and Rust for molecules.
@@ -60,11 +68,6 @@ Check out our tutorials to get started with MOLPIPx. These tutorials define inpu
 2. [Anisotropic linear regression with permutationally invariant polynomials (Anisotropic Linear PIP)](https://github.com/ChemAI-Lab/molpipx/tree/main/examples/aniso_pip/README.md)
 3. [Permutationally Invariant Polynomial Neural Networks (PIP-NN)](https://github.com/ChemAI-Lab/molpipx/tree/main/examples/pipnn/README.md)
 4. [Permutationally Invariant Polynomial Gaussian Process (PIP-GP)](https://github.com/ChemAI-Lab/molpipx/tree/main/examples/pipgp/README.md)
-
-## Installation ##
-Install MOLPIPx via PyPi:
-
-`pip install molpipx`
 
 
 ## Bibtex
