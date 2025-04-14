@@ -1,7 +1,7 @@
 # To test our main.rs file
 run 
 ```bash
-RUSTFLAGS="-Z autodiff=LooseTypes" cargo +enzyme run --release
+RUSTFLAGS="-Z autodiff=Enable,LooseTypes" cargo +enzyme run --release
 ```
 and pray
 

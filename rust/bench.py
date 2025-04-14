@@ -54,7 +54,6 @@ with open ("bench.csv", "w") as csv:
                     f.seek(0)
                     f.readline()
                     f.readline()
-                    f.readline()
                     l = f.readline()
                     time = l.split(" in ")[1].split("s")[0]
                     print(time)
