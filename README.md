@@ -50,7 +50,7 @@ The structure of the library is kept simple, as each molecular system could need
 MOLPIPx incorporated PIPs with three main regression models, i.e., linear regression, neural networks and Gaussian processes. This library leverages two main automatic differentiation engines, JAX for
 The Python version and Enzyme-AD for the Rust version improve the simulation of a wide range of chemical systems.
 
-<h1 align='center'><img src="https://github.com/ChemAI-Lab/molpipx/blob/main/Images/diagram.png" alt="diagram" width="700"></h1>
+<h1 align='center'><img src="[https://github.com/ChemAI-Lab/molpipx/blob/main/Images/diagram.png](https://github.com/ChemAI-Lab/molpipx/blob/main/Images/molpipx_diagram.png?raw=true)" alt="diagram" width="700"></h1>
 
 
 ## Rust Version ##
