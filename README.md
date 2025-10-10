@@ -71,16 +71,8 @@ Check out our tutorials to get started with MOLPIPx. These tutorials define inpu
 4. [Permutationally Invariant Polynomial Gaussian Process (PIP-GP)](https://github.com/ChemAI-Lab/molpipx/tree/main/examples/pipgp/README.md)
 
 
-## Bibtex
+## Reference
 
-```latex
-@misc{molpipx2024,
-      title={MOLPIPx: an end-to-end differentiable package for permutationally invariant polynomials in Python and Rust}, 
-      author={Manuel S. Drehwald and Asma Jamali and Rodrigo A. Vargas-Hernández},
-      year={2024},
-      eprint={2411.17011},
-      archivePrefix={arXiv},
-      primaryClass={physics.chem-ph},
-      url={https://arxiv.org/abs/2411.17011}, 
-}
-```
+Drehwald, Manuel S., Asma Jamali, and Rodrigo A. Vargas-Hernández. "MOLPIPx: An end-to-end differentiable package for permutationally invariant polynomials in Python and Rust." The Journal of Chemical Physics 162.8 (2025). https://doi.org/10.1063/5.0250837
+
+
