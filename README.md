@@ -73,7 +73,7 @@ Check out our tutorials to get started with MOLPIPx. These tutorials define inpu
 
 # Reference
 ```latex
-@article{10.1063/5.0250837,
+@article{molpipx,
     author = {Drehwald, Manuel S. and Jamali, Asma and Vargas-Hernández, Rodrigo A.},
     title = {MOLPIPx: An end-to-end differentiable package for permutationally invariant polynomials in Python and Rust},
     journal = {The Journal of Chemical Physics},
