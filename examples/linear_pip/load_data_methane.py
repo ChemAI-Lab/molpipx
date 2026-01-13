@@ -23,9 +23,9 @@ def is_float(s):
         return False
 
 
-def read_geometry_energy(filename: str = '../Data/Methane/Methane.xyz', 
+def read_geometry_energy(filename: str, 
                          num_atoms: int = 5,
-                         energy_normalization: bool = False):
+                         energy_normalization: bool = False):                         
 
     print(os.getcwd())
     with open(filename, 'r') as file:

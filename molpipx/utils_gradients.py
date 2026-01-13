@@ -10,10 +10,15 @@ from jaxtyping import Array, Float, PyTree
 
 @partial(jax.jit, static_argnums=(0, ))
 def get_pip_grad(model_pip: Callable, x: Float[Array, "..."], params_pip: PyTree) -> Float[Array, "..."]:
-    """Compute the gradients of the PIP model
+    """Computes the gradients of the PIP vectors with respect to the input coordinates.
+
+    Args:
+        model_pip (Callable): The PIP model function (e.g., ``model.apply``).
+        x (Array): Input geometries with shape (Batch, Na, 3).
+        params_pip (PyTree): The parameters of the PIP model.
 
     Returns:
-        array: gradients of the PIP model, (batch, number of pip * number of atoms * 3)
+        Array: Gradients of the PIP model, shape (Batch, N_pips * Na * 3).
     """
 
     @jit
@@ -33,8 +38,13 @@ def get_pip_grad(model_pip: Callable, x: Float[Array, "..."], params_pip: PyTree
 def get_forces(model: Callable, x: Float[Array, "..."], params: PyTree) -> Float[Array, "..."]:
     """Compute the forces for a Flax based PIP model using reverse mode differentiation.
 
+    Args:
+        model (Callable): The energy model function (e.g., ``energy_model.apply``).
+        x (Array): Input geometries with shape (Batch, Na, 3).
+        params (PyTree): The parameters of the energy model.
+
     Returns:
-        array: forces of the PIP model, (batch, number of atoms * 3)
+        Array: Forces (gradients) for each atom, shape (Batch, Na, 3).
     """
 
     @jit
@@ -50,10 +60,17 @@ def get_forces(model: Callable, x: Float[Array, "..."], params: PyTree) -> Float
 
 @partial(jax.jit, static_argnums=(0,))
 def get_energy_and_forces(model: Callable, x: Float[Array, "..."], params: PyTree) -> Float[Array, "..."]:
-    """Compute the energy and the forces for a Flax based PIP model using value_and_grad function.
+    """Compute the energy and the forces for a Flax based PIP model using ``value_and_grad`` function.
+
+    Args:
+        model (Callable): The energy model function.
+        x (Array): Input geometries with shape (Batch, Na, 3).
+        params (PyTree): The parameters of the model.
 
     Returns:
-        array: forces of the PIP model, (batch, number of atoms * 3)
+        Tuple[Array, Array]: A tuple containing:
+            * Energy values (Batch, 1)
+            * Forces/Gradients (Batch, Na, 3)
     """
 
     @jit
@@ -69,12 +86,24 @@ def get_energy_and_forces(model: Callable, x: Float[Array, "..."], params: PyTre
     return vmap(grad_forces_rev_i, in_axes=(0,))(x)
 
 def get_forces_gp(train_data,gp_model,x):
+    """Computes forces (gradients) for a Gaussian Process model.
+
+    Args:
+        train_data (Dataset): The training dataset used by the GP.
+        gp_model (GP): The GPJax model instance.
+        x (Array): Input geometries.
+
+    Returns:
+        Tuple: A tuple containing:
+            * Forces (gradients of the mean)
+            * A tuple of (predictive_mean, predictive_std)
+    """
 
     def gp_prediction(x):
         latent_dist = gp_model(x, train_data=train_data)
         predictive_dist = gp_model.likelihood(latent_dist)
-        predictive_mean = predictive_dist.mean()
-        predictive_std = predictive_dist.stddev()
+        predictive_mean = predictive_dist.mean
+        predictive_std = jnp.sqrt(predictive_dist.variance)
         return jnp.sum(predictive_mean), jnp.sum(predictive_std)
 
     def grad_forces_rev_i(xyzi: Any):

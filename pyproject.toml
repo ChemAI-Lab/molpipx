@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "molpipx"
+version = "0.1.2"
+description = "MOLPIPx: Permutationally Invariant Polynomials in JAX"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "jax",
+    "flax",
+    "optax",
+    "chex<1.0.0",
+    "jaxtyping",
+    "numpy",
+    "scipy",
+    "gpjax"
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["molpipx*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = "test_*.py"

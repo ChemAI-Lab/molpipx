@@ -1,5 +1,6 @@
-<h1 align='center'><img src="https://github.com/ChemAI-Lab/molpipx/blob/main/Images/molpipx_logo.png" alt="MOLPIPx Logo" width="400"></h1>
+<h1 align='center'><img src="https://github.com/ChemAI-Lab/molpipx/blob/main/Images/molpipx_logo.png?raw=true" alt="MOLPIPx Logo" width="400"></h1>
 <h2 align='center'>Differentiable version of Permutationally Invariant Polynomial (PIP) models in JAX and Rust. 
+
 
 
 [![DOI:10.1063/5.0250837](https://img.shields.io/badge/DOI-10.1063%2F5.0250837-blue)](https://doi.org/10.1063/5.0250837)
@@ -20,7 +21,18 @@ The MSA files must be generated before, for more information please see https://
 * Xie, Z.; Bowman, J.M. Permutationally Invariant Polynomial Basis for Molecular Energy Surface Fitting via Monomial Symmetrization. J. Chem. Theory Comput. 2010, 6, 26-34.
 
 ## Installation ##
-Install MOLPIPx using:
+MOLPIPx requires Python 3.10 or later. We recommend installing it in a virtual environment to avoid conflicts.
+
+```bash
+python -m venv molpipx
+source molpipx/bin/activate
+```
+
+The latest stable release is available through PyPI:
+```bash
+pip install molpipx
+```
+To install the latest development version from source, clone the source code from the GitHub and install with pip from local file:
 
  ```bash 
 git clone https://github.com/ChemAI-Lab/molpipx.git

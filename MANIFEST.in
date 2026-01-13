@@ -1,0 +1,4 @@
+recursive-include Images *
+recursive-include molpipx/msa_files *
+include README.md
+recursive-include molpipx/data *.xyz *.npy

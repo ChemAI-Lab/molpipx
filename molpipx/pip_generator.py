@@ -8,6 +8,18 @@ import math
 
 
 def f_monomial_flag_0(x):
+    """Parses the indices for a monomial term from the input array.
+
+    Helper function that processes a line from the MSA file to determine the
+    indices involved in a monomial term.
+
+    Args:
+        x (np.ndarray): Array of indices derived from the input file line.
+
+    Returns:
+        int or list: Returns an integer index if a single element is active,
+        a list of indices if multiple are active, or -1 if none.
+    """
     if np.sum(x) == 1:
         j = np.where(x == 1)[0]
         j = j[0].tolist()
@@ -19,6 +31,14 @@ def f_monomial_flag_0(x):
 
 
 def create_f_monomials(file_mono: str, file_label: str):
+    """Generates a Python file containing JAX-compiled monomial functions.
+
+    Reads a ``.MONO`` file provided by the MSA software and writes a corresponding
+    Python script (``monomials_{label}.py``). 
+    Args:
+        file_mono (str): Path to the source ``.MONO`` file.
+        file_label (str): Label used to suffix the output filename.
+    """
 
     f_out_monomials = 'monomials_{}.py'.format(file_label)
     f_out_monomials = os.path.join(_path, f_out_monomials)
@@ -107,6 +127,16 @@ def create_f_monomials(file_mono: str, file_label: str):
 
 
 def create_f_polynomials(file_poly: str, file_label: str, parents_path: str = ''):
+    """Generates a Python file containing JAX-compiled polynomial functions.
+
+    Reads a ``.POLY`` file provided by the MSA software and writes a corresponding
+    Python script (``polynomials_{label}.py``).
+
+    Args:
+        file_poly (str): Path to the source ``.POLY`` file.
+        file_label (str): Label used to suffix the output filename.
+        parents_path (str): Dotted path to the parent package for import statements.
+    """
     f_out_polynomials = 'polynomials_{}.py'.format(file_label)
     f_out_polynomials = os.path.join(_path, f_out_polynomials)
 
@@ -194,7 +224,16 @@ def create_f_polynomials(file_poly: str, file_label: str, parents_path: str = ''
 
 # ----------------------------------------------------------------------------------------
 def msa_file_generator(filename: str, path: str = './', label: str = None, parents_path: str = ''):
+    """Orchestrates the generation of both monomial and polynomial JAX files from MSA input.
 
+    This is the main entry point for generating the python code. It checks for the existence
+    of ``.MONO`` and ``.POLY`` files based on the filename and calls the creation functions.
+
+    Args:
+        filename (str): The base name of the file (e.g., 'MOL_1_3_4').
+        path (str): Directory containing the input files and where output will be saved.
+        label (str, optional): Custom label for the output files. Defaults to ``filename``.
+    """
     global _path
     _path = path
     f_head = os.path.join(_path, filename)

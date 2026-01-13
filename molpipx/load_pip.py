@@ -15,6 +15,20 @@ msa_path = 'molpipx/msa_files'
 
 
 def parse_molecule(molecule: str):
+    """Parses a molecule string into its constituent atom counts and symmetry label.
+
+    Analyzes a string (e.g., 'A2B') to count atoms of types A, B, C, D, E.
+    It verifies the order and returns a dictionary of counts along with a
+    formatted symmetry string (e.g., '2_1').
+
+    Args:
+        molecule (str): A string representing the molecule (e.g., "A2B").
+
+    Returns:
+        tuple: A dictionary of atom counts (e.g., {'A': 2, 'B': 1, ...}) and a
+        string representing the molecule's numerical symmetry (e.g., "2_1").
+    """
+
     # This pattern matches elements followed optionally by a number
     # Elements are expected in the order A, B, C, D
     pattern = re.compile(r"(A|B|C|D|E)(\d*)")
@@ -46,6 +60,18 @@ def parse_molecule(molecule: str):
 
 
 def detect_molecule(input_data):
+    """Detects and parses molecule information from a string or list of strings.
+
+    Serves as a wrapper around ``parse_molecule``. 
+
+    Args:
+        input_data (str or list): A single molecule string (e.g., "A2B") or a list
+        of molecule strings.
+
+    Returns:
+        tuple or list: If input is a string, returns the result of ``parse_molecule``.
+        If input is a list, returns a list of such results.
+    """
     if isinstance(input_data, str):
         # Single molecule string
         return parse_molecule(input_data)
@@ -57,6 +83,19 @@ def detect_molecule(input_data):
 
 
 def get_functions(molecule_type: str, degree: str) -> tuple:
+    """Retrieves the dynamically loaded monomial and polynomial functions for a given molecule.
+
+    Loads the corresponding Python modules from the `msa_files` directory based on the
+    molecule type and polynomial degree. It specifically looks for `f_monomials` and
+    `f_polynomials` within those modules.
+
+    Args:
+        molecule_type (str): The type of the molecule (e.g., "A2B").
+        degree (str): The degree of the polynomial expansion.
+
+    Returns:
+        tuple: A tuple containing two callables: ``(f_monomials, f_polynomials)``.
+    """
     mol_dict, mol_sym = detect_molecule(molecule_type)
     # Assumes this script is in the main_directory
     base_directory = Path(__file__).parent
@@ -99,6 +138,17 @@ def get_functions(molecule_type: str, degree: str) -> tuple:
 
 
 def list_of_strings(arg):
+    """Parses a comma-separated string into a list of strings.
+
+    Used primarily as a helper for command-line argument parsing to convert
+    inputs like "A2B,A3" into ``['A2B', 'A3']``.
+
+    Args:
+        arg (str): A comma-separated string.
+
+    Returns:
+        list: A list of substrings split by comma.
+    """
     return arg.split(',')
 
 

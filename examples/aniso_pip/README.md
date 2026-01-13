@@ -1,6 +1,6 @@
 ### Linear AnisoPIP tutorial ###
 
-**Please read the linear PIP tutorial before proceeding with this one :)**
+**Please read the linear PIP tutorial before proceeding with this one :**
 
 
 In this tutorial, we show how to train a linear **Aniso**PIP from scratch.<br>
@@ -101,7 +101,7 @@ This nested loss function is defined as,
         y_val_pred = model_energy.apply(params_energy, X_val)
 
         loss_val = mse_loss(y_val_pred, y_val)
-        loss_tr = mse_loss(model_energy.apply(params_energy, X_tr)
+        loss_tr = mse_loss(model_energy.apply(params_energy, X_tr))
         return loss_val, (params_energy, loss_tr)
 ```
 

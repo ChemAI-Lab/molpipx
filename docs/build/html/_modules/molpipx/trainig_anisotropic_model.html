@@ -1,0 +1,225 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>molpipx.trainig_anisotropic_model &mdash; MOLPIPx 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=973567c1" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #ffffff" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            MOLPIPx
+              <img src="../../_static/molpipx_logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../publications.html">Publications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../citing.html">Citing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #ffffff" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MOLPIPx</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">molpipx.trainig_anisotropic_model</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for molpipx.trainig_anisotropic_model</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">List</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">jax</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">jax.numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">jnp</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">jaxtyping</span><span class="w"> </span><span class="kn">import</span> <span class="n">Array</span><span class="p">,</span> <span class="n">Float</span><span class="p">,</span> <span class="n">PyTree</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">flax.linen</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">nn</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">optax</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">molpipx.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">softplus_inverse</span><span class="p">,</span> <span class="n">flax_params</span><span class="p">,</span> <span class="n">flax_params_aniso</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">molpipx.pip_anisotropic_flax</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_mask</span><span class="p">,</span> <span class="n">LayerPIPAniso</span><span class="p">,</span> <span class="n">EnergyPIPAniso</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">molpipx.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">mse_loss</span>
+
+<div class="viewcode-block" id="_train_aniso_adam">
+<a class="viewcode-back" href="../../molpipx.trainig_anisotropic_model.html#molpipx.trainig_anisotropic_model._train_aniso_adam">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">_train_aniso_adam</span><span class="p">(</span><span class="n">data</span><span class="p">:</span><span class="n">Tuple</span><span class="p">,</span> <span class="n">atoms</span><span class="p">:</span><span class="n">List</span><span class="p">,</span>
+                      <span class="n">f_mono</span><span class="p">:</span><span class="n">Callable</span><span class="p">,</span><span class="n">f_poly</span><span class="p">:</span><span class="n">Callable</span><span class="p">,</span> 
+                      <span class="n">optimizer_info</span><span class="p">:</span><span class="n">PyTree</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">[</span><span class="n">Float</span><span class="p">,</span> <span class="n">PyTree</span><span class="p">]:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Trains an anisotropic PIP model using the Adam optimizer.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        data (Tuple): A tuple containing training and validation data:</span>
+<span class="sd">            ``((X_tr, y_tr), (X_val, y_val))``.</span>
+<span class="sd">        atoms (List): A list of atom types (e.g., ``[&#39;H&#39;, &#39;C&#39;, &#39;H&#39;]``) used to generate the mask.</span>
+<span class="sd">        f_mono (Callable): Function that returns the monomials.</span>
+<span class="sd">        f_poly (Callable): Function that returns the polynomials.</span>
+<span class="sd">        optimizer_info (PyTree): A dictionary or PyTree containing optimizer settings:</span>
+<span class="sd">            * ``&#39;tol&#39;``: Convergence tolerance.</span>
+<span class="sd">            * ``&#39;Maxiters&#39;``: Maximum number of epochs.</span>
+<span class="sd">            * ``&#39;learning_rate&#39;``: Learning rate for Adam.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tuple[Float, PyTree]: A tuple containing:</span>
+<span class="sd">            * The final optimized parameters (``l_opt[-1]``).</span>
+<span class="sd">            * The history of parameters over all epochs (``l_opt``).</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">opt_tol</span> <span class="o">=</span> <span class="n">optimizer_info</span><span class="p">[</span><span class="s1">&#39;tol&#39;</span><span class="p">]</span>
+    <span class="n">n_epochs</span> <span class="o">=</span> <span class="n">optimizer_info</span><span class="p">[</span><span class="s1">&#39;Maxiters&#39;</span><span class="p">]</span>
+    <span class="n">lr</span> <span class="o">=</span> <span class="n">optimizer_info</span><span class="p">[</span><span class="s1">&#39;learning_rate&#39;</span><span class="p">]</span>
+    
+    <span class="n">rng</span> <span class="o">=</span> <span class="n">jax</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">PRNGKey</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">key</span> <span class="o">=</span> <span class="n">jax</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">rng</span><span class="p">)</span>
+    
+    <span class="p">(</span><span class="n">X_tr</span><span class="p">,</span><span class="n">y_tr</span><span class="p">),</span> <span class="p">(</span><span class="n">X_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">)</span> <span class="o">=</span> <span class="n">data</span>
+    
+    <span class="n">mask</span> <span class="o">=</span> <span class="n">get_mask</span><span class="p">(</span><span class="n">atoms</span><span class="p">)</span>
+    <span class="n">n_pairs</span> <span class="o">=</span> <span class="n">mask</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    
+    <span class="c1"># initialize models</span>
+    <span class="n">model_pip</span> <span class="o">=</span> <span class="n">LayerPIPAniso</span><span class="p">(</span><span class="n">f_mono</span><span class="p">,</span> <span class="n">f_poly</span><span class="p">,</span> <span class="n">n_pairs</span><span class="p">)</span>
+    <span class="n">params_pip</span> <span class="o">=</span> <span class="n">model_pip</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">X_tr</span><span class="p">[:</span><span class="mi">1</span><span class="p">],</span> <span class="n">mask</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">params_pip</span><span class="p">)</span>
+    
+    <span class="n">model_energy</span> <span class="o">=</span> <span class="n">EnergyPIPAniso</span><span class="p">(</span><span class="n">f_mono</span><span class="p">,</span> <span class="n">f_poly</span><span class="p">,</span> <span class="n">n_pairs</span><span class="p">)</span>
+    <span class="n">params_energy</span> <span class="o">=</span> <span class="n">model_energy</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">X_tr</span><span class="p">[:</span><span class="mi">1</span><span class="p">],</span> <span class="n">mask</span><span class="p">)</span>
+    
+    <span class="n">f_pip</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">params</span><span class="p">,</span><span class="n">x</span><span class="p">:</span> <span class="n">model_pip</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">mask</span><span class="p">)</span>
+    <span class="n">f_pip_energy</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">params</span><span class="p">,</span> <span class="n">x</span><span class="p">:</span> <span class="n">model_energy</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">params</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">mask</span><span class="p">)</span>
+    
+    <span class="c1"># random initial parameters</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">key</span> <span class="o">=</span> <span class="n">jax</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="n">l_init</span> <span class="o">=</span> <span class="n">jax</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="p">),</span> <span class="n">minval</span><span class="o">=</span><span class="mf">1.</span><span class="p">,</span> <span class="n">maxval</span><span class="o">=</span><span class="mf">2.</span><span class="p">)</span>
+    <span class="n">l_init</span> <span class="o">=</span> <span class="n">softplus_inverse</span><span class="p">(</span><span class="n">l_init</span><span class="p">)</span>
+
+
+    <span class="nd">@jax</span><span class="o">.</span><span class="n">jit</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">validation_loss</span><span class="p">(</span><span class="n">l</span><span class="p">:</span><span class="n">Float</span><span class="p">[</span><span class="n">Array</span><span class="p">,</span><span class="s2">&quot;npairs&quot;</span><span class="p">],</span> <span class="n">data_</span><span class="p">:</span><span class="n">Tuple</span><span class="p">,</span> <span class="n">params_</span><span class="p">:</span><span class="n">PyTree</span><span class="p">)</span><span class="o">-&gt;</span><span class="n">Tuple</span><span class="p">:</span>
+        <span class="p">(</span><span class="n">X_tr</span><span class="p">,</span> <span class="n">y_tr</span><span class="p">),</span> <span class="p">(</span><span class="n">X_val</span><span class="p">,</span> <span class="n">y_val</span><span class="p">)</span> <span class="o">=</span> <span class="n">data_</span>
+        <span class="n">params_pip</span><span class="p">,</span> <span class="n">params_energy</span> <span class="o">=</span> <span class="n">params_</span>
+
+        <span class="n">params_pip</span> <span class="o">=</span> <span class="n">flax_params_aniso</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">params_pip</span><span class="p">)</span>
+        <span class="n">Pip_tr</span> <span class="o">=</span> <span class="n">f_pip</span><span class="p">(</span><span class="n">params_pip</span><span class="p">,</span> <span class="n">X_tr</span><span class="p">)</span>
+        
+        <span class="k">def</span><span class="w"> </span><span class="nf">inner_loss</span><span class="p">(</span><span class="n">Pip_tr</span><span class="p">,</span> <span class="n">y_tr</span><span class="p">):</span>
+            <span class="n">results</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">lstsq</span><span class="p">(</span><span class="n">Pip_tr</span><span class="p">,</span> <span class="n">y_tr</span><span class="p">)</span>
+            <span class="n">w</span> <span class="o">=</span> <span class="n">results</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">return</span> <span class="n">w</span>
+
+        <span class="n">w_opt</span> <span class="o">=</span> <span class="n">inner_loss</span><span class="p">(</span><span class="n">Pip_tr</span><span class="p">,</span> <span class="n">y_tr</span><span class="p">)</span>
+        <span class="n">loss_tr</span> <span class="o">=</span> <span class="n">mse_loss</span><span class="p">(</span><span class="n">f_pip</span><span class="p">(</span><span class="n">params_pip</span><span class="p">,</span> <span class="n">X_tr</span><span class="p">),</span> <span class="n">y_tr</span><span class="p">)</span>
+
+        <span class="n">params_energy</span> <span class="o">=</span> <span class="n">flax_params</span><span class="p">(</span><span class="n">w_opt</span><span class="p">,</span> <span class="n">params_energy</span><span class="p">)</span>
+        <span class="n">y_val_pred</span> <span class="o">=</span> <span class="n">f_pip_energy</span><span class="p">(</span><span class="n">params_energy</span><span class="p">,</span> <span class="n">X_val</span><span class="p">)</span>
+            
+        <span class="n">loss_val</span> <span class="o">=</span> <span class="n">mse_loss</span><span class="p">(</span><span class="n">y_val_pred</span><span class="p">,</span> <span class="n">y_val</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">loss_val</span><span class="p">,</span> <span class="p">(</span><span class="n">w_opt</span><span class="p">,</span><span class="n">loss_tr</span><span class="p">)</span>
+
+    <span class="n">params_all</span> <span class="o">=</span> <span class="p">(</span><span class="n">params_pip</span><span class="p">,</span> <span class="n">params_energy</span><span class="p">)</span>
+    
+    <span class="c1"># optax loop</span>
+    <span class="n">optimizer</span> <span class="o">=</span> <span class="n">optax</span><span class="o">.</span><span class="n">adam</span><span class="p">(</span><span class="n">lr</span><span class="p">)</span>
+    <span class="n">opt_state</span> <span class="o">=</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">init</span><span class="p">(</span><span class="n">l_init</span><span class="p">)</span>
+    
+    <span class="n">grad_fn</span> <span class="o">=</span> <span class="n">jax</span><span class="o">.</span><span class="n">jit</span><span class="p">(</span><span class="n">jax</span><span class="o">.</span><span class="n">value_and_grad</span><span class="p">(</span><span class="n">validation_loss</span><span class="p">,</span> <span class="n">argnums</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,),</span> <span class="n">has_aux</span><span class="o">=</span><span class="kc">True</span><span class="p">))</span>
+    
+    <span class="nd">@jax</span><span class="o">.</span><span class="n">jit</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">train_step</span><span class="p">(</span><span class="n">li</span><span class="p">,</span> <span class="n">optimizer_state</span><span class="p">):</span>
+        <span class="p">(</span><span class="n">loss</span><span class="p">,</span> <span class="p">(</span><span class="n">_</span><span class="p">,</span><span class="n">loss_tr</span><span class="p">)),</span> <span class="n">grads</span> <span class="o">=</span> <span class="n">grad_fn</span><span class="p">(</span><span class="n">li</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">params_all</span><span class="p">)</span>
+        <span class="n">updates</span><span class="p">,</span> <span class="n">opt_state</span> <span class="o">=</span> <span class="n">optimizer</span><span class="o">.</span><span class="n">update</span><span class="p">(</span>
+            <span class="n">grads</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">optimizer_state</span><span class="p">,</span> <span class="n">li</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">optax</span><span class="o">.</span><span class="n">apply_updates</span><span class="p">(</span><span class="n">li</span><span class="p">,</span> <span class="n">updates</span><span class="p">),</span> <span class="n">opt_state</span><span class="p">,</span> <span class="n">loss</span><span class="p">,</span> <span class="n">loss_tr</span>
+    
+    <span class="n">l_params</span> <span class="o">=</span> <span class="n">l_init</span>
+    <span class="n">l_</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_epochs</span><span class="p">):</span>
+        <span class="n">l0_params</span> <span class="o">=</span> <span class="n">l_params</span>
+        <span class="n">l_params</span><span class="p">,</span> <span class="n">opt_state</span><span class="p">,</span> <span class="n">loss_val_i</span><span class="p">,</span> <span class="n">loss_tr_i</span> <span class="o">=</span> <span class="n">train_step</span><span class="p">(</span><span class="n">l_params</span><span class="p">,</span><span class="n">opt_state</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">loss_val_i</span><span class="p">,</span> <span class="n">loss_tr_i</span><span class="p">,</span> <span class="n">l_params</span><span class="p">,</span> <span class="n">nn</span><span class="o">.</span><span class="n">softplus</span><span class="p">(</span><span class="n">l_params</span><span class="p">),</span> 
+              <span class="n">jnp</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">l_params</span> <span class="o">-</span> <span class="n">l0_params</span><span class="p">))</span>
+        <span class="n">l_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">l_params</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">jnp</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">l_params</span> <span class="o">-</span> <span class="n">l0_params</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">opt_tol</span><span class="p">:</span>
+            <span class="k">break</span>
+    <span class="n">l_opt</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">l_</span><span class="p">)</span>
+    
+    <span class="k">return</span> <span class="n">l_opt</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">l_opt</span> </div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

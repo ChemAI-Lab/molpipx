@@ -10,16 +10,21 @@ from molpipx.utils_gradients import get_pip_grad
 def training(model_pip: Callable,
              X_tr: Float[Array, "..."],
              y_tr: Float[Array, "..."]) -> Float[Array, "..."]:
-    """Simple training function for PIP models.
-    Warning: Geometries must be in Bohr Units
+    """Computes optimal linear parameters for a PIP model using energy data.
+
+    Solves the linear system of equations ``PIP * theta = Energy`` using least squares
+    to find the optimal coefficients (``theta``) for the polynomial expansion.
+
+    Warning:
+        Geometries must be provided in **Bohr Units**.
 
     Args:
-        model_pip: Callable, Flax class to compute the PIP vectors
-        X_tr: Training Geometries, (batch,number of atoms, 3) 
-        y_tr: Training Energies, (batch,1)
+        model_pip (Callable): A Flax module instance initialized to compute PIP vectors.
+        X_tr (Array): Training geometries with shape (Batch, N_atoms, 3).
+        y_tr (Array): Training energies with shape (Batch, 1).
 
     Returns:
-        Array: Optimal linear parameters
+        Array: The optimal linear parameters (theta) for the model.
     """
     rng = jax.random.PRNGKey(0)
     _, key = jax.random.split(rng)
@@ -45,13 +50,13 @@ def training_w_gradients(model_pip: Callable,
     Warning: Geometries must be in Bohr Units and Forces in Ha/Bohr Units
 
     Args:
-        model_pip: Callable, Flax class to compute the PIP vectors
-        X_tr: Training Geometries, (batch,number of atoms, 3) 
-        F_tr: Training Forces, (batch, number of atoms, 3)
-        y_tr: Training Energies, (batch,1)
+        model_pip (Callable): A Flax module instance initialized to compute PIP vectors.
+        X_tr (Array): Training geometries with shape (Batch, N_atoms, 3).
+        F_tr (Array): Training forces with shape (Batch, N_atoms, 3).
+        y_tr (Array): Training energies with shape (Batch, 1).
 
     Returns:
-       Array: Optimal linear parameters
+        Array: The optimal linear parameters (theta) for the model.
     """
 
     n, n_atoms, _ = X_tr.shape
