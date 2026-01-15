@@ -6,14 +6,31 @@ from jaxtyping import Array, Float, PyTree
 import flax.linen as nn
 import optax
 
-from molpipx.grad_utils import softplus_inverse, flax_params, flax_params_aniso
+from molpipx.utils import softplus_inverse, flax_params, flax_params_aniso
 from molpipx.pip_anisotropic_flax import get_mask, LayerPIPAniso, EnergyPIPAniso
 from molpipx.utils import mse_loss
 
 def _train_aniso_adam(data:Tuple, atoms:List,
                       f_mono:Callable,f_poly:Callable, 
                       optimizer_info:PyTree) -> Tuple[Float, PyTree]:
-    
+    """Trains an anisotropic PIP model using the Adam optimizer.
+
+    Args:
+        data (Tuple): A tuple containing training and validation data:
+            ``((X_tr, y_tr), (X_val, y_val))``.
+        atoms (List): A list of atom types (e.g., ``['H', 'C', 'H']``) used to generate the mask.
+        f_mono (Callable): Function that returns the monomials.
+        f_poly (Callable): Function that returns the polynomials.
+        optimizer_info (PyTree): A dictionary or PyTree containing optimizer settings:
+            * ``'tol'``: Convergence tolerance.
+            * ``'Maxiters'``: Maximum number of epochs.
+            * ``'learning_rate'``: Learning rate for Adam.
+
+    Returns:
+        Tuple[Float, PyTree]: A tuple containing:
+            * The final optimized parameters (``l_opt[-1]``).
+            * The history of parameters over all epochs (``l_opt``).
+    """
     opt_tol = optimizer_info['tol']
     n_epochs = optimizer_info['Maxiters']
     lr = optimizer_info['learning_rate']

@@ -4,6 +4,10 @@ import optax as ox
 import gpjax as gpx
 from gpjax import Dataset
 jax.config.update("jax_enable_x64", True)
+
+import os
+import jax.numpy as jnp
+
 from molpipx import get_functions, detect_molecule
 from molpipx import split_train_and_test_data, split_train_and_test_data_w_forces
 from molpipx import PIPlayerGP
@@ -16,14 +20,13 @@ import numpy as np
 
 
 from ml_collections import config_dict
-from load_data_methane import read_geometry_energy as load_data
-
+from molpipx.data import load_methane
 
 
 
 def get_datasets(n_tr, key, n_tst):
 
-    X_all, _, y_all, _ = load_data()
+    X_all, _, y_all, _ = load_methane()
     n_tst = y_all.shape[0] - n_tr    
     (X_tr, y_tr), (X_tst, y_tst) = split_train_and_test_data(
         X_all, y_all, n_tr, key, n_tst)
@@ -36,7 +39,7 @@ def get_datasets(n_tr, key, n_tst):
 
 def get_datasets_w_forces(n_tr, key, n_tst):
 
-    X_all, F_all, y_all, _ = load_data()
+    X_all, F_all, y_all, _ = load_methane()
     (X_tr, F_tr, y_tr), (X_tst, F_tst, y_tst) = split_train_and_test_data_w_forces(
         X_all, F_all, y_all, n_tr, key, n_tst)
 
@@ -139,7 +142,8 @@ def train_and_evaluate(config: config_dict.ConfigDict, workdir: str):
     # Start training process
     opt_posterior, history = gpx.fit(
         model = posterior,
-        objective = jax.jit(gpx.objectives.ConjugateMLL(negative=True)),
+        # objective = jax.jit(gpx.objectives.ConjugateMLL(negative=True)),
+        objective = jax.jit(gpx.objectives.conjugate_mll),
         train_data = X_train,
         optim = optimiser,
         num_iters = num_iter,
@@ -150,8 +154,8 @@ def train_and_evaluate(config: config_dict.ConfigDict, workdir: str):
     # Energy prediction
     latent_dist = opt_posterior(X_test['x'], train_data = X_train)
     predictive_dist = opt_posterior.likelihood(latent_dist)
-    predictive_mean = predictive_dist.mean()
-    predictive_std = predictive_dist.stddev()
+    predictive_mean = predictive_dist.mean
+    predictive_std = jnp.sqrt(predictive_dist.variance)
 
     # Compute forces with trained model
     forces, _ = get_forces_gp(gp_model=opt_posterior, train_data=X_train, x=X_test['x'])

@@ -9,10 +9,14 @@ setup(
     packages=find_packages(),
     version='0.1',
     description='Permutationally Invariant Polynomials in JAX',
-    author='Rodrigo. A. Vargas-Hernandez',
+    authors=['Rodrigo. A. Vargas-Hernandez', 'Manuel Drehwald', 'Asma Jamali'],
+    
+    include_package_data=True, 
+    package_data={
+        'molpipx': ['data/*.xyz', 'data/*.npy', 'data/*/*.xyz', 'data/*/*.npy'],
+    },
+ 
     install_requires=[
-        # List your project's dependencies here,
-        # e.g., 'requests>=2.23.0',
         'jax>0.4.14',
         'jaxlib>0.4.14',
         'numpy>=1.18.0',

@@ -1,0 +1,207 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Generate PIPs &mdash; MOLPIPx 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=973567c1" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=2709fde1"></script>
+      <script src="_static/doctools.js?v=9bcbadda"></script>
+      <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script crossorigin="anonymous" integrity="sha256-Ae2Vz/4ePdIu6ZyI/5ZGsYnb+m0JlOmKPjt6XZ9JJkA=" src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Deep PIP Kernels" href="molpipx.pipgp_flax.html" />
+    <link rel="prev" title="Core PIPs" href="molpipx.pip_flax.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #ffffff" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            MOLPIPx
+              <img src="_static/molpipx_logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="api.html">API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="molpipx.html">MOLPIPx package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="msa_files.html">MSA Files</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="publications.html">Publications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="citing.html">Citing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #ffffff" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MOLPIPx</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="api.html">API</a></li>
+          <li class="breadcrumb-item"><a href="molpipx.html">MOLPIPx package</a></li>
+      <li class="breadcrumb-item active">Generate PIPs</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/molpipx.pip_generator.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-molpipx.pip_generator">
+<span id="generate-pips"></span><h1>Generate PIPs<a class="headerlink" href="#module-molpipx.pip_generator" title="Link to this heading"></a></h1>
+<p class="rubric">Functions</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#molpipx.pip_generator.create_f_monomials" title="molpipx.pip_generator.create_f_monomials"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_f_monomials</span></code></a></p></td>
+<td><p>Generates a Python file containing JAX-compiled monomial functions.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#molpipx.pip_generator.create_f_polynomials" title="molpipx.pip_generator.create_f_polynomials"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_f_polynomials</span></code></a></p></td>
+<td><p>Generates a Python file containing JAX-compiled polynomial functions.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#molpipx.pip_generator.f_monomial_flag_0" title="molpipx.pip_generator.f_monomial_flag_0"><code class="xref py py-obj docutils literal notranslate"><span class="pre">f_monomial_flag_0</span></code></a></p></td>
+<td><p>Parses the indices for a monomial term from the input array.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#molpipx.pip_generator.msa_file_generator" title="molpipx.pip_generator.msa_file_generator"><code class="xref py py-obj docutils literal notranslate"><span class="pre">msa_file_generator</span></code></a></p></td>
+<td><p>Orchestrates the generation of both monomial and polynomial JAX files from MSA input.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py function">
+<dt class="sig sig-object py" id="molpipx.pip_generator.create_f_monomials">
+<span class="sig-prename descclassname"><span class="pre">molpipx.pip_generator.</span></span><span class="sig-name descname"><span class="pre">create_f_monomials</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_mono</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/molpipx/pip_generator.html#create_f_monomials"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#molpipx.pip_generator.create_f_monomials" title="Link to this definition"></a></dt>
+<dd><p>Generates a Python file containing JAX-compiled monomial functions.</p>
+<p>Reads a <code class="docutils literal notranslate"><span class="pre">.MONO</span></code> file provided by the MSA software and writes a corresponding
+Python script (<code class="docutils literal notranslate"><span class="pre">monomials_{label}.py</span></code>).
+:param file_mono: Path to the source <code class="docutils literal notranslate"><span class="pre">.MONO</span></code> file.
+:type file_mono: str
+:param file_label: Label used to suffix the output filename.
+:type file_label: str</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="molpipx.pip_generator.create_f_polynomials">
+<span class="sig-prename descclassname"><span class="pre">molpipx.pip_generator.</span></span><span class="sig-name descname"><span class="pre">create_f_polynomials</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_poly</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">file_label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parents_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/molpipx/pip_generator.html#create_f_polynomials"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#molpipx.pip_generator.create_f_polynomials" title="Link to this definition"></a></dt>
+<dd><p>Generates a Python file containing JAX-compiled polynomial functions.</p>
+<p>Reads a <code class="docutils literal notranslate"><span class="pre">.POLY</span></code> file provided by the MSA software and writes a corresponding
+Python script (<code class="docutils literal notranslate"><span class="pre">polynomials_{label}.py</span></code>).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_poly</strong> (<em>str</em>) – Path to the source <code class="docutils literal notranslate"><span class="pre">.POLY</span></code> file.</p></li>
+<li><p><strong>file_label</strong> (<em>str</em>) – Label used to suffix the output filename.</p></li>
+<li><p><strong>parents_path</strong> (<em>str</em>) – Dotted path to the parent package for import statements.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="molpipx.pip_generator.f_monomial_flag_0">
+<span class="sig-prename descclassname"><span class="pre">molpipx.pip_generator.</span></span><span class="sig-name descname"><span class="pre">f_monomial_flag_0</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/molpipx/pip_generator.html#f_monomial_flag_0"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#molpipx.pip_generator.f_monomial_flag_0" title="Link to this definition"></a></dt>
+<dd><p>Parses the indices for a monomial term from the input array.</p>
+<p>Helper function that processes a line from the MSA file to determine the
+indices involved in a monomial term.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>x</strong> (<em>np.ndarray</em>) – Array of indices derived from the input file line.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>Returns an integer index if a single element is active,
+a list of indices if multiple are active, or -1 if none.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>int or list</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="molpipx.pip_generator.msa_file_generator">
+<span class="sig-prename descclassname"><span class="pre">molpipx.pip_generator.</span></span><span class="sig-name descname"><span class="pre">msa_file_generator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">filename</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'./'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">label</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">parents_path</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/molpipx/pip_generator.html#msa_file_generator"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#molpipx.pip_generator.msa_file_generator" title="Link to this definition"></a></dt>
+<dd><p>Orchestrates the generation of both monomial and polynomial JAX files from MSA input.</p>
+<p>This is the main entry point for generating the python code. It checks for the existence
+of <code class="docutils literal notranslate"><span class="pre">.MONO</span></code> and <code class="docutils literal notranslate"><span class="pre">.POLY</span></code> files based on the filename and calls the creation functions.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filename</strong> (<em>str</em>) – The base name of the file (e.g., ‘MOL_1_3_4’).</p></li>
+<li><p><strong>path</strong> (<em>str</em>) – Directory containing the input files and where output will be saved.</p></li>
+<li><p><strong>label</strong> (<em>str</em><em>, </em><em>optional</em>) – Custom label for the output files. Defaults to <code class="docutils literal notranslate"><span class="pre">filename</span></code>.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="molpipx.pip_flax.html" class="btn btn-neutral float-left" title="Core PIPs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="molpipx.pipgp_flax.html" class="btn btn-neutral float-right" title="Deep PIP Kernels" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

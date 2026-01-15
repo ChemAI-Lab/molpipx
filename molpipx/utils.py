@@ -9,11 +9,17 @@ from jaxtyping import Array, Float, PyTree
 
 @jit
 def all_distances(xi: Float[Array, "..."]) -> Float[Array, "..."]:
-    """all distances between a geometry of a given molecule
-    x: xyz coordinates
+    """Computes all pairwise distances between atoms in a molecule.
+
+    Calculates the Euclidean distance (L2 norm) between every pair of atoms in the
+    input geometry. It returns the upper triangular part of the distance matrix
+    in lexicographical order.
+
+    Args:
+        xi (Array): Cartesian coordinates of the atoms, shape (N_atoms, 3).
 
     Returns:
-        r: all possible ||xi - xj||2 between the different atomic positions
+        Array: A flattened array containing all unique pairwise distances.
     """
     n_atoms = xi.shape[0]
     z = xi[:, None] - xi[None, :]  # compute all difference
@@ -27,20 +33,27 @@ def all_distances(xi: Float[Array, "..."]) -> Float[Array, "..."]:
 
 @jit
 def softplus_inverse(x: Float[Array, "dim1"]) -> Float[Array, "dim1"]:
-    """Computes the inverse softplus
+    """Computes the inverse of the softplus function.
+
+    Args:
+        x (Array): Input value (must be positive).
+
     Returns:
-        x: inverse softplus
+        Array: The inverse softplus of the input.
     """
     return jnp.log(jnp.exp(x) - 1)
 
 
 @jit
 def morse_variables(x: Float[Array, "dim1"], l: Float[Array, ""]) -> Float[Array, "dim1"]:
-    """
-    compute morse variables using a single l parameter
+    """Computes Morse-like variables using a single length scale parameter.
+
+    Args:
+        x (Array): Cartesian coordinates of the atoms (N_atoms, 3).
+        l (float): Length scale parameter (decay rate).
 
     Returns:
-        morese_variables: returns morse variables
+        Array: The computed Morse variables for all pairwise distances.
     """
     r = all_distances(x)
     return jnp.exp(-l*r)
@@ -48,41 +61,41 @@ def morse_variables(x: Float[Array, "dim1"], l: Float[Array, ""]) -> Float[Array
 
 @jit
 def mse_loss(predictions: Float[Array, "dim1"], targets: Float[Array, "dim1"]) -> Float:
-    """Compute the Mean squared error
+    """Computes the Mean Squared Error (MSE) loss.
 
     Args:
-        predictions: 
-        targets: 
+        predictions (Array): The predicted values.
+        targets (Array): The ground truth values.
 
     Returns:
-        Float: mean squared error
+        Float: The mean squared error.
     """
     return jnp.mean(squared_error(predictions-targets))
 
 
 @jit
 def mae_loss(predictions: Float[Array, "dim1"], targets: Float[Array, "dim1"]) -> Float:
-    """Computes the mean absolute error
+    """Computes the Mean Absolute Error (MAE) loss.
 
     Args:
-        predictions: 
-        targets: 
+        predictions (Array): The predicted values.
+        targets (Array): The ground truth values.
 
     Returns:
-        Float: mean absolute error
+        Float: The mean absolute error.
     """
     return jnp.mean(jnp.abs(predictions-targets))
 
 
 def flax_params(w: Float[Array, '...'], params: PyTree) -> PyTree:
-    """Array to Flax PyTree parameters
+    """Updates the weights of the first Dense layer in a Flax PyTree.
 
     Args:
-        w (Float[Array]): Array with linear parameters for PIP
-        params (PyTree): Flax PyTree parameters
+        w (Array): Array containing the new linear weights (e.g., from a least-squares solution).
+        params (PyTree): The existing Flax parameter PyTree.
 
     Returns:
-        PyTree: Updated Flax PyTree parameters
+        PyTree: The updated parameter PyTree.
     """
 
     w_base = params['params']['Dense_0']['kernel']
@@ -92,15 +105,17 @@ def flax_params(w: Float[Array, '...'], params: PyTree) -> PyTree:
 
 
 def flax_params_aniso(l: Float[Array, '...'], params: PyTree) -> PyTree:
-    """Array to Flax PyTree parameters
-    warning: only works for the anisotropic PIP, atom-atom type length scale parameters
+    """Updates the length scale parameters for an Anisotropic PIP model.
+
+    Warning:
+        This function assumes a specific Flax model structure (Anisotropic PIP).
 
     Args:
-        l (Float[Array]): Array with length scale parameters
-        params (PyTree): Flax PyTree parameters
+        l (Array): Array containing the new length scale parameters.
+        params (PyTree): The existing Flax parameter PyTree.
 
     Returns:
-        PyTree: Updated Flax PyTree parameters
+        PyTree: The updated parameter PyTree.
     """
     l_base = params['params']['VmapJitPIPAniso_0']['lambda']
     l = jnp.reshape(l, l_base.shape)

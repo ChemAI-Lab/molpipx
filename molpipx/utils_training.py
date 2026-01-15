@@ -9,17 +9,20 @@ from jaxtyping import Key, Float, Array
 def split_train_and_test_data(Geometries: Float[Array, "..."], Energies: Float[Array, "..."],
                               N: int, key: Key, Nval: int = 0,
                               ) -> ((Float, Float), (Float, Float)):
-    """Split the data into training and validation data.
+    """Splits geometry and energy datasets into training and validation sets.
 
     Args:
-        Geometries:
-        Energies:
-        N: number of training data
-        key: Key to split the training
-        Nval: number of validation data
+        Geometries (Array): The complete dataset of geometries (Batch, Na, 3).
+        Energies (Array): The complete dataset of corresponding energies (Batch, 1).
+        N (int): The number of samples to include in the training set.
+        key (Key): A JAX random key used to shuffle the data.
+        Nval (int, optional): The number of samples to include in the validation set. 
+            If 0 or None, the remaining samples after selecting ``N`` are used. Defaults to 0.
 
     Returns:
-        Tuple: (Training geometries and energy), (Validation geometries and energy)
+        Tuple: Two tuples containing the split data:
+            * **Train**: ``(X_tr, y_tr)``
+            * **Validation**: ``(X_val, y_val)``
     """
 
     _, key = jrnd.split(key)
@@ -46,17 +49,21 @@ def split_train_and_test_data_w_forces(Geometries: Float[Array, "..."], Forces: 
                                        Energies: Float[Array, "..."],
                                        N: int, key: Key, Nval: int = 0,
                                        ) -> ((Float, Float, Float), (Float, Float, Float)):
-    """Split the data into training and validation.
+    """Splits geometry, force, and energy datasets into training and validation sets.
 
     Args:
-        Geometries:
-        Forces:
-        Energies:
-        N: number of training data
-        key: Key to split the training
-        Nval: number of validation data
+        Geometries (Array): The complete dataset of geometries (Batch, Na, 3).
+        Forces (Array): The complete dataset of corresponding forces (Batch, Na, 3).
+        Energies (Array): The complete dataset of corresponding energies (Batch, 1).
+        N (int): The number of samples to include in the training set.
+        key (Key): A JAX random key used to shuffle the data.
+        Nval (int, optional): The number of samples to include in the validation set.
+            If 0 or None, the remaining samples are used. Defaults to 0.
+
     Returns:
-        Tuple: (Training geometries, forces and energy), (Validation geometries, forces and energy)
+        Tuple: Two tuples containing the split data:
+            * **Train**: ``(X_tr, G_tr, y_tr)``
+            * **Validation**: ``(X_val, G_val, y_val)``
     """
 
     _, key = jrnd.split(key)

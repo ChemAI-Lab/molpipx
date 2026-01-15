@@ -8,14 +8,8 @@ from molpipx import PIPNN
 from molpipx import mse_loss
 from molpipx import get_functions, detect_molecule, split_train_and_test_data_w_forces
 
-from jaxtyping import (
-    Array,
-    Float,
-    PyTree,
-    install_import_hook,
-)
+from molpipx.data import load_methane
 
-import flax
 from flax.training import train_state, checkpoints
 import chex
 import optax
@@ -74,9 +68,7 @@ def train_epoch(state, train_ds, batch_size, rng):
 
 def get_datasets(n_tr, key, n_val=1000):
 
-    from load_data_methane import read_geometry_energy as load_data
-
-    X_all, F_all, y_all, atoms_all = load_data()
+    X_all, F_all, y_all, atoms_all = load_methane()
     (X_tr, F_tr, y_tr), (X_val, F_val, y_val) = split_train_and_test_data_w_forces(
         X_all, F_all, y_all, n_tr, key, n_val)
 

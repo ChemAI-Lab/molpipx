@@ -6,6 +6,8 @@ import jax.numpy as jnp
 import flax
 from flax import linen as nn
 
+import math
+
 from molpipx.utils import all_distances, softplus_inverse
 
 
@@ -18,6 +20,7 @@ class PIP(nn.Module):
         f_poly: callable function that returns the polynomials
         l: initial value of the morse variables length scale parameter
         bias_init: initializer function for the the l parameter
+        trainable_l (bool): If True, the length scale ``l`` is optimized during training.
     """
     f_mono: Callable
     f_poly: Callable
@@ -27,14 +30,16 @@ class PIP(nn.Module):
 
     @nn.compact
     def __call__(self, input):
-        """Applies the PIP transformation to the inputs.
-        (warning: this function only works for a single input)
+        """Applies the PIP transformation to a single input geometry.
+
+        Warning:
+            This function works on a single geometry (Na x 3). Use ``PIPlayer`` for batches.
 
         Args:
-            inputs: geometry, array of number of atoms by 3 (Na x 3)
+            input (Array): Geometry array of shape (Number of atoms, 3).
 
         Returns:
-            pip_vector: pip vector
+            Array: The PIP vector.
         """
         f_mono = self.f_mono
         f_poly = self.f_poly
@@ -55,28 +60,31 @@ class PIP(nn.Module):
 
 @nn.jit
 class PIPlayer(nn.Module):
-    """Vectorize version of ``PIP``.
-    see ``PIP`` for more information.
+    """Vectorized wrapper for ``PIP`` to handle batches of geometries.
+
+    See ``PIP`` for more information.
 
     Attributes:
-        f_mono: callable function that returns the monomials
-        f_poly: callable function that returns the polynomials
-        l: initial value of the morse variables length scale parameter
+        f_mono (Callable): Function that returns the monomials.
+        f_poly (Callable): Function that returns the polynomials.
+        l (float): Initial value of the Morse variables length scale parameter.
+        trainable_l (bool): If True, the length scale ``l`` is optimized.
     """
     f_mono: Callable
     f_poly: Callable
-    l: float = float(jnp.exp(1))
+    # l: float = float(jnp.exp(1))
+    l: float = math.exp(1)
     trainable_l: bool = False
 
     @nn.compact
     def __call__(self, inputs):
-        """Applies a vectorize map to PIP.apply.
+        """Applies a vectorized map of PIP to a batch of inputs.
 
         Args:
-            inputs: geometries, (batch,number of atoms, 3)
+            inputs (Array): Batch of geometries with shape (Batch, Number of atoms, 3).
 
         Returns:
-            pip_vector: pip vector for each geometry, (batch, number of pips)
+            Array: PIP vectors for each geometry, shape (Batch, Number of PIPs).
         """
         vmap_pipblock = nn.vmap(PIP, variable_axes={'params': None, },
                                 split_rngs={'params': False, },
@@ -87,16 +95,18 @@ class PIPlayer(nn.Module):
 
 @nn.jit
 class EnergyPIP(nn.Module):
-    """Energy model using PIP."
+    """End-to-end energy model combining ``PIPlayer`` and a linear output layer.
 
     Attributes:
-        f_mono: callable function that returns the monomials
-        f_poly: callable function that returns the polynomials
-        l: initial value of the morse variables length scale parameter
+        f_mono (Callable): Function that returns the monomials.
+        f_poly (Callable): Function that returns the polynomials.
+        l (float): Initial value of the Morse variables length scale parameter.
+        trainable_l (bool): If True, the length scale ``l`` is optimized.
     """
     f_mono: Callable
     f_poly: Callable
-    l: float = float(jnp.exp(1))
+    # l: float = float(jnp.exp(1))
+    l: float = math.exp(1)
     trainable_l: bool = False
 
     @nn.compact
@@ -104,10 +114,10 @@ class EnergyPIP(nn.Module):
         """Applies the ``PIPLayer`` and a ``nn.Dense`` modules to compute the energy.
 
         Args:
-            inputs: geometries, (batch,number of atoms, 3)
+            inputs (Array): Batch of geometries with shape (Batch, Number of atoms, 3).
 
         Returns:
-            energy: energy of each geometry, (batch, 1)
+            Array: Energy values for each geometry, shape (Batch, 1).
         """
         vmap_pipblock = nn.vmap(PIP, variable_axes={'params': None, },
                                 split_rngs={'params': False, },
@@ -119,22 +129,29 @@ class EnergyPIP(nn.Module):
         return energy
     
 class PIPlayerGP(nn.Module):
-    """Wrapper for PIPlayer to reshape the inputs before passing to PIPlayer."""
+    """Wrapper for PIPlayer to reshape the inputs before passing to PIPlayer.
+    Attributes:
+        f_mono (Callable): Function that returns the monomials.
+        f_poly (Callable): Function that returns the polynomials.
+        l (float): Initial value of the Morse variables length scale parameter.
+        trainable_l (bool): If True, the length scale ``l`` is optimized.
+    """
 
     f_mono: Callable
     f_poly: Callable
-    l: float = float(jnp.exp(1))
+    # l: float = float(jnp.exp(1))
+    l: float = math.exp(1)
     trainable_l:bool = False
 
     @nn.compact
     def __call__(self, inputs):
-        """Reshape inputs and apply PIPlayer.
+        """Reshapes flattened inputs and applies the PIP transformation.
 
         Args:
-            inputs: geometries, can be either (batch, number of atoms, 3) or (batch * number of atoms * 3)
+            inputs (Array): Geometries. Can be (Batch, Na, 3) or flattened (Batch * Na * 3).
 
         Returns:
-            pip_vector: pip vector for each geometry, (batch, number of pips)
+            Array: PIP vectors for each geometry, shape (Batch, Number of PIPs).
         """
         if inputs.ndim == 1:
             inputs = inputs.reshape(1, inputs.shape[0] // 3, 3)

@@ -1,9 +1,7 @@
 import argparse
 from ml_collections import config_dict
-
 import jax
 import jax.numpy as jnp
-
 from molpipx import EnergyPIP, PIPlayer as PIP
 from molpipx import training, training_w_gradients, get_forces
 from molpipx import split_train_and_test_data, split_train_and_test_data_w_forces
@@ -11,8 +9,7 @@ from molpipx import flax_params
 from molpipx import mse_loss
 from molpipx import get_functions, detect_molecule
 
-from load_data_methane import read_geometry_energy
-
+from molpipx.data import load_methane
 
 def get_number_of_atoms(molecule_dict):
     na = 0
@@ -34,7 +31,7 @@ def train_and_evaluate(config: config_dict.ConfigDict,
     f_mono, f_poly = get_functions(molecule_type, poly_degree)
 
     # load all molecule data
-    X_all, _, y_all, atoms = read_geometry_energy()
+    X_all, _, y_all, atoms = load_methane()
 
     # split training and validation data
     i0 = 0
