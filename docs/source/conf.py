@@ -155,7 +155,6 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
     'sphinx.ext.napoleon',
-    'nbsphinx',
     'sphinx.ext.mathjax',
 ]
 # --- NAPOLEON SETTINGS ---
