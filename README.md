@@ -42,7 +42,7 @@ pip install .
 
 ### MSA-JAX files generation ###
 MOLPIPx package includes `msa_file_generator`, which translates monomial and polynomial files from MSA to JAX and Rust for molecules.
-Check out an [example on generating msa files](https://github.com/ChemAI-Lab/molpipx/tree/main/examples/Data/README.md)
+Check out an [example on generating msa files](https://github.com/ChemAI-Lab/molpipx/blob/edd3d052d15fdda9b24ad1c528870542073e6268/molpipx/data/README.md)
 
 
 ```python
@@ -77,10 +77,10 @@ This [tracking issue](https://github.com/rust-lang/rust/issues/124509) shows the
 ## Tutorials ##
 Check out our tutorials to get started with MOLPIPx. These tutorials define inputs for different regression approaches, train machine learning models with or without forces, and make predictions.
 
-1. [Linear regression with permutationally invariant polynomials (Linear PIP)](https://github.com/ChemAI-Lab/molpipx/tree/main/examples/linear_pip/README.md)
-2. [Anisotropic linear regression with permutationally invariant polynomials (Anisotropic Linear PIP)](https://github.com/ChemAI-Lab/molpipx/tree/main/examples/aniso_pip/README.md)
-3. [Permutationally Invariant Polynomial Neural Networks (PIP-NN)](https://github.com/ChemAI-Lab/molpipx/tree/main/examples/pipnn/README.md)
-4. [Permutationally Invariant Polynomial Gaussian Process (PIP-GP)](https://github.com/ChemAI-Lab/molpipx/tree/main/examples/pipgp/README.md)
+1. [Linear regression with permutationally invariant polynomials (Linear PIP)](https://github.com/ChemAI-Lab/molpipx/tree/edd3d052d15fdda9b24ad1c528870542073e6268/examples/linear_pip)
+2. [Anisotropic linear regression with permutationally invariant polynomials (Anisotropic Linear PIP)](https://github.com/ChemAI-Lab/molpipx/tree/edd3d052d15fdda9b24ad1c528870542073e6268/examples/aniso_pip)
+3. [Permutationally Invariant Polynomial Neural Networks (PIP-NN)](https://github.com/ChemAI-Lab/molpipx/tree/edd3d052d15fdda9b24ad1c528870542073e6268/examples/pipnn)
+4. [Permutationally Invariant Polynomial Gaussian Process (PIP-GP)](https://github.com/ChemAI-Lab/molpipx/tree/edd3d052d15fdda9b24ad1c528870542073e6268/examples/pipgp)
 
 
 # Reference
