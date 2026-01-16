@@ -1,0 +1,420 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>molpipx.pip_generator &mdash; MOLPIPx 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=973567c1" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #ffffff" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            MOLPIPx
+              <img src="../../_static/molpipx_logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../publications.html">Publications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../citing.html">Citing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #ffffff" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MOLPIPx</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">molpipx.pip_generator</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for molpipx.pip_generator</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">argparse</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+
+<span class="c1"># ----------------------------------------------------------------------------------------</span>
+<span class="c1">#   READ MONOMIALS</span>
+
+
+<div class="viewcode-block" id="f_monomial_flag_0">
+<a class="viewcode-back" href="../../molpipx.pip_generator.html#molpipx.pip_generator.f_monomial_flag_0">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">f_monomial_flag_0</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Parses the indices for a monomial term from the input array.</span>
+
+<span class="sd">    Helper function that processes a line from the MSA file to determine the</span>
+<span class="sd">    indices involved in a monomial term.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x (np.ndarray): Array of indices derived from the input file line.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        int or list: Returns an integer index if a single element is active,</span>
+<span class="sd">        a list of indices if multiple are active, or -1 if none.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+        <span class="n">j</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">x</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="n">j</span> <span class="o">=</span> <span class="n">j</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="k">elif</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">j</span> <span class="o">=</span> <span class="n">x</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">j</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span>
+    <span class="k">return</span> <span class="n">j</span></div>
+
+
+
+<div class="viewcode-block" id="create_f_monomials">
+<a class="viewcode-back" href="../../molpipx.pip_generator.html#molpipx.pip_generator.create_f_monomials">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">create_f_monomials</span><span class="p">(</span><span class="n">file_mono</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">file_label</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generates a Python file containing JAX-compiled monomial functions.</span>
+
+<span class="sd">    Reads a ``.MONO`` file provided by the MSA software and writes a corresponding</span>
+<span class="sd">    Python script (``monomials_{label}.py``). </span>
+<span class="sd">    Args:</span>
+<span class="sd">        file_mono (str): Path to the source ``.MONO`` file.</span>
+<span class="sd">        file_label (str): Label used to suffix the output filename.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">f_out_monomials</span> <span class="o">=</span> <span class="s1">&#39;monomials_</span><span class="si">{}</span><span class="s1">.py&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">file_label</span><span class="p">)</span>
+    <span class="n">f_out_monomials</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_path</span><span class="p">,</span> <span class="n">f_out_monomials</span><span class="p">)</span>
+
+    <span class="n">f_out</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">f_out_monomials</span><span class="p">,</span> <span class="s1">&#39;w+&#39;</span><span class="p">)</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;import jax </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;import jax.numpy as jnp </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;from jax import jit</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;# File created from </span><span class="si">{}</span><span class="s1"> </span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">file_mono</span><span class="p">))</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_mono</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+    <span class="n">Lines</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+    <span class="n">n_mono</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">Lines</span><span class="p">)</span>
+    <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">Lines</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">l</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;0&#39;</span><span class="p">:</span>
+            <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">l</span><span class="o">.</span><span class="n">split</span><span class="p">(),</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">int32</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
+
+    <span class="n">zeros</span><span class="p">,</span> <span class="n">ones</span> <span class="o">=</span> <span class="p">(</span><span class="n">Lines</span><span class="p">[:</span><span class="n">index</span><span class="p">],</span> <span class="n">Lines</span><span class="p">[</span><span class="n">index</span><span class="p">:])</span>
+    <span class="n">offset</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">zeros</span><span class="p">)</span>
+    <span class="n">N_DISTANCES</span> <span class="o">=</span> <span class="n">index</span>  <span class="c1"># offset - 1</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;# N_DISTANCES == N_ATOMS * (N_ATOMS - 1) / 2;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;N_DISTANCES = </span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">N_DISTANCES</span><span class="p">))</span>
+    <span class="n">N_ATOMS</span> <span class="o">=</span> <span class="nb">round</span><span class="p">(</span><span class="o">+</span><span class="mf">0.5</span> <span class="o">+</span> <span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="mi">4</span><span class="o">*</span><span class="mi">2</span><span class="o">*</span><span class="n">N_DISTANCES</span><span class="p">)</span><span class="o">*</span><span class="mf">0.5</span><span class="p">)</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;N_ATOMS = </span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">N_ATOMS</span><span class="p">))</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;N_XYZ = N_ATOMS * 3</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="c1">#     ----------------------------</span>
+<span class="c1">#     MAIN</span>
+    <span class="n">f_out</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">f_out_monomials</span><span class="p">,</span> <span class="s1">&#39;a+&#39;</span><span class="p">)</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;# Total number of monomials = </span><span class="si">{}</span><span class="s1"> </span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n_mono</span><span class="p">))</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;@jit</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;def f_monomials(r): </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;    assert(r.shape == (N_DISTANCES,))</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;    mono = jnp.zeros(</span><span class="si">{}</span><span class="s1">) </span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n_mono</span><span class="p">))</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">Lines</span><span class="p">):</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">l</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">z</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+
+<span class="c1">#         FLAG = 0</span>
+        <span class="k">if</span> <span class="n">z</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">j</span> <span class="o">=</span> <span class="n">f_monomial_flag_0</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="nb">int</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">j</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;    mono_</span><span class="si">{}</span><span class="s1"> = jnp.take(r,</span><span class="si">{}</span><span class="s1">) </span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">))</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;    mono_</span><span class="si">{}</span><span class="s1"> = 1. </span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+            <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">j</span><span class="p">,</span> <span class="nb">list</span><span class="p">):</span>
+                <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+                    <span class="s1">&#39;    mono_</span><span class="si">{}</span><span class="s1"> = jnp.prod(jnp.power(r,jnp.array(</span><span class="si">{}</span><span class="s1">,dtype=jnp.int32))) </span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">))</span>
+
+<span class="c1">#         FLAG = 1</span>
+        <span class="k">elif</span> <span class="nb">int</span><span class="p">(</span><span class="n">z</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;    mono_</span><span class="si">{}</span><span class="s1"> = mono_</span><span class="si">{}</span><span class="s1"> * mono_</span><span class="si">{}</span><span class="s1"> </span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">))</span>
+
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;#    stack all monomials </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;    mono = jnp.stack([&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">Lines</span><span class="p">[:]):</span>
+        <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;    mono_</span><span class="si">{}</span><span class="s1">,&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">5</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39; </span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;    ]) </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;    return mono </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+<span class="c1"># ----------------------------------------------------------------------------------------</span>
+<span class="c1">#   READ POLYNOMIALS</span>
+
+
+<div class="viewcode-block" id="create_f_polynomials">
+<a class="viewcode-back" href="../../molpipx.pip_generator.html#molpipx.pip_generator.create_f_polynomials">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">create_f_polynomials</span><span class="p">(</span><span class="n">file_poly</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">file_label</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">parents_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generates a Python file containing JAX-compiled polynomial functions.</span>
+
+<span class="sd">    Reads a ``.POLY`` file provided by the MSA software and writes a corresponding</span>
+<span class="sd">    Python script (``polynomials_{label}.py``).</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        file_poly (str): Path to the source ``.POLY`` file.</span>
+<span class="sd">        file_label (str): Label used to suffix the output filename.</span>
+<span class="sd">        parents_path (str): Dotted path to the parent package for import statements.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">f_out_polynomials</span> <span class="o">=</span> <span class="s1">&#39;polynomials_</span><span class="si">{}</span><span class="s1">.py&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">file_label</span><span class="p">)</span>
+    <span class="n">f_out_polynomials</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_path</span><span class="p">,</span> <span class="n">f_out_polynomials</span><span class="p">)</span>
+
+    <span class="n">f_out</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">f_out_polynomials</span><span class="p">,</span> <span class="s1">&#39;w+&#39;</span><span class="p">)</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;import jax </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;import jax.numpy as jnp </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;from jax import jit</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+        <span class="s1">&#39;from </span><span class="si">{}</span><span class="s1">.monomials_</span><span class="si">{}</span><span class="s1"> import f_monomials as f_monos </span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">parents_path</span><span class="p">,</span> <span class="n">file_label</span><span class="p">))</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;# File created from </span><span class="si">{}</span><span class="s1"> </span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">file_poly</span><span class="p">))</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_poly</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+    <span class="n">Lines</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+    <span class="n">n_poly</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">Lines</span><span class="p">)</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;N_POLYS = </span><span class="si">{}</span><span class="se">\n\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n_poly</span><span class="p">))</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="c1">#     TEST</span>
+<span class="c1">#     MAIN</span>
+    <span class="n">f_out</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">f_out_polynomials</span><span class="p">,</span> <span class="s1">&#39;a+&#39;</span><span class="p">)</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;# Total number of monomials = </span><span class="si">{}</span><span class="s1"> </span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n_poly</span><span class="p">))</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;@jit</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;def f_polynomials(r): </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;    mono = f_monos(r.ravel()) </span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n_poly</span><span class="p">))</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;    poly = jnp.zeros(</span><span class="si">{}</span><span class="s1">) </span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">n_poly</span><span class="p">))</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">Lines</span><span class="p">):</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">l</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">z</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+
+
+<span class="c1">#         FLAG = 2</span>
+        <span class="k">if</span> <span class="n">z</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">2</span><span class="p">:</span>
+            <span class="n">str_</span> <span class="o">=</span> <span class="s1">&#39;    poly_</span><span class="si">{}</span><span class="s1"> = &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">xi</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+                <span class="n">str_</span> <span class="o">+=</span> <span class="s1">&#39;jnp.take(mono,</span><span class="si">{}</span><span class="s1">)&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">xi</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">str_</span> <span class="o">+=</span> <span class="s1">&#39; + &#39;</span>
+
+            <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> </span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">str_</span><span class="p">))</span>
+
+
+<span class="c1">#         FLAG = 3</span>
+        <span class="k">elif</span> <span class="n">z</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="mi">3</span><span class="p">:</span>
+            <span class="n">str_</span> <span class="o">=</span> <span class="s1">&#39;    poly_</span><span class="si">{}</span><span class="s1"> = &#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">xi</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+                <span class="n">str_</span> <span class="o">+=</span> <span class="s1">&#39;poly_</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">xi</span><span class="p">)</span>
+
+                <span class="k">if</span> <span class="n">j</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="n">str_</span> <span class="o">+=</span> <span class="s1">&#39; * &#39;</span>
+                <span class="k">elif</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                    <span class="n">str_</span> <span class="o">+=</span> <span class="s1">&#39; - &#39;</span>
+
+            <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{}</span><span class="s1"> </span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">str_</span><span class="p">))</span>
+
+<span class="c1">#     -----------------------</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;#    stack all polynomials </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;    poly = jnp.stack([&#39;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">Lines</span><span class="p">[:]):</span>
+        <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;    poly_</span><span class="si">{}</span><span class="s1">,&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+        <span class="k">if</span> <span class="n">i</span> <span class="o">%</span> <span class="mi">5</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39; </span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">i</span><span class="p">))</span>
+
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;    ]) </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="c1">#     -----------------------</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;    return poly </span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="n">f_out</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+
+
+<span class="c1"># ----------------------------------------------------------------------------------------</span>
+<div class="viewcode-block" id="msa_file_generator">
+<a class="viewcode-back" href="../../molpipx.pip_generator.html#molpipx.pip_generator.msa_file_generator">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">msa_file_generator</span><span class="p">(</span><span class="n">filename</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;./&#39;</span><span class="p">,</span> <span class="n">label</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">parents_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Orchestrates the generation of both monomial and polynomial JAX files from MSA input.</span>
+
+<span class="sd">    This is the main entry point for generating the python code. It checks for the existence</span>
+<span class="sd">    of ``.MONO`` and ``.POLY`` files based on the filename and calls the creation functions.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        filename (str): The base name of the file (e.g., &#39;MOL_1_3_4&#39;).</span>
+<span class="sd">        path (str): Directory containing the input files and where output will be saved.</span>
+<span class="sd">        label (str, optional): Custom label for the output files. Defaults to ``filename``.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">global</span> <span class="n">_path</span>
+    <span class="n">_path</span> <span class="o">=</span> <span class="n">path</span>
+    <span class="n">f_head</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_path</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">label</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">f_label</span> <span class="o">=</span> <span class="n">filename</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">f_label</span> <span class="o">=</span> <span class="n">label</span>
+
+    <span class="n">file_mono</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.MONO&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f_head</span><span class="p">)</span>
+    <span class="n">file_poly</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.POLY&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f_head</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">file_mono</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">file_mono</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;File </span><span class="si">{}</span><span class="s1"> does not exist!&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">file_mono</span><span class="p">))</span>
+        <span class="k">assert</span> <span class="mi">0</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">file_poly</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;File </span><span class="si">{}</span><span class="s1"> does not exist!&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">file_poly</span><span class="p">))</span>
+        <span class="k">assert</span> <span class="mi">0</span>
+
+<span class="c1">#     construct monomials</span>
+    <span class="n">create_f_monomials</span><span class="p">(</span><span class="n">file_mono</span><span class="p">,</span> <span class="n">f_label</span><span class="p">)</span>
+
+<span class="c1">#     construct polynomials</span>
+    <span class="n">create_f_polynomials</span><span class="p">(</span><span class="n">file_poly</span><span class="p">,</span> <span class="n">f_label</span><span class="p">,</span> <span class="n">parents_path</span><span class="p">)</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
+
+    <span class="n">parser</span> <span class="o">=</span> <span class="n">argparse</span><span class="o">.</span><span class="n">ArgumentParser</span><span class="p">(</span>
+        <span class="n">description</span><span class="o">=</span><span class="s1">&#39;MSA monomials and polynomials to JAX&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--file&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span>
+                        <span class="n">default</span><span class="o">=</span><span class="s1">&#39;MOL_1_3_4&#39;</span><span class="p">,</span> <span class="n">help</span><span class="o">=</span><span class="s1">&#39;head of the file&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--path&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;.&#39;</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;path to the file&#39;</span><span class="p">)</span>
+    <span class="n">parser</span><span class="o">.</span><span class="n">add_argument</span><span class="p">(</span><span class="s1">&#39;--label&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">str</span><span class="p">,</span> <span class="n">default</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">,</span>
+                        <span class="n">help</span><span class="o">=</span><span class="s1">&#39;label for the file&#39;</span><span class="p">)</span>
+    <span class="n">args</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="n">parse_args</span><span class="p">()</span>
+
+    <span class="k">global</span> <span class="n">_path</span>
+    <span class="n">_path</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">path</span>
+    <span class="n">f_head</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">_path</span><span class="p">,</span> <span class="n">args</span><span class="o">.</span><span class="n">file</span><span class="p">)</span>
+    <span class="n">f_label</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="n">label</span>
+
+    <span class="n">file_mono</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.MONO&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f_head</span><span class="p">)</span>
+    <span class="n">file_poly</span> <span class="o">=</span> <span class="s1">&#39;</span><span class="si">{}</span><span class="s1">.POLY&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">f_head</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">file_mono</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;File </span><span class="si">{}</span><span class="s1"> does not exist!&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">file_mono</span><span class="p">))</span>
+        <span class="k">assert</span> <span class="mi">0</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="n">file_poly</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;File </span><span class="si">{}</span><span class="s1"> does not exist!&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">file_poly</span><span class="p">))</span>
+        <span class="k">assert</span> <span class="mi">0</span>
+
+<span class="c1">#     construct monomials</span>
+    <span class="n">create_f_monomials</span><span class="p">(</span><span class="n">file_mono</span><span class="p">,</span> <span class="n">f_label</span><span class="p">)</span>
+
+<span class="c1">#     construct polynomials</span>
+    <span class="n">create_f_polynomials</span><span class="p">(</span><span class="n">file_poly</span><span class="p">,</span> <span class="n">f_label</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+
+    <span class="n">main</span><span class="p">()</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

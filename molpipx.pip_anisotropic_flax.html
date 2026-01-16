@@ -1,0 +1,322 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Anisotropic PIPs and Models &mdash; MOLPIPx 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="_static/custom.css?v=973567c1" />
+
+  
+      <script src="_static/jquery.js?v=5d32c60e"></script>
+      <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="_static/documentation_options.js?v=2709fde1"></script>
+      <script src="_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="about.html" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Core PIPs" href="molpipx.pip_flax.html" />
+    <link rel="prev" title="Load PIPs" href="molpipx.load_pip.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #ffffff" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            MOLPIPx
+              <img src="_static/molpipx_logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tutorials.html">Tutorials</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="api.html">API</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="molpipx.html">MOLPIPx package</a></li>
+<li class="toctree-l2"><a class="reference internal" href="msa_files.html">MSA Files</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="publications.html">Publications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="citing.html">Citing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="about.html">About</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #ffffff" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">MOLPIPx</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="api.html">API</a></li>
+          <li class="breadcrumb-item"><a href="molpipx.html">MOLPIPx package</a></li>
+      <li class="breadcrumb-item active">Anisotropic PIPs and Models</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/molpipx.pip_anisotropic_flax.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-molpipx.pip_anisotropic_flax">
+<span id="anisotropic-pips-and-models"></span><h1>Anisotropic PIPs and Models<a class="headerlink" href="#module-molpipx.pip_anisotropic_flax" title="Link to this heading"></a></h1>
+<p class="rubric">Functions</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#molpipx.pip_anisotropic_flax.get_mask" title="molpipx.pip_anisotropic_flax.get_mask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_mask</span></code></a></p></td>
+<td><p>Generates a mask matrix identifying unique atom pairs from a list of atom types.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#molpipx.pip_anisotropic_flax.get_f_mask" title="molpipx.pip_anisotropic_flax.get_f_mask"><code class="xref py py-obj docutils literal notranslate"><span class="pre">get_f_mask</span></code></a></p></td>
+<td><p>Creates a JIT-compiled function to compute anisotropic masked distances.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#molpipx.pip_anisotropic_flax.lambda_random_init" title="molpipx.pip_anisotropic_flax.lambda_random_init"><code class="xref py py-obj docutils literal notranslate"><span class="pre">lambda_random_init</span></code></a></p></td>
+<td><p>Randomizes the length scale parameters in a PIP model parameter tree.</p></td>
+</tr>
+</tbody>
+</table>
+<p class="rubric">Classes</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#molpipx.pip_anisotropic_flax.PIPAniso" title="molpipx.pip_anisotropic_flax.PIPAniso"><code class="xref py py-obj docutils literal notranslate"><span class="pre">PIPAniso</span></code></a></p></td>
+<td><p>Permutationally Invariant Polynomials layer (Anisotropic).</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#molpipx.pip_anisotropic_flax.LayerPIPAniso" title="molpipx.pip_anisotropic_flax.LayerPIPAniso"><code class="xref py py-obj docutils literal notranslate"><span class="pre">LayerPIPAniso</span></code></a></p></td>
+<td><p>Energy model combining <code class="docutils literal notranslate"><span class="pre">LayerPIPAniso</span></code> and a dense output layer.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="#molpipx.pip_anisotropic_flax.EnergyPIPAniso" title="molpipx.pip_anisotropic_flax.EnergyPIPAniso"><code class="xref py py-obj docutils literal notranslate"><span class="pre">EnergyPIPAniso</span></code></a></p></td>
+<td><p>Energy model using PIP.</p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="molpipx.pip_anisotropic_flax.EnergyPIPAniso">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">molpipx.pip_anisotropic_flax.</span></span><span class="sig-name descname"><span class="pre">EnergyPIPAniso</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/molpipx/pip_anisotropic_flax.html#EnergyPIPAniso"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#molpipx.pip_anisotropic_flax.EnergyPIPAniso" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>Energy model using PIP.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>f_mono</strong> (<em>Callable</em>) – callable function that returns the monomials</p></li>
+<li><p><strong>f_poly</strong> (<em>Callable</em>) – callable function that returns the polynomials</p></li>
+<li><p><strong>f_mask</strong> (<em>Callable</em>) – callable function that returns the masked distances</p></li>
+<li><p><strong>l</strong> (<em>float</em>) – initial value of the morse variables length scale parameter</p></li>
+<li><p><strong>n_pairs</strong> (<em>int</em>) – Number of unique atom pairs.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="molpipx.pip_anisotropic_flax.EnergyPIPAniso.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/molpipx/pip_anisotropic_flax.html#EnergyPIPAniso.__call__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#molpipx.pip_anisotropic_flax.EnergyPIPAniso.__call__" title="Link to this definition"></a></dt>
+<dd><p>Applies the <code class="docutils literal notranslate"><span class="pre">PIPLayer</span></code> and a <code class="docutils literal notranslate"><span class="pre">nn.Dense</span></code> modules to compute the energy.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inputs</strong> – geometries, (batch,number of atoms, 3)</p></li>
+<li><p><strong>mask</strong> – array with the mask for each atom-atom type length scale parameter</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>energy of each geometry, (batch, 1)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>energy</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="molpipx.pip_anisotropic_flax.LayerPIPAniso">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">molpipx.pip_anisotropic_flax.</span></span><span class="sig-name descname"><span class="pre">LayerPIPAniso</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/molpipx/pip_anisotropic_flax.html#LayerPIPAniso"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#molpipx.pip_anisotropic_flax.LayerPIPAniso" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>Energy model combining <code class="docutils literal notranslate"><span class="pre">LayerPIPAniso</span></code> and a dense output layer.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>f_mono</strong> (<em>Callable</em>) – Function that returns the monomials.</p></li>
+<li><p><strong>f_poly</strong> (<em>Callable</em>) – Function that returns the polynomials.</p></li>
+<li><p><strong>f_mask</strong> (<em>Callable</em>) – Function that returns the masked distances.</p></li>
+<li><p><strong>l</strong> (<em>float</em>) – Initial value of the morse variables length scale parameter.</p></li>
+<li><p><strong>n_pairs</strong> (<em>int</em>) – Number of unique atom pairs.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="molpipx.pip_anisotropic_flax.LayerPIPAniso.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/molpipx/pip_anisotropic_flax.html#LayerPIPAniso.__call__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#molpipx.pip_anisotropic_flax.LayerPIPAniso.__call__" title="Link to this definition"></a></dt>
+<dd><p>Applies a vectorize map to PIP.apply.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inputs</strong> – geometries, (batch,number of atoms, 3)</p></li>
+<li><p><strong>mask</strong> – mask parameters for each atom-atom type length scale parameter</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>pip vector for each geometry, (batch, number of pips)</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pip_vector</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="molpipx.pip_anisotropic_flax.PIPAniso">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">molpipx.pip_anisotropic_flax.</span></span><span class="sig-name descname"><span class="pre">PIPAniso</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/molpipx/pip_anisotropic_flax.html#PIPAniso"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#molpipx.pip_anisotropic_flax.PIPAniso" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Module</span></code></p>
+<p>Permutationally Invariant Polynomials layer (Anisotropic).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Variables<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>f_mono</strong> (<em>Callable</em>) – Function that returns the monomials.</p></li>
+<li><p><strong>f_poly</strong> (<em>Callable</em>) – Function that returns the polynomials.</p></li>
+<li><p><strong>f_mask</strong> (<em>Callable</em>) – Function that returns the masked distances.</p></li>
+<li><p><strong>l</strong> (<em>float</em>) – Initial value of the morse variables length scale parameter.</p></li>
+<li><p><strong>bias_init</strong> (<em>Callable</em>) – Initializer function for the <code class="docutils literal notranslate"><span class="pre">l</span></code> parameter.</p></li>
+<li><p><strong>n_pairs</strong> (<em>int</em>) – Number of unique atom pairs.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="molpipx.pip_anisotropic_flax.PIPAniso.__call__">
+<span class="sig-name descname"><span class="pre">__call__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/molpipx/pip_anisotropic_flax.html#PIPAniso.__call__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#molpipx.pip_anisotropic_flax.PIPAniso.__call__" title="Link to this definition"></a></dt>
+<dd><p>Applies the PIP transformation to the inputs.
+Anisotropic version, where we considered different atom-atom type length scale parameter
+(warning: this function only works for a single input)</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>inputs</strong> – geometry, array of number of atoms by 3 (Na x 3)</p></li>
+<li><p><strong>mask</strong> – array with the mask for each atom-atom type length scale parameter</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>pip vector</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pip_vector</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="molpipx.pip_anisotropic_flax.get_f_mask">
+<span class="sig-prename descclassname"><span class="pre">molpipx.pip_anisotropic_flax.</span></span><span class="sig-name descname"><span class="pre">get_f_mask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">mask</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">jaxtyping.Array</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Callable</span></span></span><a class="reference internal" href="_modules/molpipx/pip_anisotropic_flax.html#get_f_mask"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#molpipx.pip_anisotropic_flax.get_f_mask" title="Link to this definition"></a></dt>
+<dd><p>Creates a JIT-compiled function to compute anisotropic masked distances.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>mask</strong> (<em>Array</em>) – The binary mask array generated by <code class="docutils literal notranslate"><span class="pre">get_mask</span></code>.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A function <code class="docutils literal notranslate"><span class="pre">f_mask(l,</span> <span class="pre">inputs)</span></code> that returns weighted distances.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Callable</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="molpipx.pip_anisotropic_flax.get_mask">
+<span class="sig-prename descclassname"><span class="pre">molpipx.pip_anisotropic_flax.</span></span><span class="sig-name descname"><span class="pre">get_mask</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">atom_types</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">list</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Tuple</span></span></span><a class="reference internal" href="_modules/molpipx/pip_anisotropic_flax.html#get_mask"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#molpipx.pip_anisotropic_flax.get_mask" title="Link to this definition"></a></dt>
+<dd><p>Generates a mask matrix identifying unique atom pairs from a list of atom types.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>atom_types</strong> (<em>list</em>) – A list of atomic symbols (e.g., <code class="docutils literal notranslate"><span class="pre">['H',</span> <span class="pre">'H',</span> <span class="pre">'O']</span></code>).</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple containing the mask array and a list of unique pair strings.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Tuple</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="molpipx.pip_anisotropic_flax.lambda_random_init">
+<span class="sig-prename descclassname"><span class="pre">molpipx.pip_anisotropic_flax.</span></span><span class="sig-name descname"><span class="pre">lambda_random_init</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">params_pip</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Any</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">key</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">jaxtyping.Array</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Any</span></span></span><a class="reference internal" href="_modules/molpipx/pip_anisotropic_flax.html#lambda_random_init"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#molpipx.pip_anisotropic_flax.lambda_random_init" title="Link to this definition"></a></dt>
+<dd><p>Randomizes the length scale parameters in a PIP model parameter tree.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>params_pip</strong> (<em>Any</em>) – The Flax parameter PyTree.</p></li>
+<li><p><strong>key</strong> (<em>KeyArray</em>) – A JAX random key.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The updated parameter PyTree with randomized lambda values.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Any</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="molpipx.load_pip.html" class="btn btn-neutral float-left" title="Load PIPs" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="molpipx.pip_flax.html" class="btn btn-neutral float-right" title="Core PIPs" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

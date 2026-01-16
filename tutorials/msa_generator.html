@@ -1,0 +1,163 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Generating MSA Files &mdash; MOLPIPx 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=973567c1" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="API" href="../api.html" />
+    <link rel="prev" title="PIPGP Tutorial" href="pipgp.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #ffffff" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            MOLPIPx
+              <img src="../_static/molpipx_logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../tutorials.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="linear_model.html">Linear PIP Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="aniso_pip.html">Aniso PIP Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pipnn.html">PIP-NN Tutorial</a></li>
+<li class="toctree-l2"><a class="reference internal" href="pipgp.html">PIPGP Tutorial</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Generating MSA Files</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../publications.html">Publications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../citing.html">Citing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../about.html">About</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #ffffff" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">MOLPIPx</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../tutorials.html">Tutorials</a></li>
+      <li class="breadcrumb-item active">Generating MSA Files</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/tutorials/msa_generator.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="generating-msa-files">
+<h1>Generating MSA Files<a class="headerlink" href="#generating-msa-files" title="Link to this heading"></a></h1>
+<p>This library translates the MSA files, specifically the <code class="docutils literal notranslate"><span class="pre">_file_.MONO</span></code> and <code class="docutils literal notranslate"><span class="pre">_file_.POLY</span></code> files, to the corresponding JAX versions, <code class="docutils literal notranslate"><span class="pre">_file_mono.py</span></code> and <code class="docutils literal notranslate"><span class="pre">_file_poly.py</span></code>.</p>
+<p>The MSA files must be generated beforehand using the <a class="reference external" href="https://scholarblogs.emory.edu/bowman/msa/">MSA Algorithm</a>. For more information and the source code, please see <a class="reference external" href="https://github.com/szquchen/MSA-2.0">MSA-2.0</a>.</p>
+<p><strong>MSA References:</strong></p>
+<blockquote>
+<div><p>Xie, Z.; Bowman, J.M. Permutationally Invariant Polynomial Basis for Molecular Energy Surface Fitting via Monomial Symmetrization. <em>J. Chem. Theory Comput.</em> <strong>2010</strong>, 6, 26-34.</p>
+</div></blockquote>
+<section id="molecule-structure-notation">
+<h2>Molecule Structure Notation<a class="headerlink" href="#molecule-structure-notation" title="Link to this heading"></a></h2>
+<p>The algorithm supports molecules with the structure</p>
+<div class="math notranslate nohighlight">
+\[A_i B_j C_k D_l E_m\]</div>
+<p>where the subscripts (<span class="math notranslate nohighlight">\(i, j, k...\)</span>) represent the number of atoms of a specific type.</p>
+<p><strong>Examples:</strong></p>
+<ul class="simple">
+<li><p><strong>Methane:</strong> <span class="math notranslate nohighlight">\(A_4 B\)</span> (4 atoms of type A, 1 atom of type B).</p></li>
+<li><p><strong>HCN:</strong> <span class="math notranslate nohighlight">\(A B C\)</span> (1 atom each of types A, B, and C).</p></li>
+</ul>
+</section>
+<section id="monomial-and-polynomial-files-generator-for-an-abc2d3ef-molecule">
+<h2>Monomial and polynomial files generator for an ABC2D3EF molecule<a class="headerlink" href="#monomial-and-polynomial-files-generator-for-an-abc2d3ef-molecule" title="Link to this heading"></a></h2>
+<p>To generate the monomial and polynomial files in a format compatible with JAX and Rust, users can use the <code class="docutils literal notranslate"><span class="pre">msa_file_generator</span></code> function from the <code class="docutils literal notranslate"><span class="pre">molpipx</span></code> library.</p>
+<p>Below is an example for Ethanol, represented as <span class="math notranslate nohighlight">\(A B C_2 D_3 E F\)</span>, for generating monomial and polynomial functions translated from MSA:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">molpipx</span><span class="w"> </span><span class="kn">import</span> <span class="n">msa_file_generator</span>
+
+<span class="c1"># The base name of the MSA files (e.g., MOL_1_1_2_3_1_1_2.MONO)</span>
+<span class="n">msa_head</span> <span class="o">=</span> <span class="s1">&#39;MOL_1_1_2_3_1_1_2&#39;</span>
+
+<span class="c1"># Label to append to the generated python files</span>
+<span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;1_1_2_3_1_1_2&#39;</span>
+
+<span class="c1"># Path to the directory containing the MSA files</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;Ethanol/&#39;</span>
+
+<span class="n">msa_file_generator</span><span class="p">(</span><span class="n">msa_head</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">label</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="pipgp.html" class="btn btn-neutral float-left" title="PIPGP Tutorial" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../api.html" class="btn btn-neutral float-right" title="API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

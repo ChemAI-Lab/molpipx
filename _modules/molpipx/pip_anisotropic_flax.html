@@ -1,0 +1,348 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>molpipx.pip_anisotropic_flax &mdash; MOLPIPx 0.1 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/custom.css?v=973567c1" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=2709fde1"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search"  style="background: #ffffff" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            MOLPIPx
+              <img src="../../_static/molpipx_logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../tutorials.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../publications.html">Publications</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../citing.html">Citing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">About</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu"  style="background: #ffffff" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">MOLPIPx</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">molpipx.pip_anisotropic_flax</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for molpipx.pip_anisotropic_flax</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">Callable</span><span class="p">,</span> <span class="n">Tuple</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">jax</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">jax.numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">jnp</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">jax.random</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">jrnd</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">jax</span><span class="w"> </span><span class="kn">import</span> <span class="n">lax</span><span class="p">,</span> <span class="n">vmap</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">jaxtyping</span><span class="w"> </span><span class="kn">import</span> <span class="n">Array</span><span class="p">,</span> <span class="n">Float</span><span class="p">,</span> <span class="n">PyTree</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">flax</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">flax</span><span class="w"> </span><span class="kn">import</span> <span class="n">linen</span> <span class="k">as</span> <span class="n">nn</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">molpipx.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">all_distances</span><span class="p">,</span> <span class="n">softplus_inverse</span><span class="p">,</span> <span class="n">morse_variables</span>
+
+<span class="n">KeyArray</span> <span class="o">=</span> <span class="n">Array</span>
+<span class="n">KeyArrayLike</span> <span class="o">=</span> <span class="n">Array</span>
+
+
+<div class="viewcode-block" id="get_mask">
+<a class="viewcode-back" href="../../molpipx.pip_anisotropic_flax.html#molpipx.pip_anisotropic_flax.get_mask">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_mask</span><span class="p">(</span><span class="n">atom_types</span><span class="p">:</span> <span class="nb">list</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Tuple</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generates a mask matrix identifying unique atom pairs from a list of atom types.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        atom_types (list): A list of atomic symbols (e.g., ``[&#39;H&#39;, &#39;H&#39;, &#39;O&#39;]``).</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Tuple: A tuple containing the mask array and a list of unique pair strings.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">pairs_</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">unique_pairs_</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">atom_types</span><span class="p">)):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">atom_types</span><span class="p">)):</span>
+            <span class="n">pair</span> <span class="o">=</span> <span class="n">atom_types</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">atom_types</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+            <span class="n">pair</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="n">pair</span><span class="p">))</span>
+            <span class="n">pairs_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pair</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">pair</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">unique_pairs_</span><span class="p">:</span>
+                <span class="n">unique_pairs_</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pair</span><span class="p">)</span>
+
+    <span class="n">npairs</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">pairs_</span><span class="p">)</span>
+    <span class="n">mask</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">up</span> <span class="ow">in</span> <span class="n">unique_pairs_</span><span class="p">:</span>
+        <span class="n">maski</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">pi</span> <span class="ow">in</span> <span class="n">pairs_</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">up</span> <span class="o">==</span> <span class="n">pi</span><span class="p">:</span>
+                <span class="n">maski</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mf">1.</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">maski</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mf">0.</span><span class="p">)</span>
+        <span class="n">mask</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">maski</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">jnp</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">mask</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">jnp</span><span class="o">.</span><span class="n">float32</span><span class="p">),</span> <span class="n">unique_pairs_</span></div>
+
+
+
+<div class="viewcode-block" id="get_f_mask">
+<a class="viewcode-back" href="../../molpipx.pip_anisotropic_flax.html#molpipx.pip_anisotropic_flax.get_f_mask">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">get_f_mask</span><span class="p">(</span><span class="n">mask</span><span class="p">:</span> <span class="n">Array</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Callable</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Creates a JIT-compiled function to compute anisotropic masked distances.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        mask (Array): The binary mask array generated by ``get_mask``.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Callable: A function ``f_mask(l, inputs)`` that returns weighted distances.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nd">@jax</span><span class="o">.</span><span class="n">jit</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">f_mask</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+        <span class="n">z</span> <span class="o">=</span> <span class="n">jax</span><span class="o">.</span><span class="n">vmap</span><span class="p">(</span><span class="k">lambda</span> <span class="n">li</span><span class="p">,</span> <span class="n">di</span><span class="p">,</span> <span class="n">maski</span><span class="p">:</span> <span class="p">(</span><span class="n">li</span><span class="o">*</span><span class="n">maski</span><span class="p">)</span> <span class="o">*</span>
+                     <span class="n">di</span><span class="p">,</span> <span class="n">in_axes</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="mi">0</span><span class="p">))(</span><span class="n">l</span><span class="p">,</span> <span class="n">inputs</span><span class="p">,</span> <span class="n">mask</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">jnp</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">z</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">f_mask</span></div>
+
+
+
+<div class="viewcode-block" id="lambda_random_init">
+<a class="viewcode-back" href="../../molpipx.pip_anisotropic_flax.html#molpipx.pip_anisotropic_flax.lambda_random_init">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">lambda_random_init</span><span class="p">(</span><span class="n">params_pip</span><span class="p">:</span> <span class="n">Any</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="n">KeyArray</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Randomizes the length scale parameters in a PIP model parameter tree.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        params_pip (Any): The Flax parameter PyTree.</span>
+<span class="sd">        key (KeyArray): A JAX random key.</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Any: The updated parameter PyTree with randomized lambda values.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">w_l</span> <span class="o">=</span> <span class="n">params_pip</span><span class="p">[</span><span class="s1">&#39;params&#39;</span><span class="p">][</span><span class="s1">&#39;VmapJitPIPAniso_0&#39;</span><span class="p">][</span><span class="s1">&#39;lambda&#39;</span><span class="p">]</span>
+
+    <span class="n">_</span><span class="p">,</span> <span class="n">key</span> <span class="o">=</span> <span class="n">jrnd</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+    <span class="n">w_rnd</span> <span class="o">=</span> <span class="n">jrnd</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">shape</span><span class="o">=</span><span class="p">(</span><span class="n">w_l</span><span class="o">.</span><span class="n">shape</span><span class="p">),</span> <span class="n">minval</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">maxval</span><span class="o">=</span><span class="mf">2.5</span><span class="p">)</span>
+    <span class="n">params_pip</span><span class="p">[</span><span class="s1">&#39;params&#39;</span><span class="p">][</span><span class="s1">&#39;VmapJitPIPAniso_0&#39;</span><span class="p">][</span><span class="s1">&#39;lambda&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">w_rnd</span>
+    <span class="k">return</span> <span class="n">params_pip</span></div>
+
+
+
+<div class="viewcode-block" id="PIPAniso">
+<a class="viewcode-back" href="../../molpipx.pip_anisotropic_flax.html#molpipx.pip_anisotropic_flax.PIPAniso">[docs]</a>
+<span class="nd">@nn</span><span class="o">.</span><span class="n">jit</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PIPAniso</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Permutationally Invariant Polynomials layer (Anisotropic).</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        f_mono (Callable): Function that returns the monomials.</span>
+<span class="sd">        f_poly (Callable): Function that returns the polynomials.</span>
+<span class="sd">        f_mask (Callable): Function that returns the masked distances.</span>
+<span class="sd">        l (float): Initial value of the morse variables length scale parameter.</span>
+<span class="sd">        bias_init (Callable): Initializer function for the ``l`` parameter.</span>
+<span class="sd">        n_pairs (int): Number of unique atom pairs.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">f_mono</span><span class="p">:</span> <span class="n">Callable</span>
+    <span class="n">f_poly</span><span class="p">:</span> <span class="n">Callable</span>
+    <span class="n">f_mask</span><span class="p">:</span> <span class="n">Callable</span>
+    <span class="n">n_pairs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">l</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="mf">1.</span><span class="p">)</span>
+    <span class="n">bias_init</span><span class="p">:</span> <span class="n">Callable</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">initializers</span><span class="o">.</span><span class="n">constant</span>
+
+<div class="viewcode-block" id="PIPAniso.__call__">
+<a class="viewcode-back" href="../../molpipx.pip_anisotropic_flax.html#molpipx.pip_anisotropic_flax.PIPAniso.__call__">[docs]</a>
+    <span class="nd">@nn</span><span class="o">.</span><span class="n">compact</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">input</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Applies the PIP transformation to the inputs.</span>
+<span class="sd">        Anisotropic version, where we considered different atom-atom type length scale parameter</span>
+<span class="sd">        (warning: this function only works for a single input)</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            inputs: geometry, array of number of atoms by 3 (Na x 3)</span>
+<span class="sd">            mask: array with the mask for each atom-atom type length scale parameter</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pip_vector: pip vector</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">f_mono</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">f_mono</span>
+        <span class="n">f_poly</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">f_poly</span>
+        <span class="n">f_mask</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">f_mask</span>
+        <span class="n">_lambda</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">param</span><span class="p">(</span><span class="s1">&#39;lambda&#39;</span><span class="p">,</span>
+                             <span class="c1"># Initialization function</span>
+                             <span class="bp">self</span><span class="o">.</span><span class="n">bias_init</span><span class="p">(</span><span class="n">softplus_inverse</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">l</span><span class="p">)),</span>
+                             <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">n_pairs</span><span class="p">,))</span>  <span class="c1"># shape info.</span>
+        <span class="n">l</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">softplus</span><span class="p">(</span><span class="n">_lambda</span><span class="p">)</span>  <span class="c1"># positive initialization</span>
+
+        <span class="n">d</span> <span class="o">=</span> <span class="n">all_distances</span><span class="p">(</span><span class="nb">input</span><span class="p">)</span>  <span class="c1"># compute distances</span>
+
+        <span class="n">morse_</span> <span class="o">=</span> <span class="n">f_mask</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+        <span class="n">morse</span> <span class="o">=</span> <span class="n">jnp</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="o">*</span><span class="n">morse_</span><span class="p">)</span>
+
+        <span class="c1"># compute PIP vector, morse is computed inside f_pip</span>
+        <span class="n">pip</span> <span class="o">=</span> <span class="n">f_poly</span><span class="p">(</span><span class="n">morse</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">pip</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="LayerPIPAniso">
+<a class="viewcode-back" href="../../molpipx.pip_anisotropic_flax.html#molpipx.pip_anisotropic_flax.LayerPIPAniso">[docs]</a>
+<span class="nd">@nn</span><span class="o">.</span><span class="n">jit</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">LayerPIPAniso</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Energy model combining ``LayerPIPAniso`` and a dense output layer.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        f_mono (Callable): Function that returns the monomials.</span>
+<span class="sd">        f_poly (Callable): Function that returns the polynomials.</span>
+<span class="sd">        f_mask (Callable): Function that returns the masked distances.</span>
+<span class="sd">        l (float): Initial value of the morse variables length scale parameter.</span>
+<span class="sd">        n_pairs (int): Number of unique atom pairs.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">f_mono</span><span class="p">:</span> <span class="n">Callable</span>
+    <span class="n">f_poly</span><span class="p">:</span> <span class="n">Callable</span>
+    <span class="n">f_mask</span><span class="p">:</span> <span class="n">Callable</span>
+    <span class="n">n_pairs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">l</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">jnp</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+
+<div class="viewcode-block" id="LayerPIPAniso.__call__">
+<a class="viewcode-back" href="../../molpipx.pip_anisotropic_flax.html#molpipx.pip_anisotropic_flax.LayerPIPAniso.__call__">[docs]</a>
+    <span class="nd">@nn</span><span class="o">.</span><span class="n">compact</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Applies a vectorize map to PIP.apply.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            inputs: geometries, (batch,number of atoms, 3)</span>
+<span class="sd">            mask: mask parameters for each atom-atom type length scale parameter</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            pip_vector: pip vector for each geometry, (batch, number of pips)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">vmap_pipblock</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">vmap</span><span class="p">(</span><span class="n">PIPAniso</span><span class="p">,</span> <span class="n">variable_axes</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;params&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="p">},</span>
+                                <span class="n">split_rngs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;params&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="p">},</span>
+                                <span class="n">in_axes</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,))(</span><span class="bp">self</span><span class="o">.</span><span class="n">f_mono</span><span class="p">,</span>
+                                              <span class="bp">self</span><span class="o">.</span><span class="n">f_poly</span><span class="p">,</span>
+                                              <span class="bp">self</span><span class="o">.</span><span class="n">f_mask</span><span class="p">,</span>
+                                              <span class="bp">self</span><span class="o">.</span><span class="n">n_pairs</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="n">vmap_pipblock</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span></div>
+</div>
+
+
+
+<div class="viewcode-block" id="EnergyPIPAniso">
+<a class="viewcode-back" href="../../molpipx.pip_anisotropic_flax.html#molpipx.pip_anisotropic_flax.EnergyPIPAniso">[docs]</a>
+<span class="nd">@nn</span><span class="o">.</span><span class="n">jit</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">EnergyPIPAniso</span><span class="p">(</span><span class="n">nn</span><span class="o">.</span><span class="n">Module</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Energy model using PIP.</span>
+
+<span class="sd">    Attributes:</span>
+<span class="sd">        f_mono: callable function that returns the monomials</span>
+<span class="sd">        f_poly: callable function that returns the polynomials</span>
+<span class="sd">        f_mask: callable function that returns the masked distances</span>
+<span class="sd">        l: initial value of the morse variables length scale parameter</span>
+<span class="sd">        n_pairs (int): Number of unique atom pairs.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">f_mono</span><span class="p">:</span> <span class="n">Callable</span>
+    <span class="n">f_poly</span><span class="p">:</span> <span class="n">Callable</span>
+    <span class="n">f_mask</span><span class="p">:</span> <span class="n">Callable</span>
+    <span class="n">n_pairs</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="n">l</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">jnp</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mi">1</span><span class="p">))</span>
+
+<div class="viewcode-block" id="EnergyPIPAniso.__call__">
+<a class="viewcode-back" href="../../molpipx.pip_anisotropic_flax.html#molpipx.pip_anisotropic_flax.EnergyPIPAniso.__call__">[docs]</a>
+    <span class="nd">@nn</span><span class="o">.</span><span class="n">compact</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">inputs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Applies the ``PIPLayer`` and a ``nn.Dense`` modules to compute the energy.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            inputs: geometries, (batch,number of atoms, 3)</span>
+<span class="sd">            mask: array with the mask for each atom-atom type length scale parameter</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            energy: energy of each geometry, (batch, 1)</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">vmap_pipblock</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">vmap</span><span class="p">(</span><span class="n">PIPAniso</span><span class="p">,</span> <span class="n">variable_axes</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;params&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="p">},</span>
+                                <span class="n">split_rngs</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;params&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="p">},</span>
+                                <span class="n">in_axes</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="p">))(</span><span class="bp">self</span><span class="o">.</span><span class="n">f_mono</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">f_poly</span><span class="p">,</span>
+                                               <span class="bp">self</span><span class="o">.</span><span class="n">f_mask</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">n_pairs</span><span class="p">)</span>
+
+        <span class="n">layer</span> <span class="o">=</span> <span class="n">nn</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="n">use_bias</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+        <span class="n">pip</span> <span class="o">=</span> <span class="n">vmap_pipblock</span><span class="p">(</span><span class="n">inputs</span><span class="p">)</span>  <span class="c1"># computes the pip vectors</span>
+        <span class="n">energy</span> <span class="o">=</span> <span class="n">layer</span><span class="p">(</span><span class="n">pip</span><span class="p">)</span>  <span class="c1"># linear layer</span>
+        <span class="k">return</span> <span class="n">energy</span></div>
+</div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
