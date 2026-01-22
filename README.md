@@ -5,6 +5,7 @@
 
 [![DOI:10.1063/5.0250837](https://img.shields.io/badge/DOI-10.1063%2F5.0250837-blue)](https://doi.org/10.1063/5.0250837)
 [![Documentation](https://img.shields.io/badge/docs-online-blue)](https://chemai-lab.github.io/molpipx/index.html)
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 </h2>
 
