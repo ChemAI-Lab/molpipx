@@ -4,6 +4,7 @@
 
 
 [![DOI:10.1063/5.0250837](https://img.shields.io/badge/DOI-10.1063%2F5.0250837-blue)](https://doi.org/10.1063/5.0250837)
+[![Documentation](https://img.shields.io/badge/docs-online-blue)](https://chemai-lab.github.io/molpipx/index.html)
 
 </h2>
 
@@ -81,6 +82,12 @@ Check out our tutorials to get started with MOLPIPx. These tutorials define inpu
 2. [Anisotropic linear regression with permutationally invariant polynomials (Anisotropic Linear PIP)](https://github.com/ChemAI-Lab/molpipx/tree/edd3d052d15fdda9b24ad1c528870542073e6268/examples/aniso_pip)
 3. [Permutationally Invariant Polynomial Neural Networks (PIP-NN)](https://github.com/ChemAI-Lab/molpipx/tree/edd3d052d15fdda9b24ad1c528870542073e6268/examples/pipnn)
 4. [Permutationally Invariant Polynomial Gaussian Process (PIP-GP)](https://github.com/ChemAI-Lab/molpipx/tree/edd3d052d15fdda9b24ad1c528870542073e6268/examples/pipgp)
+
+## 📖 Documentation
+
+Full documentation, including installation instructions, API reference, and examples, is available at:
+
+👉 **https://chemai-lab.github.io/molpipx/**  
 
 
 # Reference
