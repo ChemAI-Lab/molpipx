@@ -2,7 +2,7 @@ import jax
 import jax.numpy as jnp 
 from jax import jit
 
-from monomials_MOL_6_5 import f_monomials as f_monos 
+from molpipx.msa_files.molecule_A6.monomials_MOL_6_5 import f_monomials as f_monos 
 
 
 # File created from /home/ravh011/molpipx/molpipx/msa_files/molecule_A6/MOL_6_5.POLY 
