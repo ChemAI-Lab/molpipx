@@ -12,6 +12,13 @@ The molecular systems follow the notation :math:`A_i B_j C_k D_l E_m`, where the
 Molecule Systems
 ----------------
 
+Molecule A2
+^^^^^^^^^^^^
+.. automodule:: molpipx.msa_files.molecule_A2
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
 Molecule A2B
 ^^^^^^^^^^^^
 .. automodule:: molpipx.msa_files.molecule_A2B
@@ -96,6 +103,20 @@ Molecule A5
    :undoc-members:
    :show-inheritance:
 
+Molecule A6
+^^^^^^^^^^^
+.. automodule:: molpipx.msa_files.molecule_A6
+   :members:
+   :undoc-members:
+   :show-inheritance:
+
+Molecule A8
+^^^^^^^^^^^
+.. automodule:: molpipx.msa_files.molecule_A8
+   :members:
+   :undoc-members:
+   :show-inheritance:
+   
 Molecule ABC
 ^^^^^^^^^^^^
 .. automodule:: molpipx.msa_files.molecule_ABC

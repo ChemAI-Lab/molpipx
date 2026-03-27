@@ -79,7 +79,7 @@ def train_and_evaluate_w_gradients(config: config_dict.ConfigDict,
     f_mono, f_poly = get_functions(molecule_type, poly_degree)
 
     # load all molecule data
-    X_all, F_all, y_all, atoms = read_geometry_energy()
+    X_all, F_all, y_all, atoms = load_methane()
 
     # split training and validation data
     i0 = 0
