@@ -7,7 +7,7 @@ from setuptools import setup
 setup(
     name='molpipx',
     packages=find_packages(),
-    version='0.1',
+    version='0.1.1',
     description='Permutationally Invariant Polynomials in JAX',
     authors=['Rodrigo. A. Vargas-Hernandez', 'Manuel Drehwald', 'Asma Jamali'],
     
